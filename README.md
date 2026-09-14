@@ -5,25 +5,95 @@ Desktop client for Kaneo — https://github.com/usekaneo/kaneo
 It opens a Kaneo instance — Kaneo Cloud or your own server — in its own
 window, and keeps each instance's session, cookies and storage separate.
 
+## Building
+
+One codebase, three desktops. Requirements everywhere: **Node.js 24+**, **pnpm**,
+and a **Rust stable toolchain** ([rustup](https://rustup.rs)), then:
+
+```sh
+pnpm install
+pnpm tauri build
+```
+
+Bundles land in `src-tauri/target/release/bundle/`. `--debug` gives a faster,
+unoptimised build; `--bundles app`, `--bundles dmg`, `--bundles nsis` … build a
+single format. `pnpm check` runs the type checker, linter, formatter, clippy and
+the Rust tests.
+
+### macOS
+
+Extra requirement: the Xcode Command Line Tools (`xcode-select --install`).
+Builds on macOS 10.15+; per-instance webview storage needs **macOS 14+** (older
+releases share one store).
+
+```sh
+pnpm tauri build          # .app and .dmg
+```
+
+Output: `bundle/macos/Kaneo Desktop.app` and
+`bundle/dmg/Kaneo Desktop_<version>_<arch>.dmg`. Builds are ad-hoc signed by
+default — see [Stable signing identity](#optional-stable-signing-identity).
+
+### Windows
+
+Requirements: Windows 10/11, the **Microsoft C++ Build Tools** ("Desktop
+development with C++"), the **WebView2 runtime** (preinstalled on Windows 11; the
+installer can bootstrap it otherwise), and the Rust target:
+
+```powershell
+rustup target add x86_64-pc-windows-msvc
+pnpm tauri build
+```
+
+Output: `bundle/nsis/Kaneo Desktop_<version>_x64-setup.exe` and/or
+`bundle/msi/Kaneo Desktop_<version>_x64_en-US.msi`.
+
+- The `.msi` (WiX) **can only be built on Windows**. Cross-compiling the NSIS
+  installer from macOS or Linux is possible with `cargo-xwin` plus LLVM and NSIS,
+  but Tauri itself calls that a last resort — use a Windows machine or a CI runner.
+- The installer downloads the WebView2 bootstrapper when the runtime is missing.
+  `bundle.windows.webviewInstallMode` switches that to an embedded bootstrapper
+  (~1.8 MB) or a fully offline installer (~127 MB).
+- Unsigned installers show SmartScreen's "unknown publisher" prompt; an
+  Authenticode certificate (or Azure Trusted Signing) clears it as reputation
+  builds.
+
+### Linux
+
+Requirements (Debian/Ubuntu package names — adjust for your distribution):
+
+```sh
+sudo apt update
+sudo apt install libwebkit2gtk-4.1-dev build-essential curl wget file \
+  libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
+pnpm install
+pnpm tauri build
+```
+
+Output: `bundle/appimage/*.AppImage`, `bundle/deb/*.deb`, `bundle/rpm/*.rpm`. There
+is no Gatekeeper equivalent; packages can be GPG-signed if you need it.
+
+Two things worth knowing:
+
+- The AppImage does **not** bundle WebKit — the app uses the distribution's
+  WebKitGTK 4.1. Target a current distro (Ubuntu 24.04+, Fedora 40+ and similar):
+  Kaneo's UI is built on Tailwind v4, which needs a modern WebKit.
+- Cross-compiling from macOS is not practical. Build on Linux, in a container, or
+  in CI.
+
+### CI
+
+The three platforms cannot all be built from one machine. A matrix of
+`macos-latest`, `windows-latest` and `ubuntu-24.04` runners with
+[`tauri-apps/tauri-action`](https://github.com/tauri-apps/tauri-action) produces
+all three bundles and attaches them to a release.
+
 ## Install on macOS
 
 Requires macOS 10.15 or newer. Per-instance cookie and storage isolation needs
 macOS 14+; older releases fall back to a shared webview store.
 
-### 1. Build
-
-Build dependencies: Node.js 24+, pnpm, Rust stable, and the Xcode Command Line
-Tools (`xcode-select --install`).
-
-```sh
-pnpm install
-pnpm tauri build --bundles app     # --debug for a faster, unoptimised build
-```
-
-The result is `src-tauri/target/release/bundle/macos/Kaneo Desktop.app`
-(`target/debug/...` after a `--debug` build).
-
-### 2. Install
+### 1. Install
 
 ```sh
 cp -R "src-tauri/target/release/bundle/macos/Kaneo Desktop.app" /Applications/
@@ -31,7 +101,7 @@ cp -R "src-tauri/target/release/bundle/macos/Kaneo Desktop.app" /Applications/
 
 Or drag the app out of `src-tauri/target/release/bundle/macos/` in Finder.
 
-### 3. First launch
+### 2. First launch
 
 The app is signed locally but not notarized by Apple, so the first launch of a
 copy that arrived with the download quarantine flag is blocked with "Apple could
@@ -43,7 +113,7 @@ not verify …". Allow it once, by any of:
 
 An app you built on this Mac has no quarantine flag and launches directly.
 
-### 4. Add an instance
+### 3. Add an instance
 
 Press **Use Kaneo Cloud**, or paste the URL of your own instance
 (`https://kaneo.example.com`, `http://localhost:5173`, …) and press **Add
@@ -62,6 +132,8 @@ open:
   Dock icon.
 - Closing the window hides it rather than quitting, so it can always be recalled.
   **Quit** (⌘Q) exits for real.
+- Opening an instance hides the launcher for you, so the instance window gets the
+  screen.
 
 ### Optional: stable signing identity
 
@@ -121,7 +193,9 @@ theme follows. The launcher window wears the same palette.
 
 <img src="assets/theme-previews/grey-light-light.png" width="420" alt="Grey Light, light mode">
 
-The previews below are the mockup the picker shows while you edit a theme.
+The previews below are the mockup the editor shows while you tweak a theme. The
+editor is a window of its own — **Themes** in the launcher opens it, **← Launcher**
+in its top-left corner takes you back.
 
 | theme | light | dark |
 | --- | --- | --- |
@@ -135,7 +209,7 @@ The previews below are the mockup the picker shows while you edit a theme.
 
 Themes are plain YAML files listing 41 colour roles — see
 [`themes/template.yaml`](themes/template.yaml) for the annotated template. The
-picker writes your own to `~/Library/Application Support/app.kaneo.desktop/themes/`,
+editor writes your own to `~/Library/Application Support/app.kaneo.desktop/themes/`,
 with the SVG preview, a contrast verdict per role and an auto-adjust that moves a
 colour as little as it can to pass. Every built-in except Default clears WCAG AA
 on text, icons, focus rings and input borders; the two themes marked in their

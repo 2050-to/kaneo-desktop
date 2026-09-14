@@ -58,7 +58,23 @@ fn open_instance(app: AppHandle, id: String, state: State<'_, AppState>) -> Resu
     let instance = state.store.lock().map_err(|_| unavailable())?.get(&id)?;
     let theme = state.active.lock().map_err(|_| poisoned())?.get();
 
-    instance_window::open(&app, &instance, theme.css.as_deref())
+    instance_window::open(&app, &instance, theme.css.as_deref())?;
+
+    // The launcher has done its job once an instance is up; Show Launcher in the
+    // menu (or the Dock icon) brings it back.
+    launcher::hide(&app);
+
+    Ok(())
+}
+
+#[tauri::command]
+fn open_themes_window<R: Runtime>(app: AppHandle<R>) -> Result<(), String> {
+    launcher::open_themes(&app)
+}
+
+#[tauri::command]
+fn go_home<R: Runtime>(app: AppHandle<R>) {
+    launcher::go_home(&app);
 }
 
 /// Stores the theme, then pushes it into every instance window that is already
@@ -182,7 +198,9 @@ pub fn run() {
             themes_dir,
             apply_theme,
             clear_theme,
-            active_theme
+            active_theme,
+            open_themes_window,
+            go_home
         ])
         .build(app_context())
         .expect("error while running tauri application");
@@ -225,7 +243,9 @@ mod tests {
                 themes_dir,
                 apply_theme,
                 clear_theme,
-                active_theme
+                active_theme,
+                open_themes_window,
+                go_home
             ])
             .manage(AppState {
                 store: Mutex::new(InstanceStore::load(config_dir.join("instances.json"))),

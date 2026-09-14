@@ -1,8 +1,9 @@
 /**
- * The theme picker: a modal editor for the 41 colour roles, with a live
- * preview, per-role contrast verdicts and a contrast auto-adjust.
+ * The theme editor page: pick a theme, edit any of the 41 colour roles, and
+ * watch the preview and the contrast verdicts react. Lives in its own window.
  */
 
+import { goHome } from "../api";
 import { meetContrast, parseColor } from "./contrast";
 import { themeStylesheet } from "./css";
 import { createPreview } from "./preview";
@@ -83,8 +84,8 @@ const opaquePart = (color: string) => color.slice(0, 7);
 const alphaPart = (color: string) => (color.length === 9 ? color.slice(7) : "");
 
 export function createThemeEditor(): {
-  element: HTMLDialogElement;
-  open(): Promise<void>;
+  element: HTMLElement;
+  refresh(): Promise<void>;
 } {
   const state: State = {
     doc: null,
@@ -113,22 +114,17 @@ export function createThemeEditor(): {
   const applyButton = button("Apply to instances", "button button--primary");
   const stopButton = button("Stop theming");
   const deleteButton = button("Delete", "button button--danger");
-  const closeButton = button("Close");
 
-  const dialog = element("dialog", "editor") as HTMLDialogElement;
+  const backButton = button("← Launcher", "button editor__back");
+  backButton.title = "Back to the launcher";
+
+  const root = element("div", "editor");
   const bar = element("header", "editor__bar");
-  bar.append(element("h2", "editor__title", "Themes"), modeTabs);
+  bar.append(backButton, element("h2", "editor__title", "Themes"), modeTabs);
 
   // Actions live in their own column so every button is the same size.
   const actions = element("aside", "editor__actions");
-  actions.append(
-    autoButton,
-    applyButton,
-    saveButton,
-    stopButton,
-    deleteButton,
-    closeButton,
-  );
+  actions.append(autoButton, applyButton, saveButton, stopButton, deleteButton);
 
   const nameRow = element("div", "editor__name");
   nameRow.append(
@@ -146,7 +142,7 @@ export function createThemeEditor(): {
   const body = element("div", "editor__body");
   body.append(list, pane, actions);
 
-  dialog.append(bar, body, status);
+  root.append(bar, body, status);
 
   function setStatus(
     message: string,
@@ -515,16 +511,16 @@ export function createThemeEditor(): {
   stopButton.addEventListener("click", () => void stop());
   saveButton.addEventListener("click", () => void save());
   deleteButton.addEventListener("click", () => void remove());
-  closeButton.addEventListener("click", () => dialog.close());
+  backButton.addEventListener("click", () => {
+    void goHome();
+  });
   nameInput.addEventListener("input", () => {
     state.dirty = true;
   });
 
   return {
-    element: dialog,
-    async open() {
-      if (!dialog.open) dialog.showModal();
-
+    element: root,
+    async refresh() {
       try {
         await refreshSources();
 

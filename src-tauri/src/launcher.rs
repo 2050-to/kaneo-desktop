@@ -3,9 +3,10 @@
 //! has a way home.
 
 use tauri::menu::{Menu, MenuItem, Submenu};
-use tauri::{AppHandle, Manager, Runtime, WindowEvent};
+use tauri::{AppHandle, Manager, Runtime, WebviewUrl, WebviewWindowBuilder, WindowEvent};
 
 pub const LAUNCHER_LABEL: &str = "main";
+pub const THEMES_LABEL: &str = "themes";
 pub const SHOW_LAUNCHER: &str = "launcher-show";
 pub const HIDE_LAUNCHER: &str = "launcher-hide";
 
@@ -45,6 +46,36 @@ pub fn show<R: Runtime>(app: &AppHandle<R>) {
 pub fn hide<R: Runtime>(app: &AppHandle<R>) {
     if let Some(window) = app.get_webview_window(LAUNCHER_LABEL) {
         let _ = window.hide();
+    }
+}
+
+/// The theme editor lives in its own window, so theming is not something the
+/// launcher has to stay open for.
+pub fn open_themes<R: Runtime>(app: &AppHandle<R>) -> Result<(), String> {
+    if let Some(window) = app.get_webview_window(THEMES_LABEL) {
+        let _ = window.show();
+        let _ = window.set_focus();
+        return Ok(());
+    }
+
+    WebviewWindowBuilder::new(app, THEMES_LABEL, WebviewUrl::App("themes.html".into()))
+        .title("Themes")
+        .inner_size(1180.0, 800.0)
+        .min_inner_size(900.0, 600.0)
+        .center()
+        .devtools(cfg!(debug_assertions))
+        .build()
+        .map_err(|error| format!("Could not open the theme editor: {error}"))?;
+
+    Ok(())
+}
+
+/// Back to the launcher: show it, then close the editor window.
+pub fn go_home<R: Runtime>(app: &AppHandle<R>) {
+    show(app);
+
+    if let Some(window) = app.get_webview_window(THEMES_LABEL) {
+        let _ = window.close();
     }
 }
 
@@ -104,6 +135,21 @@ mod tests {
         assert!(handle_menu_event(&handle, SHOW_LAUNCHER));
         assert!(!handle_menu_event(&handle, "quit"));
         assert!(!handle_menu_event(&handle, "some-other-item"));
+    }
+
+    #[test]
+    fn opens_one_themes_window() {
+        let app = app_with_launcher();
+        let handle = app.handle().clone();
+
+        open_themes(&handle).expect("the editor window should open");
+        let window = handle
+            .get_webview_window(THEMES_LABEL)
+            .expect("the editor window should exist");
+        assert_eq!(window.url().unwrap().path(), "/themes.html");
+
+        open_themes(&handle).expect("reopening should focus it");
+        assert_eq!(app.webview_windows().len(), 2, "launcher plus editor");
     }
 
     #[test]

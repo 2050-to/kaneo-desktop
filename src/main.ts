@@ -3,12 +3,12 @@ import {
   type Instance,
   listInstances,
   openInstance,
+  openThemesWindow,
   type Probe,
   probeInstance,
   removeInstance,
 } from "./api";
-import { createThemeEditor } from "./theme/editor";
-import { applyActiveThemeToShell, THEME_CHANGED_EVENT } from "./theme/shell";
+import { applyActiveThemeToShell } from "./theme/shell";
 
 const CLOUD_URL = "https://cloud.kaneo.app";
 
@@ -202,12 +202,10 @@ cloudButton.addEventListener("click", () => {
   form.requestSubmit();
 });
 
-const themeEditor = createThemeEditor();
-document.body.append(themeEditor.element);
 requireElement<HTMLButtonElement>("#themes-button").addEventListener(
   "click",
   () => {
-    void themeEditor.open();
+    void openThemesWindow();
   },
 );
 
@@ -215,8 +213,9 @@ void applyActiveThemeToShell().catch(() => {
   // A missing or unreadable theme leaves the launcher on its own palette.
 });
 
-// The picker announces applies and clears so the welcome screen repaints.
-window.addEventListener(THEME_CHANGED_EVENT, () => {
+// The editor is its own window, so the launcher re-reads the theme whenever it
+// comes back into focus (Show Launcher, Dock icon, or ⌘⇧L).
+window.addEventListener("focus", () => {
   void applyActiveThemeToShell();
 });
 

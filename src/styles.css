@@ -233,21 +233,23 @@ body {
   gap: 16px;
 }
 
+/* The editor is a window of its own, so it fills the page rather than a modal. */
 .editor {
   display: flex;
   flex-direction: column;
-  width: min(1180px, 94vw);
-  height: min(780px, 92vh);
-  padding: 0;
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  height: 100vh;
   background: var(--card);
   color: var(--foreground);
   overflow: hidden;
 }
 
-.editor::backdrop {
-  background: rgba(0, 0, 0, 0.55);
+.editor__back {
+  flex: none;
+  margin-right: 4px;
+}
+
+.themes-page {
+  background: var(--card);
 }
 
 .editor__bar {
