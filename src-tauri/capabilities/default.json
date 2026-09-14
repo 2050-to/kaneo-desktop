@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Core APIs for the shell window. Instance windows are deliberately left out: they render untrusted remote content and must not reach the Tauri API.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kaneo Desktop</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <h1 class="masthead__title">Kaneo Desktop</h1>
+        <p class="masthead__subtitle">
+          Open a Kaneo instance in its own window — Kaneo Cloud or your own
+          server.
+        </p>
+      </header>
+
+      <section class="panel" aria-labelledby="add-heading">
+        <h2 class="panel__heading" id="add-heading">Add an instance</h2>
+
+        <form class="add-form" id="add-form" novalidate>
+          <label class="field" for="url-input">
+            <span class="field__label">Instance URL</span>
+            <input
+              class="field__input"
+              id="url-input"
+              name="url"
+              type="text"
+              placeholder="https://cloud.kaneo.app"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+              required
+            />
+          </label>
+
+          <label class="field" for="name-input">
+            <span class="field__label">
+              Name <span class="field__hint">optional</span>
+            </span>
+            <input
+              class="field__input"
+              id="name-input"
+              name="name"
+              type="text"
+              placeholder="Work"
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="add-form__actions">
+            <button class="button button--primary" id="add-button" type="submit">
+              Add instance
+            </button>
+            <button class="button" id="cloud-button" type="button">
+              Use Kaneo Cloud
+            </button>
+          </div>
+        </form>
+
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="panel" aria-labelledby="instances-heading">
+        <h2 class="panel__heading" id="instances-heading">Your instances</h2>
+        <ul class="instances" id="instance-list"></ul>
+      </section>
+    </main>
+  </body>
+</html>
