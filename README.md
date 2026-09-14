@@ -51,6 +51,18 @@ instance**. The URL is checked against the instance before it is stored, then
 **Open** starts it in its own window. Sign in on the instance's own sign-in page;
 the session stays inside that instance's window.
 
+### The launcher window
+
+The launcher is just a launcher — get it out of the way once your instance is
+open:
+
+- **Launcher → Hide Launcher** (⌘⇧H) hides the window; the app and your instance
+  windows keep running.
+- **Launcher → Show Launcher** (⌘⇧L) brings it back, and so does clicking the
+  Dock icon.
+- Closing the window hides it rather than quitting, so it can always be recalled.
+  **Quit** (⌘Q) exits for real.
+
 ### Optional: stable signing identity
 
 Builds are signed ad-hoc by default (`bundle.macOS.signingIdentity: "-"`). That
@@ -99,6 +111,36 @@ rm -rf "$HOME/Library/Application Support/app.kaneo.desktop"  # instance list
 rm -rf "$HOME/Library/WebKit/app.kaneo.desktop"              # sessions, cookies, storage
 rm -rf "$HOME/Library/Caches/app.kaneo.desktop"
 ```
+
+## Themes
+
+Kaneo Desktop restyles the instance's own interface — it does not reimplement it —
+so a theme changes the app you already know. Seven themes ship with it, and every
+one covers **both** light and dark mode: switch Kaneo between appearances and the
+theme follows. The launcher window wears the same palette.
+
+<img src="assets/theme-previews/grey-light-light.png" width="420" alt="Grey Light, light mode">
+
+The previews below are the mockup the picker shows while you edit a theme.
+
+| theme | light | dark |
+| --- | --- | --- |
+| **Default**<br>Kaneo's own palette, untouched | <img src="assets/theme-previews/default-light.png" width="380" alt="Default light"> | <img src="assets/theme-previews/default-dark.png" width="380" alt="Default dark"> |
+| **Grey Light**<br>cool grey-blue, light canvas | <img src="assets/theme-previews/grey-light-light.png" width="380" alt="Grey Light light"> | <img src="assets/theme-previews/grey-light-dark.png" width="380" alt="Grey Light dark"> |
+| **Grey Dark**<br>the same palette, dark canvas | <img src="assets/theme-previews/grey-dark-light.png" width="380" alt="Grey Dark light"> | <img src="assets/theme-previews/grey-dark-dark.png" width="380" alt="Grey Dark dark"> |
+| **Dark Lilac**<br>lilac and violet | <img src="assets/theme-previews/dark-lilac-light.png" width="380" alt="Dark Lilac light"> | <img src="assets/theme-previews/dark-lilac-dark.png" width="380" alt="Dark Lilac dark"> |
+| **Synthwave**<br>neon violet, pink and amber | <img src="assets/theme-previews/synthwave-light.png" width="380" alt="Synthwave light"> | <img src="assets/theme-previews/synthwave-dark.png" width="380" alt="Synthwave dark"> |
+| **Aquamarine**<br>mint and deep teal | <img src="assets/theme-previews/aquamarine-light.png" width="380" alt="Aquamarine light"> | <img src="assets/theme-previews/aquamarine-dark.png" width="380" alt="Aquamarine dark"> |
+| **Sunset**<br>plum, crimson and peach | <img src="assets/theme-previews/sunset-light.png" width="380" alt="Sunset light"> | <img src="assets/theme-previews/sunset-dark.png" width="380" alt="Sunset dark"> |
+
+Themes are plain YAML files listing 41 colour roles — see
+[`themes/template.yaml`](themes/template.yaml) for the annotated template. The
+picker writes your own to `~/Library/Application Support/app.kaneo.desktop/themes/`,
+with the SVG preview, a contrast verdict per role and an auto-adjust that moves a
+colour as little as it can to pass. Every built-in except Default clears WCAG AA
+on text, icons, focus rings and input borders; the two themes marked in their
+files carry one measured exception where the palette cannot satisfy both the
+non-text and text rules at once.
 
 ## License
 

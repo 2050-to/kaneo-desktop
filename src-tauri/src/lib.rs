@@ -2,6 +2,7 @@
 
 mod instance_store;
 mod instance_window;
+mod launcher;
 mod probe;
 mod themes;
 
@@ -154,9 +155,12 @@ fn app_context<R: tauri::Runtime>() -> tauri::Context<R> {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    let app = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .setup(|app| {
+            app.set_menu(launcher::menu(app.handle())?)?;
+            launcher::keep_alive_on_close(app.handle());
+
             let config_dir = app.path().app_config_dir()?;
             app.manage(AppState {
                 store: Mutex::new(InstanceStore::load(config_dir.join("instances.json"))),
@@ -180,8 +184,20 @@ pub fn run() {
             clear_theme,
             active_theme
         ])
-        .run(app_context())
+        .build(app_context())
         .expect("error while running tauri application");
+
+    app.run(|handle, event| {
+        match event {
+            // Clicking the Dock icon with nothing visible asks for a window.
+            tauri::RunEvent::Reopen { .. } => launcher::show(handle),
+            tauri::RunEvent::MenuEvent(event) => {
+                let id = event.id().as_ref().to_string();
+                launcher::handle_menu_event(handle, &id);
+            }
+            _ => {}
+        }
+    });
 }
 
 #[cfg(test)]

@@ -1,23 +1,29 @@
 :root {
   color-scheme: dark;
 
-  --ink: #0b0d10;
-  --surface: #14171c;
-  --surface-raised: #1b2027;
+  /* The launcher wears Kaneo's role names, so an applied theme can repaint it. */
+  --background: #0b0d10;
+  --card: #14171c;
+  --popover: #1b2027;
+  --muted: #1b2027;
+  --secondary: #1b2027;
+  --secondary-foreground: #e8eaed;
   --border: #262d36;
-  --text: #e8eaed;
-  --text-muted: #98a2b3;
-  --accent: #5b9dff;
-  --accent-ink: #08101c;
-  --danger: #ff6b6b;
-  --ok: #4ade80;
+  --foreground: #e8eaed;
+  --card-foreground: #e8eaed;
+  --muted-foreground: #98a2b3;
+  --primary: #5b9dff;
+  --primary-foreground: #08101c;
+  --destructive: #ff6b6b;
+  --success: #4ade80;
+  --ring: #5b9dff;
 
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
   font-size: 15px;
   line-height: 1.5;
-  color: var(--text);
-  background: var(--ink);
+  color: var(--foreground);
+  background: var(--background);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -27,7 +33,7 @@
 
 body {
   margin: 0;
-  background: var(--ink);
+  background: var(--background);
 }
 
 .shell {
@@ -48,12 +54,12 @@ body {
 
 .masthead__subtitle {
   margin: 4px 0 0;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
   font-size: 14px;
 }
 
 .panel {
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px;
@@ -65,7 +71,7 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .add-form {
@@ -82,30 +88,30 @@ body {
 
 .field__label {
   font-size: 13px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .field__hint {
-  color: #6b7482;
+  color: color-mix(in srgb, var(--muted-foreground) 72%, transparent);
 }
 
 .field__input {
   font: inherit;
-  color: var(--text);
-  background: var(--ink);
+  color: var(--foreground);
+  background: var(--background);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 9px 12px;
 }
 
 .field__input::placeholder {
-  color: #5b6472;
+  color: color-mix(in srgb, var(--muted-foreground) 70%, transparent);
 }
 
 .field__input:focus-visible {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(91, 157, 255, 0.18);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 32%, transparent);
 }
 
 .add-form__actions {
@@ -117,8 +123,8 @@ body {
 .button {
   font: inherit;
   font-weight: 500;
-  color: var(--text);
-  background: var(--surface-raised);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 9px 14px;
@@ -126,7 +132,7 @@ body {
 }
 
 .button:hover:not(:disabled) {
-  border-color: #39424f;
+  border-color: color-mix(in srgb, var(--foreground) 22%, var(--border));
 }
 
 .button:disabled {
@@ -135,28 +141,28 @@ body {
 }
 
 .button--primary {
-  color: var(--accent-ink);
-  background: var(--accent);
-  border-color: var(--accent);
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
-.button--danger {
-  color: var(--danger);
+.button--destructive {
+  color: var(--destructive);
 }
 
 .status {
   min-height: 1.5em;
   margin: 14px 0 0;
   font-size: 13px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .status[data-kind="ok"] {
-  color: var(--ok);
+  color: var(--success);
 }
 
 .status[data-kind="error"] {
-  color: var(--danger);
+  color: var(--destructive);
 }
 
 .instances {
@@ -174,7 +180,7 @@ body {
   justify-content: space-between;
   gap: 16px;
   padding: 14px;
-  background: var(--surface-raised);
+  background: var(--popover);
   border: 1px solid var(--border);
   border-radius: 10px;
 }
@@ -193,14 +199,14 @@ body {
 .instance__url {
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
   overflow-wrap: anywhere;
 }
 
 .instance__meta {
   margin-top: 4px;
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .instance__actions {
@@ -211,9 +217,9 @@ body {
 
 .empty {
   padding: 16px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
   font-size: 14px;
-  background: var(--surface-raised);
+  background: var(--popover);
   border: 1px dashed var(--border);
   border-radius: 10px;
 }
@@ -228,13 +234,15 @@ body {
 }
 
 .editor {
-  width: min(1100px, 94vw);
+  display: flex;
+  flex-direction: column;
+  width: min(1180px, 94vw);
   height: min(780px, 92vh);
   padding: 0;
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: var(--surface);
-  color: var(--text);
+  background: var(--card);
+  color: var(--foreground);
   overflow: hidden;
 }
 
@@ -246,6 +254,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: none;
   padding: 12px 16px;
   border-bottom: 1px solid var(--border);
 }
@@ -262,9 +271,9 @@ body {
 }
 
 .editor__mode.is-active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--accent-ink);
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
 }
 
 .editor__spacer {
@@ -273,8 +282,8 @@ body {
 
 .editor__body {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  height: calc(100% - 104px);
+  grid-template-columns: 220px 1fr 200px;
+  flex: 1;
   min-height: 0;
 }
 
@@ -293,6 +302,7 @@ body {
   justify-content: space-between;
   gap: 8px;
   padding: 8px 10px;
+  color: var(--foreground);
   background: transparent;
   border: 1px solid transparent;
   border-radius: 8px;
@@ -300,19 +310,36 @@ body {
 }
 
 .editor__theme.is-active {
-  background: var(--surface-raised);
+  background: var(--popover);
   border-color: var(--border);
 }
 
 .editor__theme-source {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .editor__pane {
   padding: 16px;
   overflow-y: auto;
   min-height: 0;
+}
+
+.editor__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 12px;
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+}
+
+/* One size for every action, whatever its label. */
+.editor__actions .button {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 13px;
+  text-align: center;
 }
 
 .editor__preview .preview {
@@ -332,22 +359,22 @@ body {
 
 .editor__name-label {
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .editor__name-input {
   font: inherit;
   min-width: 220px;
   padding: 6px 10px;
-  color: var(--text);
-  background: var(--ink);
+  color: var(--foreground);
+  background: var(--background);
   border: 1px solid var(--border);
   border-radius: 8px;
 }
 
 .editor__meta {
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .editor__roles {
@@ -362,7 +389,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .role {
@@ -375,7 +402,7 @@ body {
 }
 
 .role:hover {
-  background: var(--surface-raised);
+  background: var(--popover);
 }
 
 .role__info {
@@ -391,7 +418,7 @@ body {
 
 .role__hint {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .role__swatch {
@@ -408,14 +435,14 @@ body {
   padding: 4px 6px;
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
   font-size: 12px;
-  color: var(--text);
-  background: var(--ink);
+  color: var(--foreground);
+  background: var(--background);
   border: 1px solid var(--border);
   border-radius: 6px;
 }
 
 .role__hex.is-invalid {
-  border-color: var(--danger);
+  border-color: var(--destructive);
 }
 
 .role__verdict {
@@ -428,28 +455,29 @@ body {
 .role__ratio {
   font-size: 12px;
   font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .role__ratio.is-pass {
-  color: var(--ok);
+  color: var(--success);
 }
 
 .role__ratio.is-fail {
-  color: var(--danger);
+  color: var(--destructive);
 }
 
 .role__warning {
   font-size: 11px;
-  color: var(--danger);
+  color: var(--destructive);
 }
 
 .role__fix {
   padding: 3px 8px;
+  color: var(--foreground);
   font: inherit;
   font-size: 11px;
-  color: var(--text);
-  background: var(--surface-raised);
+  color: var(--foreground);
+  background: var(--popover);
   border: 1px solid var(--border);
   border-radius: 6px;
   cursor: pointer;
@@ -457,20 +485,21 @@ body {
 
 .editor__status {
   margin: 0;
+  flex: none;
   padding: 10px 16px;
   border-top: 1px solid var(--border);
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .editor__status[data-kind="error"] {
-  color: var(--danger);
+  color: var(--destructive);
 }
 
 .editor__status[data-kind="ok"] {
-  color: var(--ok);
+  color: var(--success);
 }
 
 .editor__theme-source.is-applied {
-  color: var(--ok);
+  color: var(--success);
 }

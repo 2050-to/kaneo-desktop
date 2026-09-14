@@ -17,6 +17,7 @@ import {
   rolesInGroup,
   type ThemeColors,
 } from "./roles";
+import { THEME_CHANGED_EVENT } from "./shell";
 import {
   applyThemeToWindows,
   clearThemeFromWindows,
@@ -116,10 +117,11 @@ export function createThemeEditor(): {
 
   const dialog = element("dialog", "editor") as HTMLDialogElement;
   const bar = element("header", "editor__bar");
-  bar.append(
-    element("h2", "editor__title", "Themes"),
-    modeTabs,
-    element("div", "editor__spacer"),
+  bar.append(element("h2", "editor__title", "Themes"), modeTabs);
+
+  // Actions live in their own column so every button is the same size.
+  const actions = element("aside", "editor__actions");
+  actions.append(
     autoButton,
     applyButton,
     saveButton,
@@ -142,7 +144,7 @@ export function createThemeEditor(): {
   pane.append(previewWrap, nameRow, roleList);
 
   const body = element("div", "editor__body");
-  body.append(list, pane);
+  body.append(list, pane, actions);
 
   dialog.append(bar, body, status);
 
@@ -480,6 +482,7 @@ export function createThemeEditor(): {
       const windows = await applyThemeToWindows(doc.id, css);
       state.appliedId = doc.id;
       renderList();
+      window.dispatchEvent(new Event(THEME_CHANGED_EVENT));
       setStatus(
         windows > 0
           ? `Applied "${name}" to ${windows} open window${windows === 1 ? "" : "s"}.`
@@ -496,6 +499,7 @@ export function createThemeEditor(): {
       const windows = await clearThemeFromWindows();
       state.appliedId = null;
       renderList();
+      window.dispatchEvent(new Event(THEME_CHANGED_EVENT));
       setStatus(
         windows > 0
           ? `Theme removed from ${windows} open window${windows === 1 ? "" : "s"}.`

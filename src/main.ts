@@ -8,6 +8,7 @@ import {
   removeInstance,
 } from "./api";
 import { createThemeEditor } from "./theme/editor";
+import { applyActiveThemeToShell, THEME_CHANGED_EVENT } from "./theme/shell";
 
 const CLOUD_URL = "https://cloud.kaneo.app";
 
@@ -209,6 +210,15 @@ requireElement<HTMLButtonElement>("#themes-button").addEventListener(
     void themeEditor.open();
   },
 );
+
+void applyActiveThemeToShell().catch(() => {
+  // A missing or unreadable theme leaves the launcher on its own palette.
+});
+
+// The picker announces applies and clears so the welcome screen repaints.
+window.addEventListener(THEME_CHANGED_EVENT, () => {
+  void applyActiveThemeToShell();
+});
 
 render();
 

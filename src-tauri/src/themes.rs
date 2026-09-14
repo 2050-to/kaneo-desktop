@@ -28,6 +28,11 @@ const BUILTIN_THEMES: &[(&str, &str)] = &[
         "synthwave",
         include_str!("../../themes/builtin/synthwave.yaml"),
     ),
+    (
+        "aquamarine",
+        include_str!("../../themes/builtin/aquamarine.yaml"),
+    ),
+    ("sunset", include_str!("../../themes/builtin/sunset.yaml")),
 ];
 
 const MAX_ID_LENGTH: usize = 64;

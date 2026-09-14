@@ -1,0 +1,111 @@
+# Sunset — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/331621cc085ede7d48eeca98
+#   #331621 canvas · #cc085e crimson · #de7d48 orange · #eeca98 peach
+#
+# Dark only: light mode keeps the instance's own palette.
+
+name: "Sunset"
+description: "Plum, crimson and peach palette from Color Hunt, dark mode."
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#331621"
+  card: "#3f242e"
+  popover: "#3f242e"
+  sidebar: "#240f17"
+  muted: "#eeca9814"
+  accent: "#cc085e24" # hover tint borrows the palette's crimson
+  secondary: "#eeca9814"
+  code: "#3f242e"
+  code-highlight: "#eeca981a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#eeca98" # 10.60:1 on the canvas
+  card-foreground: "#eeca98"
+  popover-foreground: "#eeca98"
+  muted-foreground: "#de7d48" # 5.58:1 on the canvas, 4.75:1 on cards
+  accent-foreground: "#eeca98"
+  secondary-foreground: "#eeca98"
+  code-foreground: "#eeca98"
+  sidebar-foreground: "#de7d48" # 6.17:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#de7d48"
+  primary-foreground: "#331621" # 5.58:1 against primary, both ways
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#eeca981f" # decorative hairline; not an affordance
+  input: "#ad6040" # 3.54:1 on the canvas, 3.01:1 on cards
+  ring: "#de7d48" # 5.58:1 on the canvas
+  sidebar-border: "#eeca9824"
+  sidebar-ring: "#de7d48"
+  sidebar-primary: "#de7d48"
+  sidebar-primary-foreground: "#331621"
+  sidebar-accent: "#eeca9814"
+  sidebar-accent-foreground: "#eeca98"
+
+  # Status ------------------------------------------------------------------
+  # The palette's own crimson is the destructive hue, lightened into the narrow
+  # band that is both a 3:1 icon on these surfaces and dark enough for the white
+  # text Kaneo hardcodes on delete buttons.
+  destructive: "#d5347b" # white text 4.56:1, icon on cards 3.06:1
+  destructive-foreground: "#f0799f"
+  success: "#218661" # no green in the palette; this keeps "success" readable
+  success-foreground: "#34d399"
+  warning: "#de7d48" # the palette's orange, icon 4.75:1 on cards
+  warning-foreground: "#eeca98"
+  info: "#4678b6"
+  info-foreground: "#8fb0e0"
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#de7d48"
+  chart-2: "#cc085e"
+  chart-3: "#eeca98"
+  chart-4: "#4678b6"
+  chart-5: "#218661"
+
+# Light counterpart: peach canvas, plum text, the palette's crimson as the
+# brand fill, orange kept for warning.
+light:
+  background: "#faefe0"
+  card: "#ffffff"
+  popover: "#ffffff"
+  sidebar: "#f6e2c6"
+  muted: "#33162114"
+  accent: "#cc085e1f"
+  secondary: "#33162114"
+  code: "#ffffff"
+  code-highlight: "#3316211a"
+  foreground: "#331621"
+  card-foreground: "#331621"
+  popover-foreground: "#331621"
+  muted-foreground: "#a05a34"
+  accent-foreground: "#331621"
+  secondary-foreground: "#331621"
+  code-foreground: "#331621"
+  sidebar-foreground: "#331621"
+  primary: "#cc085e"
+  primary-foreground: "#ffffff"
+  border: "#33162126"
+  input: "#b47f63"
+  ring: "#cc085e"
+  sidebar-border: "#33162124"
+  sidebar-ring: "#cc085e"
+  sidebar-primary: "#cc085e"
+  sidebar-primary-foreground: "#ffffff"
+  sidebar-accent: "#cc085e1f"
+  sidebar-accent-foreground: "#331621"
+  destructive: "#cc085e"
+  destructive-foreground: "#8f1f5c"
+  success: "#0c875e"
+  success-foreground: "#047455"
+  warning: "#a56a07"
+  warning-foreground: "#a64c08"
+  info: "#3473db"
+  info-foreground: "#1d4ed8"
+  chart-1: "#de7d48"
+  chart-2: "#cc085e"
+  chart-3: "#331621"
+  chart-4: "#0c875e"
+  chart-5: "#3473db"

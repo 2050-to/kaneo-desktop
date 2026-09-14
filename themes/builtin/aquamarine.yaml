@@ -1,0 +1,112 @@
+# Aquamarine — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/003c43135d6677b0aae3fef7
+#   #e3fef7 canvas · #77b0aa sidebar · #135d66 primary · #003c43 text
+#
+# Light only: dark mode keeps the instance's own palette.
+
+name: "Aquamarine"
+description: "Mint and deep teal palette from Color Hunt, light mode."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#e3fef7"
+  card: "#ffffff"
+  popover: "#ffffff"
+  sidebar: "#77b0aa"
+  muted: "#135d661a"
+  accent: "#135d661a"
+  secondary: "#135d661a"
+  code: "#ffffff"
+  code-highlight: "#135d661f"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#003c43" # 11.45:1 on the canvas
+  card-foreground: "#003c43"
+  popover-foreground: "#003c43"
+  muted-foreground: "#135d66" # 7.10:1 on the canvas, 7.54:1 on cards
+  accent-foreground: "#003c43"
+  secondary-foreground: "#003c43"
+  code-foreground: "#003c43"
+  sidebar-foreground: "#003c43" # 4.96:1 on the sage sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#135d66"
+  primary-foreground: "#e3fef7" # 7.10:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#77b0aa" # decorative hairline (2.31:1), stronger than most themes
+  input: "#619a97" # 3.01:1 on the canvas, 3.19:1 on cards
+  ring: "#135d66" # 7.10:1 on the canvas
+  sidebar-border: "#003c4326"
+  sidebar-ring: "#003c43"
+  sidebar-primary: "#003c43"
+  sidebar-primary-foreground: "#e3fef7"
+  sidebar-accent: "#e3fef724" # a mint wash reads lighter than a dark tint here
+  sidebar-accent-foreground: "#003c43" # 5.67:1 on that wash
+
+  # Status ------------------------------------------------------------------
+  # Darkened from Kaneo's defaults so they clear 3:1 as icons and carry white
+  # button text at 4.5:1.
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#b91c1c"
+  success: "#0c875e"
+  success-foreground: "#047656"
+  warning: "#a56a07"
+  warning-foreground: "#a94e08"
+  info: "#3473db"
+  info-foreground: "#1d4ed8"
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#0d9488"
+  chart-2: "#135d66"
+  chart-3: "#77b0aa"
+  chart-4: "#ea580c"
+  chart-5: "#003c43"
+
+# Dark counterpart: the palette's deep teal as the canvas, mint text.
+# One measured exception: `destructive` reaches only 2.26:1 as an icon on
+# cards. On a canvas this bright no colour can be both a 3:1 icon and dark
+# enough for the white text Kaneo puts on delete buttons; text wins.
+dark:
+  background: "#003c43"
+  card: "#0f484e"
+  popover: "#0f484e"
+  sidebar: "#002a2f"
+  muted: "#e3fef714"
+  accent: "#e3fef714"
+  secondary: "#e3fef714"
+  code: "#0f484e"
+  code-highlight: "#e3fef71a"
+  foreground: "#e3fef7"
+  card-foreground: "#e3fef7"
+  popover-foreground: "#e3fef7"
+  muted-foreground: "#81b6b1"
+  accent-foreground: "#e3fef7"
+  secondary-foreground: "#e3fef7"
+  code-foreground: "#e3fef7"
+  sidebar-foreground: "#77b0aa"
+  primary: "#77b0aa"
+  primary-foreground: "#003c43"
+  border: "#e3fef71f"
+  input: "#559699"
+  ring: "#77b0aa"
+  sidebar-border: "#e3fef71f"
+  sidebar-ring: "#77b0aa"
+  sidebar-primary: "#77b0aa"
+  sidebar-primary-foreground: "#003c43"
+  sidebar-accent: "#e3fef714"
+  sidebar-accent-foreground: "#e3fef7"
+  destructive: "#cc4a4a"
+  destructive-foreground: "#ffffff"
+  success: "#489c7d"
+  success-foreground: "#ffffff"
+  warning: "#a68a3d"
+  warning-foreground: "#ffffff"
+  info: "#668fc3"
+  info-foreground: "#ffffff"
+  chart-1: "#77b0aa"
+  chart-2: "#e3fef7"
+  chart-3: "#135d66"
+  chart-4: "#cc4a4a"
+  chart-5: "#4678b6"
