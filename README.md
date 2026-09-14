@@ -59,7 +59,10 @@ and re-asks for any permission you granted. A named, self-signed certificate
 keeps the identity stable:
 
 ```sh
-# once: create a self-signed code signing certificate and trust it
+# once: create a self-signed code signing certificate and trust it.
+# KANEO_SIGNING_PASSWORD is read from .env.local, which is gitignored.
+set -a; . ./.env.local; set +a
+
 mkdir -p ~/.kaneo-desktop/codesign && cd ~/.kaneo-desktop/codesign
 openssl req -x509 -newkey rsa:2048 -sha256 -days 3650 -nodes \
   -keyout key.pem -out cert.pem \
@@ -69,10 +72,10 @@ openssl req -x509 -newkey rsa:2048 -sha256 -days 3650 -nodes \
   -addext "extendedKeyUsage=critical,codeSigning"
 # macOS' PKCS#12 importer needs the legacy algorithms here
 openssl pkcs12 -export -inkey key.pem -in cert.pem -out identity.p12 \
-  -name "Kaneo Desktop Local" -passout pass:kaneo-desktop-local \
+  -name "Kaneo Desktop Local" -passout "pass:$KANEO_SIGNING_PASSWORD" \
   -certpbe PBE-SHA1-3DES -keypbe PBE-SHA1-3DES -macalg sha1
 security import identity.p12 -k ~/Library/Keychains/login.keychain-db \
-  -P kaneo-desktop-local -T /usr/bin/codesign -T /usr/bin/security
+  -P "$KANEO_SIGNING_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
 security add-trusted-cert -r trustRoot -p codeSign \
   -k ~/Library/Keychains/login.keychain-db cert.pem
 security find-identity -v -p codesigning   # lists "Kaneo Desktop Local"
@@ -80,6 +83,9 @@ security find-identity -v -p codesigning   # lists "Kaneo Desktop Local"
 # each build
 APPLE_SIGNING_IDENTITY="Kaneo Desktop Local" pnpm tauri build --bundles app
 ```
+
+Copy `.env.example` to `.env.local` and set `KANEO_SIGNING_PASSWORD` there. That
+file is gitignored, so the password never lands in the repository.
 
 The certificate is trusted for code signing in your user keychain only. It does
 not satisfy Gatekeeper on someone else's Mac — that needs an Apple Developer ID
@@ -93,3 +99,7 @@ rm -rf "$HOME/Library/Application Support/app.kaneo.desktop"  # instance list
 rm -rf "$HOME/Library/WebKit/app.kaneo.desktop"              # sessions, cookies, storage
 rm -rf "$HOME/Library/Caches/app.kaneo.desktop"
 ```
+
+## License
+
+MIT — see [LICENSE](LICENSE).

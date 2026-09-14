@@ -2,6 +2,7 @@
 name = "kaneo-desktop"
 version = "0.1.0"
 description = "Desktop client for Kaneo"
+license = "MIT"
 authors = ["Kaneo Desktop contributors"]
 edition = "2021"
 
