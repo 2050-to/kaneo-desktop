@@ -217,3 +217,260 @@ body {
   border: 1px dashed var(--border);
   border-radius: 10px;
 }
+
+/* Theme editor --------------------------------------------------------- */
+
+.masthead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.editor {
+  width: min(1100px, 94vw);
+  height: min(780px, 92vh);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  overflow: hidden;
+}
+
+.editor::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.editor__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.editor__title {
+  margin: 0;
+  font-size: 15px;
+}
+
+.editor__modes {
+  display: flex;
+  gap: 4px;
+  margin-left: 10px;
+}
+
+.editor__mode.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.editor__spacer {
+  flex: 1;
+}
+
+.editor__body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  height: calc(100% - 104px);
+  min-height: 0;
+}
+
+.editor__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+}
+
+.editor__theme {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.editor__theme.is-active {
+  background: var(--surface-raised);
+  border-color: var(--border);
+}
+
+.editor__theme-source {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.editor__pane {
+  padding: 16px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.editor__preview .preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.editor__name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.editor__name-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.editor__name-input {
+  font: inherit;
+  min-width: 220px;
+  padding: 6px 10px;
+  color: var(--text);
+  background: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.editor__meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.editor__roles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.role__group {
+  margin: 14px 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.role {
+  display: grid;
+  grid-template-columns: 1fr auto auto minmax(160px, auto);
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.role:hover {
+  background: var(--surface-raised);
+}
+
+.role__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.role__label {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+}
+
+.role__hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.role__swatch {
+  width: 30px;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.role__hex {
+  width: 100px;
+  padding: 4px 6px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.role__hex.is-invalid {
+  border-color: var(--danger);
+}
+
+.role__verdict {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.role__ratio {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.role__ratio.is-pass {
+  color: var(--ok);
+}
+
+.role__ratio.is-fail {
+  color: var(--danger);
+}
+
+.role__warning {
+  font-size: 11px;
+  color: var(--danger);
+}
+
+.role__fix {
+  padding: 3px 8px;
+  font: inherit;
+  font-size: 11px;
+  color: var(--text);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.editor__status {
+  margin: 0;
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.editor__status[data-kind="error"] {
+  color: var(--danger);
+}
+
+.editor__status[data-kind="ok"] {
+  color: var(--ok);
+}
+
+.editor__theme-source.is-applied {
+  color: var(--ok);
+}

@@ -19,7 +19,8 @@
     "check": "pnpm typecheck && pnpm lint && pnpm rust:fmt && pnpm rust:lint && pnpm rust:test"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2"
+    "@tauri-apps/api": "^2",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.7",

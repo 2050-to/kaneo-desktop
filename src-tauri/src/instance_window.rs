@@ -17,8 +17,21 @@ pub fn window_label(instance_id: &str) -> String {
     format!("instance-{instance_id}")
 }
 
+/// Instance windows are the only ones a theme is injected into; the shell keeps
+/// its own palette.
+pub fn is_instance_window(label: &str) -> bool {
+    label.starts_with("instance-")
+}
+
 /// Opens the instance, or focuses the window when it is already open.
-pub fn open<R: Runtime>(app: &AppHandle<R>, instance: &Instance) -> Result<(), String> {
+///
+/// `theme_css` is registered as an init script, so a window that outlives the
+/// current theme still styles every page it loads.
+pub fn open<R: Runtime>(
+    app: &AppHandle<R>,
+    instance: &Instance,
+    theme_css: Option<&str>,
+) -> Result<(), String> {
     let label = window_label(&instance.id);
 
     if let Some(window) = app.get_webview_window(&label) {
@@ -54,6 +67,10 @@ pub fn open<R: Runtime>(app: &AppHandle<R>, instance: &Instance) -> Result<(), S
 
             NewWindowResponse::Deny
         });
+
+    if let Some(css) = theme_css {
+        builder = builder.initialization_script(crate::themes::style_script(css));
+    }
 
     #[cfg(any(target_os = "windows", target_os = "linux"))]
     {
@@ -107,6 +124,12 @@ mod tests {
     }
 
     #[test]
+    fn only_instance_windows_are_themed() {
+        assert!(is_instance_window(&window_label("abc")));
+        assert!(!is_instance_window("main"));
+    }
+
+    #[test]
     fn only_http_urls_go_to_the_system_browser() {
         assert!(is_web_url(&Url::parse("https://kaneo.app/docs").unwrap()));
         assert!(is_web_url(&Url::parse("http://localhost:5173").unwrap()));
@@ -126,14 +149,14 @@ mod tests {
             url: "https://cloud.kaneo.app".to_string(),
         };
 
-        open(&handle, &instance).expect("the instance window should open");
+        open(&handle, &instance, None).expect("the instance window should open");
 
         let window = handle
             .get_webview_window(&window_label(&instance.id))
             .expect("the instance window should exist");
         assert_eq!(window.url().unwrap().as_str(), "https://cloud.kaneo.app/");
 
-        open(&handle, &instance).expect("reopening should focus the window");
+        open(&handle, &instance, None).expect("reopening should focus the window");
         assert_eq!(app.webview_windows().len(), 1);
     }
 }

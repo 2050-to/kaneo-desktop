@@ -7,6 +7,7 @@ import {
   probeInstance,
   removeInstance,
 } from "./api";
+import { createThemeEditor } from "./theme/editor";
 
 const CLOUD_URL = "https://cloud.kaneo.app";
 
@@ -199,6 +200,15 @@ cloudButton.addEventListener("click", () => {
   nameInput.value = "";
   form.requestSubmit();
 });
+
+const themeEditor = createThemeEditor();
+document.body.append(themeEditor.element);
+requireElement<HTMLButtonElement>("#themes-button").addEventListener(
+  "click",
+  () => {
+    void themeEditor.open();
+  },
+);
 
 render();
 
