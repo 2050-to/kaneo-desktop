@@ -44,3 +44,6 @@ src-tauri/target
 *.sw?
 
 AGENTS.md
+
+# Session state for the agent handoff protocol
+HANDOFF.md
