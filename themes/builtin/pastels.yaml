@@ -1,0 +1,123 @@
+# Pastels — built-in theme
+#
+# Source palette: pastel pink and periwinkle
+#   #cdb4db thistle · #ffc8dd pastel petal · #ffafcc baby pink · #bde0fe icy
+#   blue · #a2d2ff sky blue
+#
+# Light mode leans on thistle and pink; dark mode lets the pastels glow against
+# a deep plum. Text and borders are a plum darkened out of the palette.
+
+name: "Pastels"
+description: "Thistle, baby pink and icy blue, in both modes."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#fcf6fb"
+  card: "#ffffff"
+  popover: "#ffffff"
+  sidebar: "#cdb4db"
+  muted: "#3c2a451a"
+  accent: "#3c2a451a"
+  secondary: "#3c2a451a"
+  code: "#ffffff"
+  code-highlight: "#3c2a4514"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#33223c"
+  card-foreground: "#33223c"
+  popover-foreground: "#33223c"
+  muted-foreground: "#6b4f7a" # 6.52:1 on the canvas, 6.94:1 on cards
+  accent-foreground: "#33223c"
+  secondary-foreground: "#33223c"
+  code-foreground: "#33223c"
+  sidebar-foreground: "#3c2a45" # 6.93:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#a8446f"
+  primary-foreground: "#fcf6fb" # 5.30:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#e8d7ee" # decorative hairline; not an affordance
+  input: "#9d80ac" # 3.22:1 on the canvas, 3.43:1 on cards
+  ring: "#6b4f7a" # 6.52:1 on the canvas
+  sidebar-border: "#3c2a4529"
+  sidebar-ring: "#3c2a45" # 6.93:1 on the sidebar
+  sidebar-primary: "#6a4483"
+  sidebar-primary-foreground: "#fcf6fb"
+  sidebar-accent: "#3c2a451f"
+  sidebar-accent-foreground: "#33223c"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
+  # white button text at 4.5:1; the -foreground roles are the badge text.
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#b91c1c" # 5.44:1 on its own tint
+  success: "#0c875e" # white text 4.52:1
+  success-foreground: "#047656" # 4.78:1 on its own tint
+  warning: "#a56a07" # white text 4.50:1
+  warning-foreground: "#a94e08" # 4.74:1 on its own tint
+  info: "#3473db" # white text 4.54:1
+  info-foreground: "#1d4ed8" # 5.72:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#a855f7"
+  chart-2: "#ec4899"
+  chart-3: "#0ea5e9"
+  chart-4: "#f43f5e"
+  chart-5: "#14b8a6"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#1d1526"
+  card: "#261c30"
+  popover: "#261c30"
+  sidebar: "#150f1c"
+  muted: "#cdb4db14"
+  accent: "#cdb4db14"
+  secondary: "#cdb4db14"
+  code: "#261c30"
+  code-highlight: "#cdb4db1a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#f7eefc"
+  card-foreground: "#f7eefc"
+  popover-foreground: "#f7eefc"
+  muted-foreground: "#b9a3c9" # 7.70:1 on the canvas, 7.08:1 on cards
+  accent-foreground: "#f7eefc"
+  secondary-foreground: "#f7eefc"
+  code-foreground: "#f7eefc"
+  sidebar-foreground: "#9d86ae" # 5.78:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#ffc8dd"
+  primary-foreground: "#2a1622" # 11.78:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#cdb4db1f" # decorative hairline; not an affordance
+  input: "#7d678d" # 3.53:1 on the canvas, 3.25:1 on cards
+  ring: "#a68cb8" # 5.95:1 on the canvas
+  sidebar-border: "#cdb4db24"
+  sidebar-ring: "#cdb4db" # 9.98:1 on the sidebar
+  sidebar-primary: "#ffc8dd"
+  sidebar-primary-foreground: "#1d1526"
+  sidebar-accent: "#cdb4db14"
+  sidebar-accent-foreground: "#f7eefc"
+
+  # Status ------------------------------------------------------------------
+  # Fills sit in the narrow band that is both a 3:1 icon on these surfaces and
+  # dark enough for the white text Kaneo's buttons put on them.
+  destructive: "#cc4a4a" # white text 4.52:1, icon 3.60:1 on cards
+  destructive-foreground: "#f87171" # 5.44:1 on its own tint
+  success: "#218661" # white text 4.52:1, icon 3.60:1 on cards
+  success-foreground: "#34d399" # 7.88:1 on its own tint
+  warning: "#947115" # white text 4.53:1, icon 3.59:1 on cards
+  warning-foreground: "#fbbf24" # 8.97:1 on its own tint
+  info: "#4678b6" # white text 4.54:1, icon 3.58:1 on cards
+  info-foreground: "#60a5fa" # 5.87:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#c084fc"
+  chart-2: "#f472b6"
+  chart-3: "#7dd3fc"
+  chart-4: "#fb7185"
+  chart-5: "#5eead4"

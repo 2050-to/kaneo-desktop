@@ -68,11 +68,6 @@ fn open_instance(app: AppHandle, id: String, state: State<'_, AppState>) -> Resu
 }
 
 #[tauri::command]
-fn open_themes_window<R: Runtime>(app: AppHandle<R>) -> Result<(), String> {
-    launcher::open_themes(&app)
-}
-
-#[tauri::command]
 fn go_home<R: Runtime>(app: AppHandle<R>) {
     launcher::go_home(&app);
 }
@@ -92,6 +87,8 @@ fn apply_theme<R: Runtime>(
         .lock()
         .map_err(|_| poisoned())?
         .set(&id, &css)?;
+
+    launcher::sync_theme_checks(&app, Some(&id));
 
     let script = themes::style_script(&css);
     let mut applied = 0;
@@ -113,6 +110,7 @@ fn apply_theme<R: Runtime>(
 #[tauri::command]
 fn clear_theme<R: Runtime>(app: AppHandle<R>, state: State<'_, AppState>) -> Result<usize, String> {
     state.active.lock().map_err(|_| poisoned())?.clear()?;
+    launcher::sync_theme_checks(&app, None);
 
     let script = themes::clear_script();
     let mut cleared = 0;
@@ -138,11 +136,7 @@ fn active_theme(state: State<'_, AppState>) -> Result<ActiveTheme, String> {
 /// parse, edit and re-save them without knowing where they live.
 #[tauri::command]
 fn list_themes(state: State<'_, AppState>) -> Vec<ThemeSource> {
-    let mut themes = themes::builtin_themes();
-    themes.extend(themes::user_themes(&themes::user_themes_dir(
-        &state.config_dir,
-    )));
-    themes
+    themes::all_themes(&state.config_dir)
 }
 
 #[tauri::command]
@@ -174,13 +168,19 @@ pub fn run() {
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .setup(|app| {
-            app.set_menu(launcher::menu(app.handle())?)?;
+            let config_dir = app.path().app_config_dir()?;
+            let active = ActiveThemeStore::load(config_dir.join("active-theme.json"));
+
+            app.set_menu(launcher::menu(
+                app.handle(),
+                &themes::all_themes(&config_dir),
+                active.get().id.as_deref(),
+            )?)?;
             launcher::keep_alive_on_close(app.handle());
 
-            let config_dir = app.path().app_config_dir()?;
             app.manage(AppState {
                 store: Mutex::new(InstanceStore::load(config_dir.join("instances.json"))),
-                active: Mutex::new(ActiveThemeStore::load(config_dir.join("active-theme.json"))),
+                active: Mutex::new(active),
                 config_dir,
             });
 
@@ -199,7 +199,6 @@ pub fn run() {
             apply_theme,
             clear_theme,
             active_theme,
-            open_themes_window,
             go_home
         ])
         .build(app_context())
@@ -244,7 +243,6 @@ mod tests {
                 apply_theme,
                 clear_theme,
                 active_theme,
-                open_themes_window,
                 go_home
             ])
             .manage(AppState {
@@ -347,23 +345,23 @@ mod tests {
             invoke(&webview, "active_theme", json!({})).expect("active_theme should succeed");
         assert_eq!(initial.id, None);
 
-        let css = ":root { --background: #f0f5f9; }";
+        let css = ":root { --background: #fefae0; }";
         let applied: usize = invoke(
             &webview,
             "apply_theme",
-            json!({ "id": "grey-light", "css": css }),
+            json!({ "id": "summer", "css": css }),
         )
         .expect("apply_theme should succeed");
         assert_eq!(applied, 0, "the shell window must not be themed");
 
         let active: ActiveTheme =
             invoke(&webview, "active_theme", json!({})).expect("active_theme should succeed");
-        assert_eq!(active.id.as_deref(), Some("grey-light"));
+        assert_eq!(active.id.as_deref(), Some("summer"));
         assert_eq!(active.css.as_deref(), Some(css));
 
         // The stored copy is what a restart reads back.
         let stored = ActiveThemeStore::load(directory.path().join("active-theme.json"));
-        assert_eq!(stored.get().id.as_deref(), Some("grey-light"));
+        assert_eq!(stored.get().id.as_deref(), Some("summer"));
 
         // An open instance window counts as themed; the shell window still does not.
         let instance = Instance {
@@ -376,7 +374,7 @@ mod tests {
         let applied: usize = invoke(
             &webview,
             "apply_theme",
-            json!({ "id": "grey-light", "css": css }),
+            json!({ "id": "summer", "css": css }),
         )
         .expect("apply_theme should succeed");
         assert_eq!(applied, 1);

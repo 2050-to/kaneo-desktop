@@ -1,12 +1,13 @@
-# Grey Light — built-in theme
+# Grey — built-in theme
 #
 # Source palette: https://colorhunt.co/palette/f0f5f9c9d6df52616b1e2022
 #   #f0f5f9 canvas · #c9d6df sidebar · #52616b primary/muted · #1e2022 text
 #
-# Light only: dark mode keeps the instance's own palette.
+# Both modes: the same palette read in opposite directions, so light and dark
+# share one theme rather than living as two near-identical files.
 
-name: "Grey Light"
-description: "Cool grey-blue palette from Color Hunt, light mode."
+name: "Grey"
+description: "Cool grey-blue palette from Color Hunt, light and dark."
 
 light:
   # Surfaces ----------------------------------------------------------------
@@ -64,9 +65,8 @@ light:
   chart-4: "#fbbf24"
   chart-5: "#f59e0b"
 
-# Dark counterpart: same Color Hunt palette, roles inverted for a dark
-# canvas — the palette Grey Dark ships as its primary mode.
 dark:
+  # Surfaces ----------------------------------------------------------------
   background: "#1e2022"
   card: "#292b2d"
   popover: "#292b2d"
@@ -76,33 +76,45 @@ dark:
   secondary: "#c9d6df14"
   code: "#292b2d"
   code-highlight: "#c9d6df1a"
+
+  # Text --------------------------------------------------------------------
   foreground: "#f0f5f9"
   card-foreground: "#f0f5f9"
   popover-foreground: "#f0f5f9"
-  muted-foreground: "#87939a"
+  muted-foreground: "#87939a" # 5.19:1 on the canvas, 4.51:1 on cards
   accent-foreground: "#f0f5f9"
   secondary-foreground: "#f0f5f9"
   code-foreground: "#f0f5f9"
-  sidebar-foreground: "#75828a"
+  sidebar-foreground: "#75828a" # 4.51:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
   primary: "#c9d6df"
-  primary-foreground: "#1e2022"
-  border: "#c9d6df1f"
-  input: "#68757e"
-  ring: "#7c8891"
+  primary-foreground: "#1e2022" # 11.03:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#c9d6df1f" # decorative hairline; not an affordance
+  input: "#68757e" # 3.00:1 on cards, 3.45:1 on the canvas
+  ring: "#7c8891" # 4.50:1 on the canvas
   sidebar-border: "#c9d6df24"
-  sidebar-ring: "#c9d6df"
+  sidebar-ring: "#c9d6df" # 12.01:1 on the sidebar
   sidebar-primary: "#c9d6df"
   sidebar-primary-foreground: "#1e2022"
   sidebar-accent: "#c9d6df14"
   sidebar-accent-foreground: "#f0f5f9"
-  destructive: "#cc4a4a"
-  destructive-foreground: "#f87171"
-  success: "#218661"
-  success-foreground: "#34d399"
-  warning: "#947115"
-  warning-foreground: "#fbbf24"
-  info: "#4678b6"
-  info-foreground: "#60a5fa"
+
+  # Status ------------------------------------------------------------------
+  # Fills sit in the narrow band that is both a 3:1 icon on these surfaces and
+  # dark enough for the white text Kaneo's buttons put on them.
+  destructive: "#cc4a4a" # white text 4.52:1, icon 3.14:1 on cards
+  destructive-foreground: "#f87171" # 5.06:1 on its own tint
+  success: "#218661" # white text 4.52:1, icon 3.14:1 on cards
+  success-foreground: "#34d399" # 7.21:1 on its own tint
+  warning: "#947115" # white text 4.53:1, icon 3.13:1 on cards
+  warning-foreground: "#fbbf24" # 8.24:1 on its own tint
+  info: "#4678b6" # white text 4.54:1, icon 3.13:1 on cards
+  info-foreground: "#60a5fa" # 5.41:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
   chart-1: "#1d4ed8"
   chart-2: "#10b981"
   chart-3: "#f59e0b"

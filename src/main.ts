@@ -1,14 +1,17 @@
+import { listen } from "@tauri-apps/api/event";
+import { getCurrentWindow } from "@tauri-apps/api/window";
+
 import {
   addInstance,
   type Instance,
   listInstances,
   openInstance,
-  openThemesWindow,
   type Probe,
   probeInstance,
   removeInstance,
 } from "./api";
-import { applyActiveThemeToShell } from "./theme/shell";
+import { applyThemeFile, MENU_THEME_EVENT } from "./theme/apply";
+import { clearThemeFromWindows } from "./theme/yaml";
 
 const CLOUD_URL = "https://cloud.kaneo.app";
 
@@ -202,22 +205,40 @@ cloudButton.addEventListener("click", () => {
   form.requestSubmit();
 });
 
-requireElement<HTMLButtonElement>("#themes-button").addEventListener(
-  "click",
-  () => {
-    void openThemesWindow();
-  },
-);
+/**
+ * The menu bar picks a theme by id; the page owns the rest of the pipeline. A
+ * failure comes back with the launcher, which is hidden whenever this runs.
+ */
+async function applyThemeFromMenu(id: string | null): Promise<void> {
+  try {
+    if (id === null) {
+      await clearThemeFromWindows();
+      setStatus("ok", "Theming off — instances use their own palette.");
+      return;
+    }
 
-void applyActiveThemeToShell().catch(() => {
-  // A missing or unreadable theme leaves the launcher on its own palette.
+    const doc = await applyThemeFile(id);
+    setStatus("ok", `${doc.name} applied to your instances.`);
+  } catch (error) {
+    setStatus("error", errorMessage(error));
+
+    try {
+      await getCurrentWindow().show();
+    } catch {
+      // Coming back into view is a courtesy; the status line already says what
+      // went wrong, and a window that refuses to show must not hide that.
+    }
+  }
+}
+
+void listen<{ id: string | null }>(MENU_THEME_EVENT, (event) => {
+  void applyThemeFromMenu(event.payload.id);
+}).catch((error) => {
+  setStatus("error", `Themes menu unavailable: ${errorMessage(error)}`);
 });
 
-// The editor is its own window, so the launcher re-reads the theme whenever it
-// comes back into focus (Show Launcher, Dock icon, or ⌘⇧L).
-window.addEventListener("focus", () => {
-  void applyActiveThemeToShell();
-});
+// The launcher wears the stock palette on purpose: theming is for instances, and
+// a fixed look here is what makes the app recognisable whatever is applied.
 
 render();
 

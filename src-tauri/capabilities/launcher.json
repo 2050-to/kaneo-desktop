@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "launcher",
+  "description": "The launcher page owns the theme pipeline the menu bar drives, so it is the one window that needs to bring itself back into view when that fails.",
+  "windows": ["main"],
+  "permissions": ["core:window:allow-show"]
+}

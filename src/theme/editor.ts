@@ -86,6 +86,7 @@ const alphaPart = (color: string) => (color.length === 9 ? color.slice(7) : "");
 export function createThemeEditor(): {
   element: HTMLElement;
   refresh(): Promise<void>;
+  syncApplied(): Promise<void>;
 } {
   const state: State = {
     doc: null,
@@ -476,8 +477,7 @@ export function createThemeEditor(): {
     try {
       const css = themeStylesheet({ ...doc, name });
       const windows = await applyThemeToWindows(doc.id, css);
-      state.appliedId = doc.id;
-      renderList();
+      await syncApplied();
       window.dispatchEvent(new Event(THEME_CHANGED_EVENT));
       setStatus(
         windows > 0
@@ -493,8 +493,7 @@ export function createThemeEditor(): {
   async function stop(): Promise<void> {
     try {
       const windows = await clearThemeFromWindows();
-      state.appliedId = null;
-      renderList();
+      await syncApplied();
       window.dispatchEvent(new Event(THEME_CHANGED_EVENT));
       setStatus(
         windows > 0
@@ -518,21 +517,33 @@ export function createThemeEditor(): {
     state.dirty = true;
   });
 
+  /** Reads what is applied; a theme file that cannot be read is not a failure. */
+  async function readApplied(): Promise<string | null> {
+    try {
+      const active = await readActiveTheme();
+      return active.id;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Re-reads the applied theme without touching the selection, so unsaved edits
+   * survive. Used when the Themes menu switched themes behind the editor.
+   */
+  async function syncApplied(): Promise<void> {
+    state.appliedId = await readApplied();
+    stopButton.disabled = state.appliedId === null;
+    renderList();
+  }
+
   return {
     element: root,
+    syncApplied,
     async refresh() {
       try {
         await refreshSources();
-
-        try {
-          const active = await readActiveTheme();
-          state.appliedId = active.id;
-        } catch {
-          // Not being able to read the applied theme must not block the picker.
-          state.appliedId = null;
-        }
-        renderList();
-        stopButton.disabled = state.appliedId === null;
+        await syncApplied();
 
         const current = state.sources.find(
           (source) => source.id === state.doc?.id,

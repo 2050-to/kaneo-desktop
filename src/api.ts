@@ -26,8 +26,6 @@ export const removeInstance = (id: string) =>
 export const probeInstance = (url: string) =>
   invoke<Probe>("probe_instance", { url });
 
-export const openThemesWindow = () => invoke<void>("open_themes_window");
-
 export const goHome = () => invoke<void>("go_home");
 
 export const openInstance = (id: string) =>

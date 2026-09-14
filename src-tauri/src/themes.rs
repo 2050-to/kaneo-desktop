@@ -12,14 +12,7 @@ use serde::{Deserialize, Serialize};
 /// Compiled in so the app ships with themes regardless of the working directory.
 const BUILTIN_THEMES: &[(&str, &str)] = &[
     ("default", include_str!("../../themes/builtin/default.yaml")),
-    (
-        "grey-light",
-        include_str!("../../themes/builtin/grey-light.yaml"),
-    ),
-    (
-        "grey-dark",
-        include_str!("../../themes/builtin/grey-dark.yaml"),
-    ),
+    ("grey", include_str!("../../themes/builtin/grey.yaml")),
     (
         "dark-lilac",
         include_str!("../../themes/builtin/dark-lilac.yaml"),
@@ -33,6 +26,12 @@ const BUILTIN_THEMES: &[(&str, &str)] = &[
         include_str!("../../themes/builtin/aquamarine.yaml"),
     ),
     ("sunset", include_str!("../../themes/builtin/sunset.yaml")),
+    ("summer", include_str!("../../themes/builtin/summer.yaml")),
+    ("pastels", include_str!("../../themes/builtin/pastels.yaml")),
+    (
+        "metallic-sky",
+        include_str!("../../themes/builtin/metallic-sky.yaml"),
+    ),
 ];
 
 const MAX_ID_LENGTH: usize = 64;
@@ -62,6 +61,14 @@ pub fn builtin_themes() -> Vec<ThemeSource> {
             path: None,
         })
         .collect()
+}
+
+/// Built-ins first, then whatever the editor has saved — the order both the
+/// Themes menu and the picker show them in.
+pub fn all_themes(config_dir: &Path) -> Vec<ThemeSource> {
+    let mut themes = builtin_themes();
+    themes.extend(user_themes(&user_themes_dir(config_dir)));
+    themes
 }
 
 /// User themes on disk, cheapest first: a directory that cannot be read simply
@@ -254,6 +261,23 @@ mod tests {
     }
 
     #[test]
+    fn lists_built_ins_before_saved_themes() {
+        let directory = tempfile::tempdir().unwrap();
+        save_user_theme(&user_themes_dir(directory.path()), "my-theme", "name: x\n").unwrap();
+
+        let themes = all_themes(directory.path());
+
+        assert_eq!(themes.len(), BUILTIN_THEMES.len() + 1);
+        assert_eq!(
+            themes
+                .iter()
+                .position(|theme| theme.id == "my-theme")
+                .expect("the saved theme should be listed"),
+            BUILTIN_THEMES.len(),
+        );
+    }
+
+    #[test]
     fn saves_reads_and_deletes_user_themes() {
         let directory = tempfile::tempdir().unwrap();
         let themes_dir = user_themes_dir(directory.path());
@@ -322,14 +346,14 @@ mod tests {
         assert_eq!(store.get(), ActiveTheme::default());
 
         store
-            .set("grey-light", ":root { --background: #f0f5f9; }")
+            .set("summer", ":root { --background: #fefae0; }")
             .unwrap();
 
         let reloaded = ActiveThemeStore::load(path);
-        assert_eq!(reloaded.get().id.as_deref(), Some("grey-light"));
+        assert_eq!(reloaded.get().id.as_deref(), Some("summer"));
         assert_eq!(
             reloaded.get().css.as_deref(),
-            Some(":root { --background: #f0f5f9; }")
+            Some(":root { --background: #fefae0; }")
         );
 
         let mut reloaded = reloaded;

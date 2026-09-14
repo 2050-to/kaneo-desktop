@@ -135,6 +135,16 @@ open:
 - Opening an instance hides the launcher for you, so the instance window gets the
   screen.
 
+### Switching themes from the menu bar
+
+The menu bar is the short path: **Themes** lists every theme with a tick on the
+one in use, and **Themes → Theme Editor…** (⌘,) opens the editor. Picking a theme
+restyles every open instance window straight away and survives a restart, whether
+the launcher is open or not.
+
+The launcher itself keeps the stock palette whatever is applied: the theme is for
+the instances, and a fixed look here is what makes the app recognisable.
+
 ### Optional: stable signing identity
 
 Builds are signed ad-hoc by default (`bundle.macOS.signingIdentity: "-"`). That
@@ -187,25 +197,30 @@ rm -rf "$HOME/Library/Caches/app.kaneo.desktop"
 ## Themes
 
 Kaneo Desktop restyles the instance's own interface — it does not reimplement it —
-so a theme changes the app you already know. Seven themes ship with it, and every
+so a theme changes the app you already know. Nine themes ship with it, and every
 one covers **both** light and dark mode: switch Kaneo between appearances and the
-theme follows. The launcher window wears the same palette.
+theme follows. The launcher window keeps its own fixed palette.
 
-<img src="assets/theme-previews/grey-light-light.png" width="420" alt="Grey Light, light mode">
+<img src="assets/theme-previews/grey-light.png" width="420" alt="Grey, light mode">
 
 The previews below are the mockup the editor shows while you tweak a theme. The
-editor is a window of its own — **Themes** in the launcher opens it, **← Launcher**
-in its top-left corner takes you back.
+editor is a window of its own: **Themes → Theme Editor…** (⌘,) opens it, and
+**← Launcher** in its top-left corner takes you back. Switching themes does not
+need it — **Themes** in the menu bar lists every theme and applies one on the
+spot. That list is built when the app starts, so a theme you save in the editor
+joins it on the next launch.
 
 | theme | light | dark |
 | --- | --- | --- |
 | **Default**<br>Kaneo's own palette, untouched | <img src="assets/theme-previews/default-light.png" width="380" alt="Default light"> | <img src="assets/theme-previews/default-dark.png" width="380" alt="Default dark"> |
-| **Grey Light**<br>cool grey-blue, light canvas | <img src="assets/theme-previews/grey-light-light.png" width="380" alt="Grey Light light"> | <img src="assets/theme-previews/grey-light-dark.png" width="380" alt="Grey Light dark"> |
-| **Grey Dark**<br>the same palette, dark canvas | <img src="assets/theme-previews/grey-dark-light.png" width="380" alt="Grey Dark light"> | <img src="assets/theme-previews/grey-dark-dark.png" width="380" alt="Grey Dark dark"> |
+| **Grey**<br>cool grey-blue | <img src="assets/theme-previews/grey-light.png" width="380" alt="Grey light"> | <img src="assets/theme-previews/grey-dark.png" width="380" alt="Grey dark"> |
 | **Dark Lilac**<br>lilac and violet | <img src="assets/theme-previews/dark-lilac-light.png" width="380" alt="Dark Lilac light"> | <img src="assets/theme-previews/dark-lilac-dark.png" width="380" alt="Dark Lilac dark"> |
 | **Synthwave**<br>neon violet, pink and amber | <img src="assets/theme-previews/synthwave-light.png" width="380" alt="Synthwave light"> | <img src="assets/theme-previews/synthwave-dark.png" width="380" alt="Synthwave dark"> |
 | **Aquamarine**<br>mint and deep teal | <img src="assets/theme-previews/aquamarine-light.png" width="380" alt="Aquamarine light"> | <img src="assets/theme-previews/aquamarine-dark.png" width="380" alt="Aquamarine dark"> |
 | **Sunset**<br>plum, crimson and peach | <img src="assets/theme-previews/sunset-light.png" width="380" alt="Sunset light"> | <img src="assets/theme-previews/sunset-dark.png" width="380" alt="Sunset dark"> |
+| **Summer**<br>corn silk, tea green and bronze | <img src="assets/theme-previews/summer-light.png" width="380" alt="Summer light"> | <img src="assets/theme-previews/summer-dark.png" width="380" alt="Summer dark"> |
+| **Pastels**<br>thistle, baby pink and icy blue | <img src="assets/theme-previews/pastels-light.png" width="380" alt="Pastels light"> | <img src="assets/theme-previews/pastels-dark.png" width="380" alt="Pastels dark"> |
+| **Metallic Sky**<br>steel, silver and platinum greys | <img src="assets/theme-previews/metallic-sky-light.png" width="380" alt="Metallic Sky light"> | <img src="assets/theme-previews/metallic-sky-dark.png" width="380" alt="Metallic Sky dark"> |
 
 Themes are plain YAML files listing 41 colour roles — see
 [`themes/template.yaml`](themes/template.yaml) for the annotated template. The
