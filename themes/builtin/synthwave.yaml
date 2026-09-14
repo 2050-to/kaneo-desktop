@@ -1,0 +1,71 @@
+# Synthwave — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/4506938c00ffff3f7fffc400
+#   #450693 canvas · #8c00ff violet · #ff3f7f neon pink · #ffc400 amber
+#
+# Dark only: light mode keeps the instance's own palette.
+
+name: "Synthwave"
+description: "Neon violet, pink and amber on deep purple, dark mode."
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#450693"
+  card: "#4e1298"
+  popover: "#4e1298"
+  sidebar: "#32046a"
+  muted: "#ffffff14"
+  accent: "#ff3f7f1f" # hover tint borrows the palette's pink
+  secondary: "#ffffff14"
+  code: "#4e1298"
+  code-highlight: "#ffffff1a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#ffffff" # 12.35:1 on the canvas, 11.27:1 on cards
+  card-foreground: "#ffffff"
+  popover-foreground: "#ffffff"
+  muted-foreground: "#c987ff" # 4.94:1 on the canvas
+  accent-foreground: "#ffffff"
+  secondary-foreground: "#ffffff"
+  code-foreground: "#ffffff"
+  sidebar-foreground: "#b963ff"
+
+  # Brand and emphasis ------------------------------------------------------
+  # Neon pink cannot carry either white (3.35:1) or dark text (3.69:1) as-is.
+  # Lightening it lets the canvas purple read as the button label instead,
+  # which is the palette's own ink.
+  primary: "#ff6b9c" # 4.61:1 against the canvas, both as text and under it
+  primary-foreground: "#450693"
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#ffffff1f" # decorative hairline; not an affordance
+  input: "#b254ff" # 3.30:1 on the canvas
+  ring: "#ffc400" # the palette's amber, 7.73:1 — hard to miss
+  sidebar-border: "#ffffff24"
+  sidebar-ring: "#ffc400"
+  sidebar-primary: "#ff6b9c"
+  sidebar-primary-foreground: "#450693"
+  sidebar-accent: "#ffffff14"
+  sidebar-accent-foreground: "#ffffff"
+
+  # Status ------------------------------------------------------------------
+  # Only `destructive` has to carry white text (Kaneo's delete buttons and the
+  # notification bubble hardcode it), so it is darkened until white reads at
+  # 4.5:1. The other three are never used as solid fills, so they stay bright.
+  # On this canvas no colour can be both a 3:1 icon and dark enough for white
+  # text; text wins, so destructive sits at 2.47:1 as an icon on cards.
+  destructive: "#d7356b" # white text 4.55:1, icon on cards 2.47:1
+  destructive-foreground: "#ff7ea8" # 4.63:1 on its own tint
+  success: "#34d399" # icon 5.86:1 on cards
+  success-foreground: "#34d399"
+  warning: "#ffc400" # the palette's amber, icon 7.05:1 on cards
+  warning-foreground: "#ffc400"
+  info: "#b356ff" # icon 3.05:1 on cards
+  info-foreground: "#cf95ff" # 4.62:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#ff6b9c"
+  chart-2: "#34d399"
+  chart-3: "#ffc400"
+  chart-4: "#b356ff"
+  chart-5: "#8c00ff"

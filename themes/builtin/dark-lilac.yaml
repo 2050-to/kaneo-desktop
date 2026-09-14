@@ -1,0 +1,68 @@
+# Dark Lilac — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/2e073f7a1cacad49e1ebd3f8
+#   #2e073f canvas · #7a1cac deep purple · #ad49e1 lilac · #ebd3f8 near-white lilac
+#
+# Dark only: light mode keeps the instance's own palette.
+
+name: "Dark Lilac"
+description: "Purple palette from Color Hunt, dark mode."
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#2e073f"
+  card: "#3b164b"
+  popover: "#3b164b"
+  sidebar: "#20052c"
+  muted: "#ebd3f814"
+  accent: "#ebd3f814"
+  secondary: "#ebd3f814"
+  code: "#3b164b"
+  code-highlight: "#ebd3f81a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#ebd3f8" # 12.48:1 on the canvas
+  card-foreground: "#ebd3f8"
+  popover-foreground: "#ebd3f8"
+  muted-foreground: "#bc6ae6" # 5.21:1 on the canvas, 4.52:1 on cards
+  accent-foreground: "#ebd3f8"
+  secondary-foreground: "#ebd3f8"
+  code-foreground: "#ebd3f8"
+  sidebar-foreground: "#af4fe2" # 4.50:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # #ad49e1 itself carries neither dark nor light text at 4.5:1, so primary is
+  # lightened until #2e073f text reads on it; that also keeps it legible as
+  # `text-primary` on the canvas.
+  primary: "#b65ce4" # 4.63:1 against the canvas, both as text and under it
+  primary-foreground: "#2e073f"
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#ebd3f81f" # decorative hairline; not an affordance
+  input: "#994ec1" # 3.01:1 on cards, 3.46:1 on the canvas
+  ring: "#ad49e1" # the palette's own lilac, 3.44:1 on cards
+  sidebar-border: "#ebd3f824"
+  sidebar-ring: "#ad49e1"
+  sidebar-primary: "#b65ce4"
+  sidebar-primary-foreground: "#2e073f"
+  sidebar-accent: "#ebd3f814"
+  sidebar-accent-foreground: "#ebd3f8"
+
+  # Status ------------------------------------------------------------------
+  # Fills sit in the narrow band that is both a 3:1 icon on these surfaces and
+  # dark enough for the white text Kaneo's buttons put on them.
+  destructive: "#cc4a4a" # white text 4.52:1, icon 3.31:1 on cards
+  destructive-foreground: "#f87171" # 5.24:1 on its own tint
+  success: "#218661" # white text 4.52:1
+  success-foreground: "#34d399" # 7.53:1 on its own tint
+  warning: "#947115" # white text 4.53:1
+  warning-foreground: "#fbbf24" # 8.60:1 on its own tint
+  info: "#4678b6" # white text 4.54:1
+  info-foreground: "#60a5fa" # 5.60:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#b65ce4"
+  chart-2: "#34d399"
+  chart-3: "#fbbf24"
+  chart-4: "#f87171"
+  chart-5: "#60a5fa"

@@ -1,0 +1,135 @@
+# Kaneo Desktop theme template
+#
+# Copy this file into a themes directory, rename it (the filename becomes the
+# theme id: "my-theme.yaml" -> "my-theme") and change what you want. The values
+# below are Kaneo's own palette, so a copy with no edits is a no-op theme.
+#
+# Values are written into the page as CSS colours. Any CSS colour works:
+#   #rrggbb / #rrggbbaa / rgb() / oklch() / color-mix()
+# Translucent roles (border, input, muted, accent, secondary, code-highlight)
+# are the foreground colour at low alpha in Kaneo, and are best kept translucent
+# so they compose over whatever surface they sit on.
+#
+# Both modes are required: Kaneo's theme provider puts "light" or "dark" on the
+# <html> element, so a theme needs a value for each. Roles you leave out keep
+# the instance's own value.
+#
+# The 40 roles below are exactly the colour custom properties Kaneo's
+# apps/web/src/index.css defines in :root and .dark.
+
+name: "Kaneo Default"
+description: "Kaneo's stock palette."
+
+# Usage counts from the Kaneo web app, highest first, as a hint of what a
+# theme's character is actually made of:
+#   foreground 1117, muted 786, border 284, accent 260, sidebar 198,
+#   destructive 152, primary 120, background 96, ring 68, input 61,
+#   card 57, warning 39, success 37, popover 37, info 26, secondary 16
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#ffffff" # app canvas, behind everything
+  card: "#ffffff" # cards, panels
+  popover: "#ffffff" # dialogs, dropdowns, menus, tooltips
+  sidebar: "#fafafa" # project sidebar, separate from the canvas
+  muted: "#0000000a" # subtle fill: avatars, inner card strips, footers
+  accent: "#0000000a" # hover / pressed fill: ghost buttons, menu highlights
+  secondary: "#0000000a" # secondary buttons and segmented controls
+  code: "#ffffff" # code block surface
+  code-highlight: "#0000000a" # inline code background in the editor
+
+  # Text --------------------------------------------------------------------
+  foreground: "#262626" # default text
+  card-foreground: "#262626" # text on cards
+  popover-foreground: "#262626" # text in dialogs and menus
+  muted-foreground: "#676767" # labels, hints, timestamps, meta
+  accent-foreground: "#262626" # text on hover / pressed accents
+  secondary-foreground: "#262626" # text on secondary buttons
+  code-foreground: "#262626" # text inside code blocks
+  sidebar-foreground: "#727272" # sidebar labels
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#262626" # filled buttons, selected days; the theme's signature
+  primary-foreground: "#fafafa" # text and icons on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#00000014" # default borders and dividers
+  input: "#0000001a" # input and textarea borders; dark surfaces reuse it as a tint
+  ring: "#a3a3a3" # keyboard focus ring
+  sidebar-border: "#0000000f"
+  sidebar-ring: "#a3a3a3"
+  sidebar-primary: "#262626" # sidebar active item
+  sidebar-primary-foreground: "#fafafa"
+  sidebar-accent: "#0000000a"
+  sidebar-accent-foreground: "#262626"
+
+  # Status ------------------------------------------------------------------
+  destructive: "#ef4444" # delete, error, danger
+  destructive-foreground: "#b91c1c"
+  success: "#10b981"
+  success-foreground: "#047857"
+  warning: "#f59e0b"
+  warning-foreground: "#b45309"
+  info: "#3b82f6"
+  info-foreground: "#1d4ed8"
+
+  # Data visualisation (reserved: nothing in the app consumes these yet) -----
+  chart-1: "#ea580c"
+  chart-2: "#0d9488"
+  chart-3: "#164e63"
+  chart-4: "#fbbf24"
+  chart-5: "#f59e0b"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#141414"
+  card: "#191919"
+  popover: "#191919"
+  sidebar: "#111111"
+  muted: "#ffffff0a"
+  accent: "#ffffff0a"
+  secondary: "#ffffff0a"
+  code: "#191919"
+  code-highlight: "#ffffff0a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#f5f5f5"
+  card-foreground: "#f5f5f5"
+  popover-foreground: "#f5f5f5"
+  muted-foreground: "#818181"
+  accent-foreground: "#f5f5f5"
+  secondary-foreground: "#f5f5f5"
+  code-foreground: "#f5f5f5"
+  sidebar-foreground: "#a3a3a3"
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#f5f5f5"
+  primary-foreground: "#262626"
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#ffffff0f"
+  input: "#ffffff14"
+  ring: "#737373"
+  sidebar-border: "#ffffff0d"
+  sidebar-ring: "#a3a3a3"
+  sidebar-primary: "#f5f5f5"
+  sidebar-primary-foreground: "#262626"
+  sidebar-accent: "#ffffff0a"
+  sidebar-accent-foreground: "#f5f5f5"
+
+  # Status ------------------------------------------------------------------
+  destructive: "#f15757"
+  destructive-foreground: "#f87171"
+  success: "#10b981"
+  success-foreground: "#34d399"
+  warning: "#f59e0b"
+  warning-foreground: "#fbbf24"
+  info: "#3b82f6"
+  info-foreground: "#60a5fa"
+
+  # Data visualisation (reserved: nothing in the app consumes these yet) -----
+  chart-1: "#1d4ed8"
+  chart-2: "#10b981"
+  chart-3: "#f59e0b"
+  chart-4: "#a855f7"
+  chart-5: "#f43f5e"

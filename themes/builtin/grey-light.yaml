@@ -1,0 +1,65 @@
+# Grey Light — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/f0f5f9c9d6df52616b1e2022
+#   #f0f5f9 canvas · #c9d6df sidebar · #52616b primary/muted · #1e2022 text
+#
+# Light only: dark mode keeps the instance's own palette.
+
+name: "Grey Light"
+description: "Cool grey-blue palette from Color Hunt, light mode."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#f0f5f9"
+  card: "#ffffff"
+  popover: "#ffffff"
+  sidebar: "#c9d6df"
+  muted: "#52616b1a"
+  accent: "#52616b1a"
+  secondary: "#52616b1a"
+  code: "#ffffff"
+  code-highlight: "#52616b1a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#1e2022"
+  card-foreground: "#1e2022"
+  popover-foreground: "#1e2022"
+  muted-foreground: "#52616b" # 5.83:1 on the canvas, 6.40:1 on cards
+  accent-foreground: "#1e2022"
+  secondary-foreground: "#1e2022"
+  code-foreground: "#1e2022"
+  sidebar-foreground: "#3d4a52" # 6.16:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#52616b"
+  primary-foreground: "#f0f5f9" # 5.83:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#c9d6df" # decorative hairline (1.35:1); not an affordance
+  input: "#868f95" # 3.00:1 on the canvas, 3.29:1 on cards
+  ring: "#52616b" # 5.83:1 on the canvas
+  sidebar-border: "#52616b33"
+  sidebar-ring: "#52616b" # 4.32:1 on the sidebar
+  sidebar-primary: "#52616b"
+  sidebar-primary-foreground: "#f0f5f9"
+  sidebar-accent: "#52616b1f"
+  sidebar-accent-foreground: "#1e2022"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
+  # white button text at 4.5:1; the -foreground roles are the badge text.
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#b91c1c" # 5.32:1 on its own tint
+  success: "#0c875e" # white text 4.52:1
+  success-foreground: "#047656" # 4.64:1 on its own tint
+  warning: "#a56a07" # white text 4.50:1
+  warning-foreground: "#a94e08" # 4.61:1 on its own tint
+  info: "#3473db" # white text 4.54:1
+  info-foreground: "#1d4ed8" # 5.56:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#ea580c"
+  chart-2: "#0d9488"
+  chart-3: "#164e63"
+  chart-4: "#fbbf24"
+  chart-5: "#f59e0b"
