@@ -23,6 +23,12 @@ export const addInstance = (name: string, url: string) =>
 export const removeInstance = (id: string) =>
   invoke<void>("remove_instance", { id });
 
+export const getDefaultInstance = () =>
+  invoke<string | null>("default_instance");
+
+export const setDefaultInstance = (id: string | null) =>
+  invoke<void>("set_default_instance", { id });
+
 export const probeInstance = (url: string) =>
   invoke<Probe>("probe_instance", { url });
 

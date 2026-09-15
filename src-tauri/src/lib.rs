@@ -48,6 +48,23 @@ fn remove_instance(id: String, state: State<'_, AppState>) -> Result<(), String>
     state.store.lock().map_err(|_| unavailable())?.remove(&id)
 }
 
+/// The id of the instance marked to open on launch, if any.
+#[tauri::command]
+fn default_instance(state: State<'_, AppState>) -> Result<Option<String>, String> {
+    let store = state.store.lock().map_err(|_| unavailable())?;
+    Ok(store.default().map(|instance| instance.id))
+}
+
+/// Marks one instance to open on launch (`Some`) or clears the mark (`None`).
+#[tauri::command]
+fn set_default_instance(id: Option<String>, state: State<'_, AppState>) -> Result<(), String> {
+    state
+        .store
+        .lock()
+        .map_err(|_| unavailable())?
+        .set_default(id.as_deref())
+}
+
 #[tauri::command]
 async fn probe_instance(url: String) -> Result<Probe, String> {
     probe::probe(&url).await
@@ -176,10 +193,28 @@ pub fn run() {
                 &themes::all_themes(&config_dir),
                 active.get().id.as_deref(),
             )?)?;
+
+            let store = InstanceStore::load(config_dir.join("instances.json"));
             launcher::keep_alive_on_close(app.handle());
 
+            // Launch straight into the default instance when one is marked, and
+            // keep the launcher out of the way; the Launcher menu (⌘⇧L) and the
+            // Dock icon bring it back. Anything that fails falls back to the
+            // launcher — never to an invisible app.
+            let mut launched = false;
+            if let Some(instance) = store.default() {
+                let theme_css = active.get().css.clone();
+                launched =
+                    instance_window::open(app.handle(), &instance, theme_css.as_deref()).is_ok();
+            }
+            if launched {
+                launcher::hide(app.handle());
+            } else {
+                launcher::show(app.handle());
+            }
+
             app.manage(AppState {
-                store: Mutex::new(InstanceStore::load(config_dir.join("instances.json"))),
+                store: Mutex::new(store),
                 active: Mutex::new(active),
                 config_dir,
             });
@@ -190,6 +225,8 @@ pub fn run() {
             list_instances,
             add_instance,
             remove_instance,
+            default_instance,
+            set_default_instance,
             probe_instance,
             open_instance,
             list_themes,

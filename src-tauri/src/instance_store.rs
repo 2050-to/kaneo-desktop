@@ -21,6 +21,8 @@ pub struct Instance {
 #[derive(Debug, Default, Serialize, Deserialize)]
 struct StoreFile {
     instances: Vec<Instance>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    default_instance: Option<String>,
 }
 
 /// Canonicalizes user input into the URL of a Kaneo web app.
@@ -106,23 +108,49 @@ fn display_name(name: &str, url: &str) -> String {
 pub struct InstanceStore {
     path: PathBuf,
     instances: Vec<Instance>,
+    default_instance: Option<String>,
 }
 
 impl InstanceStore {
     /// Reads the store, falling back to an empty list when the file is absent
     /// or unreadable. A broken file must not stop the app from starting.
     pub fn load(path: PathBuf) -> Self {
-        let instances = fs::read_to_string(&path)
+        let file = fs::read_to_string(&path)
             .ok()
             .and_then(|raw| serde_json::from_str::<StoreFile>(&raw).ok())
-            .map(|file| file.instances)
             .unwrap_or_default();
 
-        Self { path, instances }
+        Self {
+            path,
+            instances: file.instances,
+            default_instance: file.default_instance,
+        }
     }
 
     pub fn all(&self) -> Vec<Instance> {
         self.instances.clone()
+    }
+
+    /// The instance marked to open on launch, if it still exists. A stale id
+    /// (its instance was removed) reads as "no default".
+    pub fn default(&self) -> Option<Instance> {
+        let id = self.default_instance.as_deref()?;
+        self.instances
+            .iter()
+            .find(|instance| instance.id == id)
+            .cloned()
+    }
+
+    /// Marks one instance to open on launch, or clears the mark with `None`.
+    pub fn set_default(&mut self, id: Option<&str>) -> Result<(), String> {
+        if let Some(id) = id {
+            if !self.instances.iter().any(|instance| instance.id == id) {
+                return Err("That instance is no longer in your list.".to_string());
+            }
+        }
+
+        self.default_instance = id.map(str::to_string);
+        self.save()
     }
 
     pub fn get(&self, id: &str) -> Result<Instance, String> {
@@ -160,6 +188,10 @@ impl InstanceStore {
             return Err("That instance is no longer in your list.".to_string());
         }
 
+        if self.default_instance.as_deref() == Some(id) {
+            self.default_instance = None;
+        }
+
         self.save()
     }
 
@@ -173,6 +205,7 @@ impl InstanceStore {
 
         let json = serde_json::to_string_pretty(&StoreFile {
             instances: self.instances.clone(),
+            default_instance: self.default_instance.clone(),
         })
         .map_err(|error| format!("Could not serialize your instances: {error}"))?;
 
@@ -285,6 +318,67 @@ mod tests {
 
         let reloaded = InstanceStore::load(directory.path().join("instances.json"));
         assert_eq!(reloaded.all(), vec![added]);
+    }
+
+    #[test]
+    fn marks_and_persists_the_default_instance() {
+        let (directory, mut store) = store();
+        let first = store.add("", "https://one.example.com").unwrap();
+        let _second = store.add("", "https://two.example.com").unwrap();
+
+        store.set_default(Some(&first.id)).unwrap();
+        assert_eq!(store.default().map(|i| i.id), Some(first.id.clone()));
+
+        let reloaded = InstanceStore::load(directory.path().join("instances.json"));
+        assert_eq!(reloaded.default().map(|i| i.id), Some(first.id));
+    }
+
+    #[test]
+    fn clearing_the_default_leaves_no_mark() {
+        let (_directory, mut store) = store();
+        let added = store.add("", "https://one.example.com").unwrap();
+        store.set_default(Some(&added.id)).unwrap();
+
+        store.set_default(None).unwrap();
+
+        assert_eq!(store.default(), None);
+    }
+
+    #[test]
+    fn refuses_to_mark_an_unknown_instance() {
+        let (_directory, mut store) = store();
+        store.add("", "https://one.example.com").unwrap();
+
+        let error = store.set_default(Some("no-such-id")).unwrap_err();
+        assert!(error.contains("no longer"), "unexpected error: {error}");
+        assert_eq!(store.default(), None);
+    }
+
+    #[test]
+    fn removing_the_default_clears_the_mark() {
+        let (directory, mut store) = store();
+        let first = store.add("", "https://one.example.com").unwrap();
+        store.set_default(Some(&first.id)).unwrap();
+
+        store.remove(&first.id).unwrap();
+        assert_eq!(store.default(), None);
+
+        let reloaded = InstanceStore::load(directory.path().join("instances.json"));
+        assert_eq!(reloaded.default(), None);
+    }
+
+    #[test]
+    fn a_default_pointing_at_a_missing_instance_reads_as_none() {
+        let (directory, mut store) = store();
+        let added = store.add("", "https://one.example.com").unwrap();
+        store.set_default(Some(&added.id)).unwrap();
+
+        // Simulate a hand-edited store file whose default is not in the list.
+        let json = r#"{"instances": [], "defaultInstance": "ghost-id"}"#;
+        std::fs::write(directory.path().join("instances.json"), json).unwrap();
+
+        let reloaded = InstanceStore::load(directory.path().join("instances.json"));
+        assert_eq!(reloaded.default(), None);
     }
 
     #[test]

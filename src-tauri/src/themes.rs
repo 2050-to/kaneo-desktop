@@ -76,6 +76,18 @@ const BUILTIN_THEMES: &[(&str, &str)] = &[
         "catppuccin-mocha",
         include_str!("../../themes/builtin/catppuccin-mocha.yaml"),
     ),
+    (
+        "winter-metallic",
+        include_str!("../../themes/builtin/winter-metallic.yaml"),
+    ),
+    (
+        "midnight-snow",
+        include_str!("../../themes/builtin/midnight-snow.yaml"),
+    ),
+    (
+        "vermillion-daydream",
+        include_str!("../../themes/builtin/vermillion-daydream.yaml"),
+    ),
 ];
 
 const MAX_ID_LENGTH: usize = 64;

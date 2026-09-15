@@ -1,0 +1,128 @@
+# Winter Metallic — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/5671897b8fa1cfb997fad6a5
+#   #567189 steel blue · #7b8fa1 blue grey · #cfb997 warm sand · #fad6a5 gold
+#
+# Light mode is cold steel with a sand sidebar; dark mode is slate with the
+# sand as the brand fill. Inks are darkened out of the palette to hold the
+# body-text bar.
+
+name: "Winter Metallic"
+description: "Steel blue, blue grey and warm sand, in both modes."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#f8f8f6" # cold paper off the sand family
+  card: "#ffffff"
+  popover: "#ffffff"
+  sidebar: "#cfb997" # the palette's warm sand
+  muted: "#23283014"
+  accent: "#23283014"
+  secondary: "#23283014"
+  code: "#ffffff"
+  code-highlight: "#23283014"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#232830" # steel ink, 13.93:1 on the canvas
+  card-foreground: "#232830"
+  popover-foreground: "#232830"
+  muted-foreground: "#5a6774" # 5.44:1 on the canvas, 5.79:1 on cards
+  accent-foreground: "#232830"
+  secondary-foreground: "#232830"
+  code-foreground: "#232830"
+  sidebar-foreground: "#232830" # 7.79:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#567189" # the palette's steel blue; 4.79:1 as text on the canvas
+  primary-foreground: "#ffffff" # 5.10:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#23283026" # decorative hairline; not an affordance
+  input: "#7b8fa1" # the palette's blue grey; 3.14:1 on the canvas
+  ring: "#567189" # 4.79:1 on the canvas
+  sidebar-border: "#23283029"
+  sidebar-ring: "#3d5265" # steel, inked; 4.26:1 on the sand sidebar
+  sidebar-primary: "#567189"
+  sidebar-primary-foreground: "#ffffff" # 5.10:1 on sidebar-primary
+  sidebar-accent: "#2328301f"
+  sidebar-accent-foreground: "#232830"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
+  # white button text at 4.5:1; the -foreground roles are the badge text.
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#b91c1c" # 5.85:1 on its own tint
+  success: "#0c875e" # white text 4.52:1
+  success-foreground: "#047656" # 5.03:1 on its own tint
+  warning: "#a56a07" # white text 4.50:1
+  warning-foreground: "#925d06" # 4.72:1 on its own tint
+  info: "#3473db" # white text 4.54:1
+  info-foreground: "#1d4ed8" # 5.85:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#567189"
+  chart-2: "#cfb997"
+  chart-3: "#7b8fa1"
+  chart-4: "#232830"
+  chart-5: "#fad6a5"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#2b3441" # steel blue, darkened to the canvas
+  card: "#33404e" # steel, lifted one step
+  popover: "#242d39"
+  sidebar: "#242d39"
+  muted: "#cfb99714"
+  accent: "#cfb99714"
+  secondary: "#cfb99714"
+  code: "#33404e"
+  code-highlight: "#cfb9971a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#f4efe6" # warm cream, 10.98:1 on the canvas
+  card-foreground: "#f4efe6"
+  popover-foreground: "#f4efe6"
+  muted-foreground: "#9db0c0" # 5.63:1 on the canvas, 4.74:1 on cards
+  accent-foreground: "#f4efe6"
+  secondary-foreground: "#f4efe6"
+  code-foreground: "#f4efe6"
+  sidebar-foreground: "#9db0c0" # 6.23:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # The sand is the one warm tone the dark palette keeps; slate text on it
+  # reads at 6.61:1 and it stays unmistakable as a filled button.
+  primary: "#cfb997" # 6.61:1 as text on the canvas
+  primary-foreground: "#2b3441" # 6.61:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#cfb9971f" # decorative hairline; not an affordance
+  input: "#93a1b0" # 4.77:1 on the canvas, 4.01:1 on cards
+  ring: "#fad6a5" # the palette's gold, 9.12:1 on the canvas
+  sidebar-border: "#cfb99724"
+  sidebar-ring: "#cfb997" # 7.32:1 on the sidebar
+  sidebar-primary: "#cfb997"
+  sidebar-primary-foreground: "#2b3441" # 6.61:1 on sidebar-primary
+  sidebar-accent: "#cfb99714"
+  sidebar-accent-foreground: "#f4efe6"
+
+  # Status ------------------------------------------------------------------
+  # Only `destructive` has to carry white text (Kaneo's delete buttons
+  # hardcode it). On this card no colour can be both a 3:1 icon and dark
+  # enough for white text; text wins, so destructive sits at 2.34:1 as an
+  # icon on cards. The other three are brightened pastel fills instead, so
+  # they clear 3:1 as icons without carrying white.
+  destructive: "#cc4a4a" # white text 4.52:1, icon on cards 2.34:1
+  destructive-foreground: "#f98f8f" # 4.93:1 on its own tint
+  success: "#2aa571" # icon 3.39:1 on cards
+  success-foreground: "#6cc19d" # 4.70:1 on its own tint
+  warning: "#c99a2e" # icon 4.11:1 on cards
+  warning-foreground: "#d4af58" # 4.70:1 on its own tint
+  info: "#6ba0d8" # icon 3.85:1 on cards
+  info-foreground: "#90b8e2" # 4.72:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#cfb997"
+  chart-2: "#7b8fa1"
+  chart-3: "#fad6a5"
+  chart-4: "#567189"
+  chart-5: "#8aa0b5"

@@ -135,6 +135,10 @@ open:
 - Opening an instance hides the launcher for you, so the instance window gets the
   screen.
 
+Each instance card has a **Launch on start** toggle. With it on, the app skips
+the launcher entirely on the next start and opens straight into that instance;
+turning it off (or removing the instance) brings the launcher back at startup.
+
 ### Switching themes from the menu bar
 
 The menu bar is the short path: **Themes** lists every theme with a tick on the
@@ -197,10 +201,10 @@ rm -rf "$HOME/Library/Caches/app.kaneo.desktop"
 ## Themes
 
 Kaneo Desktop restyles the instance's own interface — it does not reimplement it —
-so a theme changes the app you already know. Twenty themes ship with it, and
-each covers the mode or modes it defines: most carry **both** light and dark, so
-switching Kaneo between appearances keeps the theme either way, while a
-single-mode theme (Kanagawa Wave/Dragon, Kanagawa Lotus, Catppuccin
+so a theme changes the app you already know. Twenty-three themes ship with it,
+and each covers the mode or modes it defines: most carry **both** light and
+dark, so switching Kaneo between appearances keeps the theme either way, while
+a single-mode theme (Kanagawa Wave/Dragon, Kanagawa Lotus, Catppuccin
 Latte/Frappe/Macchiato/Mocha) leaves the other mode on the instance's own
 palette. The launcher window keeps its own fixed palette.
 
@@ -236,12 +240,16 @@ joins it on the next launch.
 | **Catppuccin Macchiato**<br>Catppuccin's mid flavour — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/catppuccin-macchiato-dark.png" width="380" alt="Catppuccin Macchiato dark"> |
 | **Catppuccin Mocha**<br>Catppuccin's deepest flavour — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/catppuccin-mocha-dark.png" width="380" alt="Catppuccin Mocha dark"> |
 
+| **Winter Metallic**<br>steel blue, blue grey and warm sand | <img src="assets/theme-previews/winter-metallic-light.png" width="380" alt="Winter Metallic light"> | <img src="assets/theme-previews/winter-metallic-dark.png" width="380" alt="Winter Metallic dark"> |
+| **Midnight Snow**<br>cornflower, lavender and cream snow | <img src="assets/theme-previews/midnight-snow-light.png" width="380" alt="Midnight Snow light"> | <img src="assets/theme-previews/midnight-snow-dark.png" width="380" alt="Midnight Snow dark"> |
+| **Vermillion Daydream**<br>vermillion, raspberry and wine over ink navy | <img src="assets/theme-previews/vermillion-daydream-light.png" width="380" alt="Vermillion Daydream light"> | <img src="assets/theme-previews/vermillion-daydream-dark.png" width="380" alt="Vermillion Daydream dark"> |
+
 Themes are plain YAML files listing 41 colour roles — see
 [`themes/template.yaml`](themes/template.yaml) for the annotated template. The
 editor writes your own to `~/Library/Application Support/app.kaneo.desktop/themes/`,
 with the SVG preview, a contrast verdict per role and an auto-adjust that moves a
 colour as little as it can to pass. Every built-in except Default clears WCAG AA
-on text, icons, focus rings and input borders; the eight themes marked in their
+on text, icons, focus rings and input borders; the nine themes marked in their
 files carry one measured exception where the palette cannot satisfy both the
 non-text and text rules at once.
 

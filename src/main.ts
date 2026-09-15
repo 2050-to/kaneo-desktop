@@ -3,17 +3,21 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 
 import {
   addInstance,
+  getDefaultInstance,
   type Instance,
   listInstances,
   openInstance,
   type Probe,
   probeInstance,
   removeInstance,
+  setDefaultInstance,
 } from "./api";
 import { applyThemeFile, MENU_THEME_EVENT } from "./theme/apply";
 import { clearThemeFromWindows } from "./theme/yaml";
 
 const CLOUD_URL = "https://cloud.kaneo.app";
+
+let defaultId: string | null = null;
 
 const list = requireElement<HTMLUListElement>("#instance-list");
 const form = requireElement<HTMLFormElement>("#add-form");
@@ -85,20 +89,39 @@ function instanceCard(instance: Instance): HTMLLIElement {
     info.append(createElement("span", "instance__meta", describeProbe(probe)));
   }
 
+  const isDefault = defaultId === instance.id;
+  const launchOnStart = createElement(
+    "button",
+    `button${isDefault ? " is-default" : ""}`,
+    "Launch on start",
+  );
+  launchOnStart.type = "button";
+  launchOnStart.setAttribute("aria-pressed", String(isDefault));
+  launchOnStart.title = isDefault
+    ? "Opens automatically on launch — click to turn off"
+    : "Open this instance automatically on launch";
+  launchOnStart.addEventListener("click", () => {
+    void toggleDefault(instance, launchOnStart);
+  });
+
   const open = createElement("button", "button button--primary", "Open");
   open.type = "button";
   open.addEventListener("click", () => {
     void openSelected(instance, open);
   });
 
-  const remove = createElement("button", "button button--danger", "Remove");
+  const remove = createElement(
+    "button",
+    "button button--destructive",
+    "Remove",
+  );
   remove.type = "button";
   remove.addEventListener("click", () => {
     void removeSelected(instance, remove);
   });
 
   const actions = createElement("div", "instance__actions");
-  actions.append(open, remove);
+  actions.append(launchOnStart, open, remove);
   item.append(info, actions);
 
   return item;
@@ -121,6 +144,7 @@ function render(): void {
 
 async function refresh(): Promise<void> {
   instances = await listInstances();
+  defaultId = await getDefaultInstance();
   render();
 }
 
@@ -135,6 +159,29 @@ async function openSelected(
   } catch (error) {
     setStatus("error", errorMessage(error));
   } finally {
+    button.disabled = false;
+  }
+}
+
+/** Flips the launch-on-start mark for one instance. */
+async function toggleDefault(
+  instance: Instance,
+  button: HTMLButtonElement,
+): Promise<void> {
+  button.disabled = true;
+  try {
+    const next = defaultId === instance.id ? null : instance.id;
+    await setDefaultInstance(next);
+    defaultId = next;
+    render();
+    setStatus(
+      "ok",
+      next
+        ? `${instance.name} will open on launch.`
+        : `${instance.name} will not open on launch.`,
+    );
+  } catch (error) {
+    setStatus("error", errorMessage(error));
     button.disabled = false;
   }
 }

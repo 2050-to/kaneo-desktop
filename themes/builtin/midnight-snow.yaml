@@ -1,0 +1,128 @@
+# Midnight Snow — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/8294c4acb1d6dbdfeaffead2
+#   #8294c4 cornflower · #acb1d6 periwinkle · #dbdfea pale lavender ·
+#   #ffead2 cream
+#
+# Light mode is the cream itself with a lavender sidebar; dark mode is
+# midnight navy with cream text. The cornflower darkens to #5b70a6 in light
+# mode so its button text clears 4.5:1.
+
+name: "Midnight Snow"
+description: "Cornflower, lavender and cream snow, in both modes."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#ffead2" # the palette's cream, as the canvas
+  card: "#fff4e2" # cream, lightened one step
+  popover: "#fff8ea"
+  sidebar: "#dbdfea" # the palette's pale lavender
+  muted: "#23283814"
+  accent: "#23283814"
+  secondary: "#23283814"
+  code: "#fff4e2"
+  code-highlight: "#23283814"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#232838" # midnight ink, 12.54:1 on the canvas
+  card-foreground: "#232838"
+  popover-foreground: "#232838"
+  muted-foreground: "#5d5f7c" # 5.29:1 on the canvas, 5.68:1 on cards
+  accent-foreground: "#232838"
+  secondary-foreground: "#232838"
+  code-foreground: "#232838"
+  sidebar-foreground: "#232838" # 11.00:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # The palette's cornflower carries white text at only 3.01:1, so it is
+  # darkened to #5b70a6 for the filled roles; the hue stays.
+  primary: "#5b70a6" # 4.16:1 as text on the canvas
+  primary-foreground: "#ffffff" # 4.87:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#23283826" # decorative hairline; not an affordance
+  input: "#747a9a" # 3.60:1 on the canvas, 3.86:1 on cards
+  ring: "#5b70a6" # 4.16:1 on the canvas
+  sidebar-border: "#23283829"
+  sidebar-ring: "#5b70a6" # 3.65:1 on the sidebar
+  sidebar-primary: "#5b70a6"
+  sidebar-primary-foreground: "#ffffff" # 4.87:1 on sidebar-primary
+  sidebar-accent: "#2328381f"
+  sidebar-accent-foreground: "#232838"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
+  # white button text at 4.5:1; the cream canvas pushes the badge text darker
+  # than on a white card.
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#ad1a1a" # 4.94:1 on its own tint
+  success: "#0c875e" # white text 4.52:1
+  success-foreground: "#036449" # 4.90:1 on its own tint
+  warning: "#a56a07" # white text 4.50:1
+  warning-foreground: "#904207" # 4.88:1 on its own tint
+  info: "#3473db" # white text 4.54:1
+  info-foreground: "#1d4ed8" # 4.62:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#5b70a6"
+  chart-2: "#8294c4"
+  chart-3: "#232838"
+  chart-4: "#acb1d6"
+  chart-5: "#c99a2e"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#171d31" # midnight navy off the cornflower family
+  card: "#212a44" # navy, lifted one step
+  popover: "#12172a"
+  sidebar: "#12172a"
+  muted: "#ffead214"
+  accent: "#ffead214"
+  secondary: "#ffead214"
+  code: "#212a44"
+  code-highlight: "#ffead21a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#ffead2" # the palette's cream, 14.29:1 on the canvas
+  card-foreground: "#ffead2"
+  popover-foreground: "#ffead2"
+  muted-foreground: "#a9b1cf" # periwinkle, 7.86:1 on the canvas
+  accent-foreground: "#ffead2"
+  secondary-foreground: "#ffead2"
+  code-foreground: "#ffead2"
+  sidebar-foreground: "#a9b1cf" # 8.36:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Cornflower at full strength: midnight ink on it reads at 5.56:1.
+  primary: "#8294c4" # 5.56:1 as text on the canvas
+  primary-foreground: "#171d31" # 5.56:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#ffead21f" # decorative hairline; not an affordance
+  input: "#7d86a8" # 4.65:1 on the canvas, 3.95:1 on cards
+  ring: "#8294c4" # 5.56:1 on the canvas
+  sidebar-border: "#ffead224"
+  sidebar-ring: "#8294c4" # 6.53:1 on the sidebar
+  sidebar-primary: "#8294c4"
+  sidebar-primary-foreground: "#171d31" # 5.56:1 on sidebar-primary
+  sidebar-accent: "#ffead214"
+  sidebar-accent-foreground: "#ffead2"
+
+  # Status ------------------------------------------------------------------
+  # Fills sit in the narrow band that is both a 3:1 icon on these surfaces and
+  # dark enough for the white text Kaneo's buttons put on them.
+  destructive: "#cc4a4a" # white text 4.52:1, icon 3.14:1 on cards
+  destructive-foreground: "#f87171" # 5.24:1 on its own tint
+  success: "#218661" # white text 4.52:1, icon 3.14:1 on cards
+  success-foreground: "#34d399" # 7.33:1 on its own tint
+  warning: "#947115" # white text 4.53:1, icon 3.13:1 on cards
+  warning-foreground: "#fbbf24" # 8.47:1 on its own tint
+  info: "#4678b6" # white text 4.54:1, icon 3.12:1 on cards
+  info-foreground: "#60a5fa" # 5.48:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#8294c4"
+  chart-2: "#ffead2"
+  chart-3: "#5b70a6"
+  chart-4: "#acb1d6"
+  chart-5: "#ecb87a"
