@@ -24,7 +24,7 @@ light:
   foreground: "#003c43" # 11.45:1 on the canvas
   card-foreground: "#003c43"
   popover-foreground: "#003c43"
-  muted-foreground: "#135d66" # 7.10:1 on the canvas, 7.54:1 on cards
+  muted-foreground: "#0d4047" # 4.66:1 on the sidebar, 10.74:1 on the canvas, 11.4:1 on cards
   accent-foreground: "#003c43"
   secondary-foreground: "#003c43"
   code-foreground: "#003c43"

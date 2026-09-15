@@ -327,6 +327,15 @@ const CHECKS: CheckSpec[] = [
     compute: (get) => ratio(get("muted-foreground"), get("card")),
   },
   {
+    // Kaneo paints non-sidebar surfaces with bg-sidebar too — the settings
+    // layout's TabsList is bg-sidebar while inactive tab labels stay
+    // text-muted-foreground — so muted text has to survive there as well.
+    owner: "muted-foreground",
+    label: "muted text on the sidebar",
+    min: 4.5,
+    compute: (get) => ratio(get("muted-foreground"), get("sidebar")),
+  },
+  {
     owner: "accent-foreground",
     label: "menu text on the hover fill",
     min: 4.5,

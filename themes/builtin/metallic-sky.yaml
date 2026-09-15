@@ -26,7 +26,7 @@ light:
   foreground: "#2b353b"
   card-foreground: "#2b353b"
   popover-foreground: "#2b353b"
-  muted-foreground: "#5d6e78" # 4.70:1 on the canvas, 5.19:1 on cards
+  muted-foreground: "#55656e" # 4.66:1 on the sidebar, 5.36:1 on the canvas, 5.93:1 on cards
   accent-foreground: "#2b353b"
   secondary-foreground: "#2b353b"
   code-foreground: "#2b353b"

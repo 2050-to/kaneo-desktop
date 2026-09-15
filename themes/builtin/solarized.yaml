@@ -29,7 +29,7 @@ light:
   foreground: "#46555b" # 7.18:1 on the canvas, 7.48:1 on cards
   card-foreground: "#46555b"
   popover-foreground: "#46555b"
-  muted-foreground: "#586e75" # base01, 4.99:1 on the canvas
+  muted-foreground: "#556a70" # 4.65:1 on the sidebar, 5.29:1 on the canvas, 5.51:1 on cards
   accent-foreground: "#46555b"
   secondary-foreground: "#46555b"
   code-foreground: "#46555b"

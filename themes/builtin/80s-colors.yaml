@@ -26,7 +26,7 @@ light:
   foreground: "#0d0c1d" # the palette's ink black, 14.31:1 on the canvas
   card-foreground: "#0d0c1d"
   popover-foreground: "#0d0c1d"
-  muted-foreground: "#5d5566" # lilac ash inked towards prussian, 5.26:1
+  muted-foreground: "#38333e" # 4.66:1 on the sidebar, 9.1:1 on the canvas, 10.15:1 on cards
   accent-foreground: "#0d0c1d"
   secondary-foreground: "#0d0c1d"
   code-foreground: "#0d0c1d"

@@ -25,7 +25,7 @@ light:
   foreground: "#132c33" # the palette's ink navy, 11.19:1 on the canvas
   card-foreground: "#132c33"
   popover-foreground: "#132c33"
-  muted-foreground: "#4e656c" # 4.72:1 on the canvas, 5.19:1 on cards
+  muted-foreground: "#37474c" # 4.7:1 on the sidebar, 7.41:1 on the canvas, 8.15:1 on cards
   accent-foreground: "#132c33"
   secondary-foreground: "#132c33"
   code-foreground: "#132c33"

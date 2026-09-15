@@ -31,7 +31,7 @@ light:
   foreground: "#43436c" # lotusInk2, 7.75:1 on the canvas
   card-foreground: "#43436c"
   popover-foreground: "#43436c"
-  muted-foreground: "#68665a" # lotusGray2, inked; 4.81:1 on the canvas
+  muted-foreground: "#605e53" # 4.67:1 on the sidebar, 5.43:1 on the canvas, 5.73:1 on cards
   accent-foreground: "#43436c"
   secondary-foreground: "#43436c"
   code-foreground: "#43436c"

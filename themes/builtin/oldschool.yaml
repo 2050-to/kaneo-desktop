@@ -27,7 +27,7 @@ light:
   foreground: "#252422" # the palette's carbon black, 15.11:1 on the canvas
   card-foreground: "#252422"
   popover-foreground: "#252422"
-  muted-foreground: "#6b675f" # dust grey darkened, 5.48:1 on the canvas
+  muted-foreground: "#54504a" # 4.67:1 on the sidebar, 7.8:1 on the canvas, 8.01:1 on cards
   accent-foreground: "#252422"
   secondary-foreground: "#252422"
   code-foreground: "#252422"

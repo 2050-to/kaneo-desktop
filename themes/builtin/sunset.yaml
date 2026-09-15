@@ -80,7 +80,7 @@ light:
   foreground: "#331621"
   card-foreground: "#331621"
   popover-foreground: "#331621"
-  muted-foreground: "#a05a34"
+  muted-foreground: "#945430" # 4.65:1 on the sidebar, 5.18:1 on the canvas, 5.88:1 on cards
   accent-foreground: "#331621"
   secondary-foreground: "#331621"
   code-foreground: "#331621"

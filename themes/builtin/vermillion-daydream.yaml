@@ -13,9 +13,13 @@ description: "Vermillion, raspberry and wine over ink navy, in both modes."
 light:
   # Surfaces ----------------------------------------------------------------
   background: "#fdf3f4" # rose paper grown out of the wine
+  # The sidebar is rose cream, not the wine: Kaneo's settings layout paints
+  # its tab strip and outer shell with bg-sidebar while inactive labels stay
+  # muted-foreground, so the surface has to host dark inks. The wine keeps
+  # its presence in the charts and dark mode.
+  sidebar: "#f6e0e4"
   card: "#ffffff"
   popover: "#fef9fa"
-  sidebar: "#8a244b" # the palette's wine
   muted: "#111f3514"
   accent: "#111f3514"
   secondary: "#111f3514"
@@ -26,11 +30,11 @@ light:
   foreground: "#111f35" # the palette's ink navy, 15.18:1 on the canvas
   card-foreground: "#111f35"
   popover-foreground: "#111f35"
-  muted-foreground: "#6d4a56" # wine, inked; 6.98:1 on the canvas
+  muted-foreground: "#6d4a56" # wine, inked; 6.04:1 on the sidebar, 6.98:1 on the canvas, 7.60:1 on cards
   accent-foreground: "#111f35"
   secondary-foreground: "#111f35"
   code-foreground: "#111f35"
-  sidebar-foreground: "#ffeff0" # 7.75:1 on the sidebar
+  sidebar-foreground: "#111f35" # 13.14:1 on the sidebar
 
   # Brand and emphasis ------------------------------------------------------
   # Raspberry, not vermillion: it carries white button text at 5.13:1 and
@@ -41,13 +45,12 @@ light:
   # Borders, inputs, focus --------------------------------------------------
   border: "#111f3526" # decorative hairline; not an affordance
   input: "#a05a68" # 4.64:1 on the canvas, 5.05:1 on cards
-  ring: "#d02752" # 4.71:1 on the canvas
-  sidebar-border: "#ffeff024"
-  sidebar-ring: "#ffeff0" # 7.75:1 on the sidebar
-  sidebar-primary: "#ffeff0"
-  sidebar-primary-foreground: "#8a244b" # 7.75:1 on sidebar-primary
-  sidebar-accent: "#ffeff01f"
-  sidebar-accent-foreground: "#ffeff0"
+  sidebar-border: "#111f3524"
+  sidebar-ring: "#d02752" # raspberry; 4.08:1 on the sidebar
+  sidebar-primary: "#d02752"
+  sidebar-primary-foreground: "#ffffff" # 5.13:1 on sidebar-primary
+  sidebar-accent: "#111f3514"
+  sidebar-accent-foreground: "#111f35"
 
   # Status ------------------------------------------------------------------
   # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
