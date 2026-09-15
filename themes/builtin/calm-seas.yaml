@@ -1,0 +1,125 @@
+# Calm Seas — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/d8e3e751c4d3126e82132c33
+#   #d8e3e7 pale blue-grey · #51c4d3 teal · #126e82 deep sea · #132c33 ink navy
+#
+# Light mode is the palette itself: pale sea air with the teal sidebar. Dark
+# mode sinks into ink navy with the teal as the brand fill.
+
+name: "Calm Seas"
+description: "Pale sea air, teal and deep water blue, in both modes."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#d8e3e7" # the palette's pale blue-grey, as the canvas
+  card: "#e4edf0" # lightened one step
+  popover: "#eef3f5"
+  sidebar: "#51c4d3" # the palette's teal
+  muted: "#132c3314"
+  accent: "#132c3314"
+  secondary: "#132c3314"
+  code: "#e4edf0"
+  code-highlight: "#132c3314"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#132c33" # the palette's ink navy, 11.19:1 on the canvas
+  card-foreground: "#132c33"
+  popover-foreground: "#132c33"
+  muted-foreground: "#4e656c" # 4.72:1 on the canvas, 5.19:1 on cards
+  accent-foreground: "#132c33"
+  secondary-foreground: "#132c33"
+  code-foreground: "#132c33"
+  sidebar-foreground: "#132c33" # 7.09:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#126e82" # the palette's deep sea; 4.49:1 as text on the canvas
+  primary-foreground: "#e4edf0" # 4.94:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#132c3326" # decorative hairline; not an affordance
+  input: "#5e7175" # 3.92:1 on the canvas, 4.32:1 on cards
+  ring: "#126e82" # 4.49:1 on the canvas
+  sidebar-border: "#132c3329"
+  sidebar-ring: "#132c33" # 7.09:1 on the sidebar
+  sidebar-primary: "#126e82"
+  sidebar-primary-foreground: "#e4edf0" # 4.94:1 on sidebar-primary
+  sidebar-accent: "#132c331f"
+  sidebar-accent-foreground: "#132c33"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
+  # white button text at 4.5:1; the sea-air canvas pushes the badge text
+  # darker than on a white card.
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#ad1a1a" # 4.90:1 on its own tint
+  success: "#0c875e" # white text 4.52:1
+  success-foreground: "#036449" # 4.90:1 on its own tint
+  warning: "#a56a07" # white text 4.50:1
+  warning-foreground: "#904207" # 4.88:1 on its own tint
+  info: "#3473db" # white text 4.54:1
+  info-foreground: "#1d4ed8" # 4.61:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#126e82"
+  chart-2: "#51c4d3"
+  chart-3: "#132c33"
+  chart-4: "#4e656c"
+  chart-5: "#c9a227"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#132c33" # the palette's ink navy
+  card: "#152f34" # ink navy, lifted just enough for the status icons
+  popover: "#0f2126" # darker than the canvas, as a float surface
+  sidebar: "#0f2126"
+  muted: "#d8e3e714"
+  accent: "#d8e3e714"
+  secondary: "#d8e3e714"
+  code: "#152f34"
+  code-highlight: "#d8e3e71a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#d8e3e7" # pale sea air, 11.19:1 on the canvas
+  card-foreground: "#d8e3e7"
+  popover-foreground: "#d8e3e7"
+  muted-foreground: "#93aeb4" # 6.24:1 on the canvas, 6.02:1 on cards
+  accent-foreground: "#d8e3e7"
+  secondary-foreground: "#d8e3e7"
+  code-foreground: "#d8e3e7"
+  sidebar-foreground: "#93aeb4" # 7.07:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # The palette's teal is bright enough to carry the ink navy as text at
+  # 7.09:1 and stays unmistakable as a filled button on the dark canvas.
+  primary: "#51c4d3" # 7.09:1 as text on the canvas
+  primary-foreground: "#132c33" # 7.09:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#d8e3e71f" # decorative hairline; not an affordance
+  input: "#6c7e81" # 3.44:1 on the canvas, 3.32:1 on cards
+  ring: "#51c4d3" # 7.09:1 on the canvas — hard to miss
+  sidebar-border: "#d8e3e724"
+  sidebar-ring: "#51c4d3" # 8.03:1 on the sidebar
+  sidebar-primary: "#51c4d3"
+  sidebar-primary-foreground: "#132c33" # 7.09:1 on sidebar-primary
+  sidebar-accent: "#d8e3e714"
+  sidebar-accent-foreground: "#d8e3e7"
+
+  # Status ------------------------------------------------------------------
+  # Fills sit in the narrow band that is both a 3:1 icon on these surfaces and
+  # dark enough for the white text Kaneo's buttons put on them.
+  destructive: "#cc4a4a" # white text 4.52:1, icon 3.12:1 on cards
+  destructive-foreground: "#f87171" # 4.67:1 on its own tint
+  success: "#218661" # white text 4.52:1, icon 3.12:1 on cards
+  success-foreground: "#34d399" # 6.43:1 on its own tint
+  warning: "#947115" # white text 4.53:1, icon 3.11:1 on cards
+  warning-foreground: "#fbbf24" # 7.51:1 on its own tint
+  info: "#4678b6" # white text 4.54:1, icon 3.11:1 on cards
+  info-foreground: "#60a5fa" # 4.84:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#51c4d3"
+  chart-2: "#d8e3e7"
+  chart-3: "#126e82"
+  chart-4: "#7fb5c4"
+  chart-5: "#e9c46a"

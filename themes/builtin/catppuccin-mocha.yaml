@@ -1,0 +1,73 @@
+# Catppuccin Mocha — built-in theme
+#
+# Source palette: https://github.com/catppuccin/catppuccin (flavour "mocha")
+#   base #1e1e2e · mantle #181825 · crust #11111b · surface0 #313244 ·
+#   overlay0-2 #6c7086-#9399b2 · text #cdd6f4 · subtext0 #a6adc8 ·
+#   mauve #cba6f7 · lavender #b4befe · red #f38ba8 · yellow #f9e2af ·
+#   green #a6e3a1 · blue #89b4fa · peach #fab387
+#
+# The dark mode of the catppuccin family: mauve carries the brand, red is
+# darkened out of the pastel range for Kaneo's white-on-destructive text.
+# Dark only: light mode keeps the instance's own palette.
+
+name: "Catppuccin Mocha"
+description: "Catppuccin's deepest flavour — mauve on mocha. Dark mode."
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#1e1e2e" # base, Catppuccin's canvas
+  card: "#313244" # surface0
+  popover: "#11111b" # crust, the float surface
+  sidebar: "#181825" # mantle
+  muted: "#cdd6f414"
+  accent: "#cdd6f414"
+  secondary: "#cdd6f414"
+  code: "#313244"
+  code-highlight: "#cdd6f41a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#cdd6f4" # text, 11.34:1 on the canvas
+  card-foreground: "#cdd6f4"
+  popover-foreground: "#cdd6f4"
+  muted-foreground: "#a6adc8" # subtext0, 7.37:1 on the canvas
+  accent-foreground: "#cdd6f4"
+  secondary-foreground: "#cdd6f4"
+  code-foreground: "#cdd6f4"
+  sidebar-foreground: "#a6adc8" # 7.89:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Mauve, Catppuccin's signature accent; base text on it reads at 8.07:1.
+  primary: "#cba6f7" # 8.07:1 as text on the canvas
+  primary-foreground: "#1e1e2e" # 8.07:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#cdd6f41f" # decorative hairline; not an affordance
+  input: "#7f849c" # overlay1; 4.44:1 on the canvas
+  ring: "#b4befe" # lavender, 9.17:1 on the canvas
+  sidebar-border: "#cdd6f424"
+  sidebar-ring: "#b4befe" # 9.81:1 on the sidebar
+  sidebar-primary: "#cba6f7"
+  sidebar-primary-foreground: "#1e1e2e" # 8.07:1 on sidebar-primary
+  sidebar-accent: "#cdd6f414"
+  sidebar-accent-foreground: "#cdd6f4"
+
+  # Status ------------------------------------------------------------------
+  # Only `destructive` has to carry white text (Kaneo's delete buttons
+  # hardcode it), so red is darkened out of the pastel range. On this canvas
+  # no colour can be both a 3:1 icon and dark enough for white text; text
+  # wins, so destructive sits at 2.70:1 as an icon on cards.
+  destructive: "#a65f73" # white text 4.66:1, icon on cards 2.70:1
+  destructive-foreground: "#f38ba8" # the palette's red, 5.43:1 on cards
+  success: "#a6e3a1" # icon 8.46:1 on cards
+  success-foreground: "#a6e3a1" # 7.40:1 on its own tint
+  warning: "#f9e2af" # icon 9.89:1 on cards
+  warning-foreground: "#f9e2af" # 8.28:1 on its own tint
+  info: "#89b4fa" # icon 5.97:1 on cards
+  info-foreground: "#89b4fa" # 5.66:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#cba6f7"
+  chart-2: "#f38ba8"
+  chart-3: "#fab387"
+  chart-4: "#a6e3a1"
+  chart-5: "#89b4fa"

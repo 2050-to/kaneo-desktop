@@ -1,0 +1,74 @@
+# Kanagawa Dragon — built-in theme
+#
+# Source palette: https://github.com/rebelot/kanagawa.nvim (theme "dragon")
+#   dragonWhite #c5c9c5 ink · oldWhite #C8C093 dimmed ink · dragonBlue2 #8ba4b0 ·
+#   dragonTeal #949fb5 · dragonGreen2 #8a9a7b · dragonYellow #c4b28a ·
+#   dragonAqua #8ea4a2 · dragonRed #c4746e · dragonGray #a6a69c ·
+#   dragonGray3 #7a8382 · autumnRed #C34043 over dragonBlack0–6 surfaces
+#
+# The neovim theme's own mapping: Normal sits on dragonBlack3, floats on
+# dragonBlack0, the popup menu on waveBlue1. Dark only: light mode keeps the
+# instance's own palette.
+
+name: "Kanagawa Dragon"
+description: "Kanagawa's late-night variant — muted ash and driftwood. Dark mode."
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#181616" # dragonBlack3, Kanagawa's Normal background
+  card: "#282727" # dragonBlack4, the CursorLine/gutter step
+  popover: "#0d0c0c" # dragonBlack0, the float background
+  sidebar: "#12120f" # dragonBlack1, the dimmed background step
+  muted: "#c5c9c514"
+  accent: "#c5c9c514"
+  secondary: "#c5c9c514"
+  code: "#282727"
+  code-highlight: "#c5c9c51a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#c5c9c5" # dragonWhite, 10.76:1 on the canvas
+  card-foreground: "#c5c9c5"
+  popover-foreground: "#c5c9c5"
+  muted-foreground: "#C8C093" # oldWhite, Kanagawa's dimmed fg; 9.80:1 on the canvas
+  accent-foreground: "#c5c9c5"
+  secondary-foreground: "#c5c9c5"
+  code-foreground: "#c5c9c5"
+  sidebar-foreground: "#a6a69c" # dragonGray, 7.65:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # dragonBlue2 is Kanagawa's function colour for dragon; dragonBlack3 text on
+  # it reads at 6.90:1 and the blue stays readable as text on the canvas.
+  primary: "#8ba4b0" # 6.90:1 as text on the canvas
+  primary-foreground: "#181616" # 6.90:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#c5c9c51f" # decorative hairline; not an affordance
+  input: "#7a8382" # dragonGray3; 4.63:1 on the canvas
+  ring: "#949fb5" # dragonTeal, the special colour; 6.77:1 on the canvas
+  sidebar-border: "#c5c9c524"
+  sidebar-ring: "#949fb5" # 7.05:1 on the sidebar
+  sidebar-primary: "#8ba4b0"
+  sidebar-primary-foreground: "#181616" # 6.90:1 on sidebar-primary
+  sidebar-accent: "#c5c9c514"
+  sidebar-accent-foreground: "#c5c9c5"
+
+  # Status ------------------------------------------------------------------
+  # Only `destructive` has to carry white text (Kaneo's delete buttons hardcode
+  # it), so it is autumnRed, darkened out of Kanagawa's muted reds. On this
+  # canvas no colour can be both a 3:1 icon and dark enough for white text;
+  # text wins, so destructive sits at 2.93:1 as an icon on cards.
+  destructive: "#C34043" # autumnRed; white text 5.08:1, icon on cards 2.93:1
+  destructive-foreground: "#FF5D62" # peachRed, 4.96:1 on cards
+  success: "#8a9a7b" # dragonGreen2, icon 4.96:1 on cards
+  success-foreground: "#8a9a7b" # 4.75:1 on its own tint
+  warning: "#c4b28a" # dragonYellow, icon 7.15:1 on cards
+  warning-foreground: "#c4b28a" # 6.36:1 on its own tint
+  info: "#949fb5" # dragonTeal, icon 5.59:1 on cards
+  info-foreground: "#8ea4a2" # dragonAqua, 5.29:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#8ba4b0"
+  chart-2: "#8a9a7b"
+  chart-3: "#c4b28a"
+  chart-4: "#a292a3"
+  chart-5: "#b6927b"

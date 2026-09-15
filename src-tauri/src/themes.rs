@@ -32,6 +32,50 @@ const BUILTIN_THEMES: &[(&str, &str)] = &[
         "metallic-sky",
         include_str!("../../themes/builtin/metallic-sky.yaml"),
     ),
+    (
+        "oldschool",
+        include_str!("../../themes/builtin/oldschool.yaml"),
+    ),
+    (
+        "80s-colors",
+        include_str!("../../themes/builtin/80s-colors.yaml"),
+    ),
+    (
+        "kanagawa-wave",
+        include_str!("../../themes/builtin/kanagawa-wave.yaml"),
+    ),
+    (
+        "kanagawa-dragon",
+        include_str!("../../themes/builtin/kanagawa-dragon.yaml"),
+    ),
+    (
+        "kanagawa-lotus",
+        include_str!("../../themes/builtin/kanagawa-lotus.yaml"),
+    ),
+    (
+        "solarized",
+        include_str!("../../themes/builtin/solarized.yaml"),
+    ),
+    (
+        "calm-seas",
+        include_str!("../../themes/builtin/calm-seas.yaml"),
+    ),
+    (
+        "catppuccin-latte",
+        include_str!("../../themes/builtin/catppuccin-latte.yaml"),
+    ),
+    (
+        "catppuccin-frappe",
+        include_str!("../../themes/builtin/catppuccin-frappe.yaml"),
+    ),
+    (
+        "catppuccin-macchiato",
+        include_str!("../../themes/builtin/catppuccin-macchiato.yaml"),
+    ),
+    (
+        "catppuccin-mocha",
+        include_str!("../../themes/builtin/catppuccin-mocha.yaml"),
+    ),
 ];
 
 const MAX_ID_LENGTH: usize = 64;

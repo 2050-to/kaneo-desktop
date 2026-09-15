@@ -1,0 +1,74 @@
+# Kanagawa Wave — built-in theme
+#
+# Source palette: https://github.com/rebelot/kanagawa.nvim (theme "wave")
+#   fujiWhite #DCD7BA ink · oldWhite #C8C093 dimmed ink · crystalBlue #7E9CD8 ·
+#   springBlue #7FB4CA · springGreen #98BB6C · roninYellow #FF9E3B ·
+#   carpYellow #E6C384 · peachRed #FF5D62 · dragonBlue #658594 ·
+#   oniViolet #957FB8 · sakuraPink #D27E99 over sumiInk0–5 surfaces
+#
+# The neovim theme's own mapping: Normal sits on sumiInk3, floats on sumiInk0,
+# the popup menu on waveBlue1. Dark only: light mode keeps the instance's own
+# palette.
+
+name: "Kanagawa Wave"
+description: "Fuji white on sumi ink, Kanagawa's default heart-warming look. Dark mode."
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#1F1F28" # sumiInk3, Kanagawa's Normal background
+  card: "#2A2A37" # sumiInk4, the CursorLine/gutter step
+  popover: "#16161D" # sumiInk0, the float background
+  sidebar: "#181820" # sumiInk1, the dimmed background step
+  muted: "#DCD7BA14"
+  accent: "#DCD7BA14"
+  secondary: "#DCD7BA14"
+  code: "#2A2A37"
+  code-highlight: "#DCD7BA1a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#DCD7BA" # fujiWhite, 11.26:1 on the canvas
+  card-foreground: "#DCD7BA"
+  popover-foreground: "#DCD7BA"
+  muted-foreground: "#C8C093" # oldWhite, Kanagawa's dimmed fg; 8.89:1 on the canvas
+  accent-foreground: "#DCD7BA"
+  secondary-foreground: "#DCD7BA"
+  code-foreground: "#DCD7BA"
+  sidebar-foreground: "#C8C093" # oldWhite, 9.59:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # crystalBlue is Kanagawa's function colour; sumiInk3 text on it reads at
+  # 5.94:1 and the blue stays readable as text on the canvas too.
+  primary: "#7E9CD8" # crystalBlue; 5.94:1 as text on the canvas
+  primary-foreground: "#1F1F28" # 5.94:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#DCD7BA1f" # decorative hairline; not an affordance
+  input: "#938AA9" # springViolet1, the SpecialKey colour; 5.02:1 on the canvas
+  ring: "#7FB4CA" # springBlue, 7.23:1 on the canvas
+  sidebar-border: "#DCD7BA24"
+  sidebar-ring: "#7FB4CA" # 7.80:1 on the sidebar
+  sidebar-primary: "#7E9CD8"
+  sidebar-primary-foreground: "#1F1F28" # 5.94:1 on sidebar-primary
+  sidebar-accent: "#DCD7BA14"
+  sidebar-accent-foreground: "#DCD7BA"
+
+  # Status ------------------------------------------------------------------
+  # Only `destructive` has to carry white text (Kaneo's delete buttons hardcode
+  # it), so it is autumnRed, darkened out of Kanagawa's brighter reds. On this
+  # canvas no colour can be both a 3:1 icon and dark enough for white text;
+  # text wins, so destructive sits at 2.78:1 as an icon on cards.
+  destructive: "#C34043" # autumnRed; white text 5.08:1, icon on cards 2.78:1
+  destructive-foreground: "#FF5D62" # peachRed, 4.71:1 on cards
+  success: "#98BB6C" # springGreen, icon 6.51:1 on cards
+  success-foreground: "#98BB6C" # 5.52:1 on its own tint
+  warning: "#FF9E3B" # roninYellow, icon 6.87:1 on cards
+  warning-foreground: "#E6C384" # carpYellow, 7.16:1 on its own tint
+  info: "#658594" # dragonBlue, icon 3.59:1 on cards
+  info-foreground: "#7FB4CA" # springBlue, 5.94:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#7E9CD8"
+  chart-2: "#98BB6C"
+  chart-3: "#E6C384"
+  chart-4: "#957FB8"
+  chart-5: "#D27E99"

@@ -197,9 +197,12 @@ rm -rf "$HOME/Library/Caches/app.kaneo.desktop"
 ## Themes
 
 Kaneo Desktop restyles the instance's own interface — it does not reimplement it —
-so a theme changes the app you already know. Nine themes ship with it, and every
-one covers **both** light and dark mode: switch Kaneo between appearances and the
-theme follows. The launcher window keeps its own fixed palette.
+so a theme changes the app you already know. Twenty themes ship with it, and
+each covers the mode or modes it defines: most carry **both** light and dark, so
+switching Kaneo between appearances keeps the theme either way, while a
+single-mode theme (Kanagawa Wave/Dragon, Kanagawa Lotus, Catppuccin
+Latte/Frappe/Macchiato/Mocha) leaves the other mode on the instance's own
+palette. The launcher window keeps its own fixed palette.
 
 <img src="assets/theme-previews/grey-light.png" width="420" alt="Grey, light mode">
 
@@ -221,13 +224,24 @@ joins it on the next launch.
 | **Summer**<br>corn silk, tea green and bronze | <img src="assets/theme-previews/summer-light.png" width="380" alt="Summer light"> | <img src="assets/theme-previews/summer-dark.png" width="380" alt="Summer dark"> |
 | **Pastels**<br>thistle, baby pink and icy blue | <img src="assets/theme-previews/pastels-light.png" width="380" alt="Pastels light"> | <img src="assets/theme-previews/pastels-dark.png" width="380" alt="Pastels dark"> |
 | **Metallic Sky**<br>steel, silver and platinum greys | <img src="assets/theme-previews/metallic-sky-light.png" width="380" alt="Metallic Sky light"> | <img src="assets/theme-previews/metallic-sky-dark.png" width="380" alt="Metallic Sky dark"> |
+| **Oldschool**<br>cream paper, dust grey and spicy paprika | <img src="assets/theme-previews/oldschool-light.png" width="380" alt="Oldschool light"> | <img src="assets/theme-previews/oldschool-dark.png" width="380" alt="Oldschool dark"> |
+| **80s Colors**<br>almond cream, lilac ash and prussian blue | <img src="assets/theme-previews/80s-colors-light.png" width="380" alt="80s Colors light"> | <img src="assets/theme-previews/80s-colors-dark.png" width="380" alt="80s Colors dark"> |
+| **Kanagawa Wave**<br>fuji white on sumi ink — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/kanagawa-wave-dark.png" width="380" alt="Kanagawa Wave dark"> |
+| **Kanagawa Dragon**<br>Kanagawa's late-night variant — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/kanagawa-dragon-dark.png" width="380" alt="Kanagawa Dragon dark"> |
+| **Kanagawa Lotus**<br>cream lotus paper and violet ink — light theme | <img src="assets/theme-previews/kanagawa-lotus-light.png" width="380" alt="Kanagawa Lotus light"> | light theme — dark mode keeps the instance's palette |
+| **Solarized**<br>Ethan Schoonover's solarized blues and creams | <img src="assets/theme-previews/solarized-light.png" width="380" alt="Solarized light"> | <img src="assets/theme-previews/solarized-dark.png" width="380" alt="Solarized dark"> |
+| **Calm Seas**<br>pale sea air, teal and deep water blue | <img src="assets/theme-previews/calm-seas-light.png" width="380" alt="Calm Seas light"> | <img src="assets/theme-previews/calm-seas-dark.png" width="380" alt="Calm Seas dark"> |
+| **Catppuccin Latte**<br>Catppuccin's light flavour — light theme | <img src="assets/theme-previews/catppuccin-latte-light.png" width="380" alt="Catppuccin Latte light"> | light theme — dark mode keeps the instance's palette |
+| **Catppuccin Frappe**<br>Catppuccin's lightest dark flavour — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/catppuccin-frappe-dark.png" width="380" alt="Catppuccin Frappe dark"> |
+| **Catppuccin Macchiato**<br>Catppuccin's mid flavour — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/catppuccin-macchiato-dark.png" width="380" alt="Catppuccin Macchiato dark"> |
+| **Catppuccin Mocha**<br>Catppuccin's deepest flavour — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/catppuccin-mocha-dark.png" width="380" alt="Catppuccin Mocha dark"> |
 
 Themes are plain YAML files listing 41 colour roles — see
 [`themes/template.yaml`](themes/template.yaml) for the annotated template. The
 editor writes your own to `~/Library/Application Support/app.kaneo.desktop/themes/`,
 with the SVG preview, a contrast verdict per role and an auto-adjust that moves a
 colour as little as it can to pass. Every built-in except Default clears WCAG AA
-on text, icons, focus rings and input borders; the two themes marked in their
+on text, icons, focus rings and input borders; the eight themes marked in their
 files carry one measured exception where the palette cannot satisfy both the
 non-text and text rules at once.
 

@@ -1,0 +1,71 @@
+# Catppuccin Latte — built-in theme
+#
+# Source palette: https://github.com/catppuccin/catppuccin (flavour "latte")
+#   base #eff1f5 · mantle #e6e9ef · crust #dce0e8 · surface0 #ccd0da ·
+#   overlay0-2 #9ca0b0-#7c7f93 · text #4c4f69 · subtext0 #6c6f85 ·
+#   subtext1 #5c5f77 · mauve #8839ef · red #d20f39 · yellow #df8e1d ·
+#   green #40a02b · blue #1e66f5 · peach #fe640b
+#
+# The light flavour of the catppuccin family. Light only: dark mode keeps the
+# instance's own palette.
+
+name: "Catppuccin Latte"
+description: "Catppuccin's light flavour — mauve on latte. Light mode."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#eff1f5" # base, Catppuccin's canvas
+  card: "#f4f6fa" # base, lightened one step
+  popover: "#f8f9fc"
+  sidebar: "#e6e9ef" # mantle
+  muted: "#4c4f6914"
+  accent: "#4c4f6914"
+  secondary: "#4c4f6914"
+  code: "#f4f6fa"
+  code-highlight: "#4c4f691a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#4c4f69" # text, 7.06:1 on the canvas
+  card-foreground: "#4c4f69"
+  popover-foreground: "#4c4f69"
+  muted-foreground: "#5c5f77" # subtext1; subtext0 stops at 4.37:1 on the canvas
+  accent-foreground: "#4c4f69"
+  secondary-foreground: "#4c4f69"
+  code-foreground: "#4c4f69"
+  sidebar-foreground: "#4c4f69" # 6.02:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Mauve, Catppuccin's signature accent; base text on it reads at 4.79:1.
+  primary: "#8839ef" # 4.79:1 as text on the canvas
+  primary-foreground: "#eff1f5" # 4.79:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#4c4f6926" # decorative hairline; not an affordance
+  input: "#7c7f93" # overlay2; 3.49:1 on the canvas
+  ring: "#8839ef" # mauve, 4.79:1 on the canvas
+  sidebar-border: "#4c4f6924"
+  sidebar-ring: "#8839ef" # 4.45:1 on the sidebar
+  sidebar-primary: "#8839ef"
+  sidebar-primary-foreground: "#eff1f5" # 4.79:1 on sidebar-primary
+  sidebar-accent: "#4c4f6914"
+  sidebar-accent-foreground: "#4c4f69"
+
+  # Status ------------------------------------------------------------------
+  # The pastel yellows and greens are too bright to read as icons on these
+  # cream surfaces, so warning and the badge texts are inked darker; red and
+  # blue are the palette's own.
+  destructive: "#d20f39" # white text 5.43:1, icon 5.02:1 on cards
+  destructive-foreground: "#c10e35" # 4.82:1 on its own tint
+  success: "#40a02b" # icon 3.09:1 on cards
+  success-foreground: "#2e721f" # inked; 4.86:1 on its own tint
+  warning: "#c07a19" # yellow, inked; icon 3.21:1 on cards
+  warning-foreground: "#8d5912" # 4.82:1 on its own tint
+  info: "#1e66f5" # icon 4.54:1 on cards
+  info-foreground: "#1a5ad7" # 4.81:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#8839ef"
+  chart-2: "#d20f39"
+  chart-3: "#fe640b"
+  chart-4: "#40a02b"
+  chart-5: "#1e66f5"

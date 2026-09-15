@@ -2,8 +2,8 @@
 #
 # Source palette: https://colorhunt.co/palette/4506938c00ffff3f7fffc400
 #   #450693 canvas · #8c00ff violet · #ff3f7f neon pink · #ffc400 amber
+# Both modes are themed; dark is the mode the palette was drawn for.
 #
-# Dark only: light mode keeps the instance's own palette.
 
 name: "Synthwave"
 description: "Neon violet, pink and amber on deep purple, dark mode."

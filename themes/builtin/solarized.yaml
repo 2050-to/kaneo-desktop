@@ -1,0 +1,135 @@
+# Solarized — built-in theme
+#
+# Source palette: https://ethanschoonover.com/solarized/
+#   base03 #002b36 · base02 #073642 · base01 #586e75 · base00 #657b83 ·
+#   base0 #839496 · base1 #93a1a1 · base2 #eee8d5 · base3 #fdf6e3 ·
+#   yellow #b58900 · orange #cb4b16 · red #dc322f · magenta #d33682 ·
+#   violet #6c71c4 · blue #268bd2 · cyan #2aa198 · green #859900
+#
+# Both modes are themed, from the palette's own dark and light canvases.
+
+name: "Solarized"
+description: "Ethan Schoonover's solarized blues and warm creams, in both modes."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#fdf6e3" # base3, the solarized light canvas
+  card: "#fefbf0" # base3, lightened one step
+  popover: "#fffdf6"
+  sidebar: "#eee8d5" # base2
+  muted: "#07364214"
+  accent: "#07364214"
+  secondary: "#07364214"
+  code: "#fefbf0"
+  code-highlight: "#07364214"
+
+  # Text --------------------------------------------------------------------
+  # base00, the neovim theme's own fg, stops at 4.13:1 here, so the ink is
+  # base00 darkened just past the 7:1 body-text bar.
+  foreground: "#46555b" # 7.18:1 on the canvas, 7.48:1 on cards
+  card-foreground: "#46555b"
+  popover-foreground: "#46555b"
+  muted-foreground: "#586e75" # base01, 4.99:1 on the canvas
+  accent-foreground: "#46555b"
+  secondary-foreground: "#46555b"
+  code-foreground: "#46555b"
+  sidebar-foreground: "#073642" # base02, 10.61:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Blue darkened one step so base3 text on it clears 4.5:1; it stays a 3:1
+  # accent on the canvas either way.
+  primary: "#2076b3" # 4.52:1 as text on the canvas
+  primary-foreground: "#fdf6e3" # 4.52:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#07364226" # decorative hairline; not an affordance
+  input: "#586e75" # base01; 4.99:1 on the canvas
+  ring: "#268bd2" # the palette's blue, 3.41:1 on the canvas
+  sidebar-border: "#07364224"
+  sidebar-ring: "#268bd2" # 3.00:1 on the sidebar
+  sidebar-primary: "#073642"
+  sidebar-primary-foreground: "#fdf6e3" # 11.4:1 on sidebar-primary
+  sidebar-accent: "#07364214"
+  sidebar-accent-foreground: "#46555b"
+
+  # Status ------------------------------------------------------------------
+  # Fills are the palette's own hues; the -foreground roles are inked darker
+  # to hold 4.5:1 on both tint and card.
+  destructive: "#dc322f" # white text 4.63:1, icon 4.46:1 on cards
+  destructive-foreground: "#c22c2a" # 4.73:1 on its own tint
+  success: "#859900" # white text 2.99:1, icon 3.09:1 on cards
+  success-foreground: "#627000" # green, inked; 4.72:1 on its own tint
+  warning: "#b58900" # icon 3.10:1 on cards
+  warning-foreground: "#856400" # 4.71:1 on its own tint
+  info: "#2aa198" # icon 4.12:1 on cards
+  info-foreground: "#1e746e" # 4.75:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#268bd2"
+  chart-2: "#859900"
+  chart-3: "#b58900"
+  chart-4: "#dc322f"
+  chart-5: "#6c71c4"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#002b36" # base03, the solarized dark canvas
+  card: "#073642" # base02, the CursorLine step
+  popover: "#00212b" # between base02 and base03
+  sidebar: "#00212b"
+  muted: "#eee8d514"
+  accent: "#eee8d514"
+  secondary: "#eee8d514"
+  code: "#073642"
+  code-highlight: "#eee8d51a"
+
+  # Text --------------------------------------------------------------------
+  # base1, the neovim theme's own fg, stops at 5.61:1, so base2 carries body
+  # text and base1 stays for the quiet roles.
+  foreground: "#eee8d5" # base2, 12.25:1 on the canvas
+  card-foreground: "#eee8d5"
+  popover-foreground: "#eee8d5"
+  muted-foreground: "#91a0a2" # base0, lightened; 5.54:1 on the canvas
+  accent-foreground: "#eee8d5"
+  secondary-foreground: "#eee8d5"
+  code-foreground: "#eee8d5"
+  sidebar-foreground: "#93a1a1" # base1, 6.27:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Blue lightened one step so base03 text on it clears 4.5:1.
+  primary: "#3694d5" # 4.54:1 as text on the canvas
+  primary-foreground: "#002b36" # 4.54:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#eee8d51f" # decorative hairline; not an affordance
+  input: "#718489" # 3.83:1 on the canvas
+  ring: "#b58900" # the palette's yellow, 4.68:1 on the canvas
+  sidebar-border: "#eee8d524"
+  sidebar-ring: "#b58900" # 5.22:1 on the sidebar
+  sidebar-primary: "#3694d5"
+  sidebar-primary-foreground: "#002b36" # 4.54:1 on sidebar-primary
+  sidebar-accent: "#eee8d514"
+  sidebar-accent-foreground: "#eee8d5"
+
+  # Status ------------------------------------------------------------------
+  # Only `destructive` has to carry white text (Kaneo's delete buttons
+  # hardcode it), and the palette's red does at 4.63:1. On this canvas no
+  # colour can be both a 3:1 icon and dark enough for white text; text wins,
+  # so destructive sits at 2.81:1 as an icon on cards. The other three are
+  # never solid fills, so they stay at their palette values and their
+  # -foreground roles are lightened to hold the tint text.
+  destructive: "#dc322f" # white text 4.63:1, icon on cards 2.81:1
+  destructive-foreground: "#e97f7d" # 4.83:1 on cards
+  success: "#859900" # icon 4.06:1 on cards
+  success-foreground: "#9cac2f" # 4.81:1 on its own tint
+  warning: "#b58900" # icon 4.05:1 on cards
+  warning-foreground: "#c29d2b" # 4.81:1 on its own tint
+  info: "#2aa198" # icon 4.12:1 on cards
+  info-foreground: "#56b5ad" # 4.82:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#b58900"
+  chart-2: "#cb4b16"
+  chart-3: "#dc322f"
+  chart-4: "#6c71c4"
+  chart-5: "#2aa198"

@@ -1,0 +1,126 @@
+# 80s Colors — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/f1dac4a69cac474973161b330d0c1d
+#   #f1dac4 almond cream · #a69cac lilac ash · #474973 dusty grape ·
+#   #161b33 prussian blue · #0d0c1d ink black
+#
+# Light mode builds on almond cream with prussian ink; dark mode sinks the
+# canvas into prussian blue and ink black, with lilac ash for the quiet roles.
+
+name: "80s Colors"
+description: "Almond cream, lilac ash and prussian blue, in both modes."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#f1dac4" # the palette's almond cream, as the canvas
+  card: "#f8e7d3" # almond cream, lightened
+  popover: "#fbf1e2"
+  sidebar: "#a69cac" # the palette's lilac ash
+  muted: "#161b3314"
+  accent: "#161b3314"
+  secondary: "#161b3314"
+  code: "#f8e7d3"
+  code-highlight: "#161b3314"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#0d0c1d" # the palette's ink black, 14.31:1 on the canvas
+  card-foreground: "#0d0c1d"
+  popover-foreground: "#0d0c1d"
+  muted-foreground: "#5d5566" # lilac ash inked towards prussian, 5.26:1
+  accent-foreground: "#0d0c1d"
+  secondary-foreground: "#0d0c1d"
+  code-foreground: "#0d0c1d"
+  sidebar-foreground: "#161b33" # 6.44:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#474973" # the palette's dusty grape
+  primary-foreground: "#f1dac4" # 6.31:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#161b3324" # decorative hairline; not an affordance
+  input: "#7a7487" # 3.33:1 on the canvas, 3.71:1 on cards
+  ring: "#474973" # 6.31:1 on the canvas
+  sidebar-border: "#161b3329"
+  sidebar-ring: "#474973" # 3.23:1 on the sidebar
+  sidebar-primary: "#474973"
+  sidebar-primary-foreground: "#f1dac4" # 6.31:1 on sidebar-primary
+  sidebar-accent: "#161b331f"
+  sidebar-accent-foreground: "#0d0c1d"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
+  # white button text at 4.5:1; the almond canvas pushes the badge text darker
+  # than on a white card.
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#ad1a1a" # 4.83:1 on its own tint
+  success: "#0c875e" # white text 4.52:1
+  success-foreground: "#036449" # 4.85:1 on its own tint
+  warning: "#a56a07" # white text 4.50:1
+  warning-foreground: "#904207" # 4.82:1 on its own tint
+  info: "#3473db" # white text 4.54:1
+  info-foreground: "#1d4ed8" # 4.55:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#474973"
+  chart-2: "#b35b79"
+  chart-3: "#4d699b"
+  chart-4: "#a69cac"
+  chart-5: "#cc6d00"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#161b33" # the palette's prussian blue
+  card: "#1f2545" # prussian blue, lightened
+  popover: "#0d0c1d" # the palette's ink black, as the float surface
+  sidebar: "#0d0c1d"
+  muted: "#f1dac414"
+  accent: "#f1dac414"
+  secondary: "#f1dac414"
+  code: "#1f2545"
+  code-highlight: "#f1dac41a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#f1dac4" # almond cream, 12.57:1 on the canvas
+  card-foreground: "#f1dac4"
+  popover-foreground: "#f1dac4"
+  muted-foreground: "#a69cac" # the palette's lilac ash, 6.44:1 on the canvas
+  accent-foreground: "#f1dac4"
+  secondary-foreground: "#f1dac4"
+  code-foreground: "#f1dac4"
+  sidebar-foreground: "#a69cac" # 7.33:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Lilac ash is the one mid tone the dark palette has; prussian ink on it
+  # reads at 7.33:1 and it stays unmistakable as a filled button.
+  primary: "#a69cac"
+  primary-foreground: "#0d0c1d" # 7.33:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#f1dac41f" # decorative hairline; not an affordance
+  input: "#8a8499" # 4.72:1 on the canvas, 4.15:1 on cards
+  ring: "#f1dac4" # 12.57:1 on the canvas — hard to miss
+  sidebar-border: "#f1dac424"
+  sidebar-ring: "#f1dac4" # 13.49:1 on the sidebar
+  sidebar-primary: "#a69cac"
+  sidebar-primary-foreground: "#0d0c1d" # 7.33:1 on sidebar-primary
+  sidebar-accent: "#f1dac414"
+  sidebar-accent-foreground: "#f1dac4"
+
+  # Status ------------------------------------------------------------------
+  # Fills sit in the narrow band that is both a 3:1 icon on these surfaces and
+  # dark enough for the white text Kaneo's buttons put on them.
+  destructive: "#cc4a4a" # white text 4.52:1, icon 3.30:1 on cards
+  destructive-foreground: "#f87171" # 5.29:1 on its own tint
+  success: "#218661" # white text 4.52:1, icon 3.30:1 on cards
+  success-foreground: "#34d399" # 7.48:1 on its own tint
+  warning: "#947115" # white text 4.53:1, icon 3.29:1 on cards
+  warning-foreground: "#fbbf24" # 8.65:1 on its own tint
+  info: "#4678b6" # white text 4.54:1, icon 3.28:1 on cards
+  info-foreground: "#60a5fa" # 5.58:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#f1dac4"
+  chart-2: "#a69cac"
+  chart-3: "#474973"
+  chart-4: "#8b93c9"
+  chart-5: "#d9a594"

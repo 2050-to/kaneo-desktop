@@ -1,0 +1,129 @@
+# Oldschool — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/fffcf2ccc5b9403d39252422eb5e28
+#   #fffcf2 floral white · #ccc5b9 dust grey · #403d39 charcoal brown ·
+#   #252422 carbon black · #eb5e28 spicy paprika
+#
+# Light mode is the palette itself: cream paper, warm grey and charcoal ink,
+# paprika carrying the brand. Dark mode inks the paper carbon black and lets
+# the same five colours run the show.
+
+name: "Oldschool"
+description: "Cream paper, dust grey and spicy paprika, in both modes."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#fffcf2" # the palette's floral white, as the canvas
+  card: "#ffffff"
+  popover: "#ffffff"
+  sidebar: "#ccc5b9" # the palette's dust grey
+  muted: "#403d3914"
+  accent: "#403d3914"
+  secondary: "#403d3914"
+  code: "#ffffff"
+  code-highlight: "#403d3914"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#252422" # the palette's carbon black, 15.11:1 on the canvas
+  card-foreground: "#252422"
+  popover-foreground: "#252422"
+  muted-foreground: "#6b675f" # dust grey darkened, 5.48:1 on the canvas
+  accent-foreground: "#252422"
+  secondary-foreground: "#252422"
+  code-foreground: "#252422"
+  sidebar-foreground: "#252422" # 9.05:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Paprika cannot carry white text (3.13:1) or carbon-black text at 4.5
+  # without help; at #eb5e28 the palette's own ink just clears 4.5:1, so the
+  # fill stays the palette colour and the ink reads as the button label.
+  primary: "#eb5e28" # spicy paprika; 3.32:1 as text on the canvas
+  primary-foreground: "#252422" # 4.55:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#403d3926" # decorative hairline; not an affordance
+  input: "#8a8378" # 3.65:1 on the canvas, 3.75:1 on cards
+  ring: "#eb5e28" # 3.32:1 on the canvas — the paprika signature
+  sidebar-border: "#403d3929"
+  sidebar-ring: "#b2471e" # paprika darkened; 3.21:1 on the dust grey
+  sidebar-primary: "#403d39" # charcoal-brown active item
+  sidebar-primary-foreground: "#fffcf2" # 10.52:1 on sidebar-primary
+  sidebar-accent: "#403d391f"
+  sidebar-accent-foreground: "#252422"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
+  # white button text at 4.5:1; the -foreground roles are the badge text.
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#b91c1c" # 5.66:1 on its own tint
+  success: "#0c875e" # white text 4.52:1
+  success-foreground: "#047656" # 4.97:1 on its own tint
+  warning: "#a56a07" # white text 4.50:1
+  warning-foreground: "#a94e08" # 4.93:1 on its own tint
+  info: "#3473db" # white text 4.54:1
+  info-foreground: "#1d4ed8" # 5.91:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#eb5e28"
+  chart-2: "#403d39"
+  chart-3: "#ccc5b9"
+  chart-4: "#252422"
+  chart-5: "#a56a07"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#252422" # the palette's carbon black
+  card: "#2e2c29" # charcoal brown, pulled towards the canvas
+  popover: "#1d1c1a"
+  sidebar: "#1b1a18"
+  muted: "#fffcf214"
+  accent: "#fffcf214"
+  secondary: "#fffcf214"
+  code: "#2e2c29"
+  code-highlight: "#fffcf21a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#fffcf2" # floral white, 15.11:1 on the canvas
+  card-foreground: "#fffcf2"
+  popover-foreground: "#fffcf2"
+  muted-foreground: "#ccc5b9" # the palette's dust grey, 9.05:1 on the canvas
+  accent-foreground: "#fffcf2"
+  secondary-foreground: "#fffcf2"
+  code-foreground: "#fffcf2"
+  sidebar-foreground: "#ccc5b9" # 10.15:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Paprika with the palette's own ink for text; the fill is bright enough
+  # that the dark text reads at 4.55:1.
+  primary: "#eb5e28" # 4.55:1 as text on the canvas
+  primary-foreground: "#252422" # 4.55:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#fffcf21f" # decorative hairline; not an affordance
+  input: "#8a8378" # 4.13:1 on the canvas
+  ring: "#eb5e28" # 4.55:1 on the canvas
+  sidebar-border: "#fffcf224"
+  sidebar-ring: "#eb5e28" # 4.24:1 on the sidebar
+  sidebar-primary: "#eb5e28"
+  sidebar-primary-foreground: "#252422" # 4.55:1 on sidebar-primary
+  sidebar-accent: "#fffcf214"
+  sidebar-accent-foreground: "#fffcf2"
+
+  # Status ------------------------------------------------------------------
+  # Fills sit in the narrow band that is both a 3:1 icon on these surfaces and
+  # dark enough for the white text Kaneo's buttons put on them.
+  destructive: "#cc4a4a" # white text 4.52:1, icon 3.08:1 on cards
+  destructive-foreground: "#f87171" # 4.81:1 on its own tint
+  success: "#218661" # white text 4.52:1, icon 3.08:1 on cards
+  success-foreground: "#34d399" # 6.82:1 on its own tint
+  warning: "#947115" # white text 4.53:1, icon 3.07:1 on cards
+  warning-foreground: "#fbbf24" # 7.83:1 on its own tint
+  info: "#4678b6" # white text 4.54:1, icon 3.06:1 on cards
+  info-foreground: "#60a5fa" # 5.11:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#eb5e28"
+  chart-2: "#ccc5b9"
+  chart-3: "#403d39"
+  chart-4: "#fffcf2"
+  chart-5: "#a56a07"

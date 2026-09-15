@@ -1,0 +1,75 @@
+# Kanagawa Lotus — built-in theme
+#
+# Source palette: https://github.com/rebelot/kanagawa.nvim (theme "lotus")
+#   lotusInk2 #43436c ink · lotusGray2 #716e61 · lotusWhite3 #f2ecbc canvas ·
+#   lotusWhite4 #e7dba0 · lotusViolet4 #624c83 · lotusBlue4 #4d699b ·
+#   lotusGreen #6f894e · lotusOrange #cc6d00 · lotusTeal3 #5a7785 ·
+#   lotusRed #c84053 · lotusPink #b35b79
+#
+# The neovim theme's own mapping: Normal sits on lotusWhite3, the lighter
+# cream steps (lotusWhite4/5) are its raised surfaces. Light only: dark mode
+# keeps the instance's own palette.
+
+name: "Kanagawa Lotus"
+description: "Kanagawa's light variant — cream lotus paper and violet ink. Light mode."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#f2ecbc" # lotusWhite3, Kanagawa's Normal background
+  card: "#f8f1cd" # lotusWhite3, lightened one step
+  popover: "#fbf6d8" # lightened further; the lotus float cream is too dark for 7:1 text
+  sidebar: "#e7dba0" # lotusWhite4, the CursorLine/gutter step
+  muted: "#54546414"
+  accent: "#54546414"
+  secondary: "#54546414"
+  code: "#f8f1cd"
+  code-highlight: "#5454641a"
+
+  # Text --------------------------------------------------------------------
+  # lotusInk1 #545464, the neovim theme's own fg, tops out at 6.19:1 here, so
+  # the deeper lotusInk2 (its popup-menu fg) carries body text instead.
+  foreground: "#43436c" # lotusInk2, 7.75:1 on the canvas
+  card-foreground: "#43436c"
+  popover-foreground: "#43436c"
+  muted-foreground: "#68665a" # lotusGray2, inked; 4.81:1 on the canvas
+  accent-foreground: "#43436c"
+  secondary-foreground: "#43436c"
+  code-foreground: "#43436c"
+  sidebar-foreground: "#43436c" # 6.66:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # lotusViolet4 is Kanagawa's keyword colour; lotusWhite3 text on it reads at
+  # 6.07:1 and the violet stays readable as text on the canvas.
+  primary: "#624c83" # 6.07:1 as text on the canvas
+  primary-foreground: "#f2ecbc" # 6.07:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#54546424" # decorative hairline; not an affordance
+  input: "#716e61" # lotusGray2; 4.26:1 on the canvas
+  ring: "#624c83" # 6.07:1 on the canvas
+  sidebar-border: "#54546424"
+  sidebar-ring: "#624c83" # 5.22:1 on the sidebar
+  sidebar-primary: "#624c83"
+  sidebar-primary-foreground: "#f2ecbc" # 6.07:1 on sidebar-primary
+  sidebar-accent: "#54546414"
+  sidebar-accent-foreground: "#43436c"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from the lotus palette so they clear 3:1 as icons on the
+  # cream cards and carry white button text at 4.5:1; the -foreground roles
+  # are the badge text, inked to hold 4.5:1 on both tint and card.
+  destructive: "#c84053" # lotusRed; white text 4.87:1, icon 4.28:1 on cards
+  destructive-foreground: "#a93646" # 4.81:1 on its own tint
+  success: "#6f894e" # lotusGreen, icon 3.44:1 on cards
+  success-foreground: "#53673a" # lotusGreen, inked; 4.80:1 on its own tint
+  warning: "#cc6d00" # lotusOrange, icon 3.21:1 on cards
+  warning-foreground: "#934f00" # 4.81:1 on its own tint
+  info: "#5a7785" # lotusTeal3, icon 4.18:1 on cards
+  info-foreground: "#4b636f" # lotusTeal3, inked; 4.84:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#4d699b"
+  chart-2: "#6f894e"
+  chart-3: "#b35b79"
+  chart-4: "#cc6d00"
+  chart-5: "#624c83"
