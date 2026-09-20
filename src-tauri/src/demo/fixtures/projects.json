@@ -1,0 +1,23 @@
+[
+  {
+    "id": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+    "workspaceId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02",
+    "slug": "WEB",
+    "icon": "Globe",
+    "name": "Website Redesign",
+    "description": "The full revamp: marketing site, pricing, blog and docs.",
+    "createdAt": "2026-09-02T08:00:00.000Z",
+    "isPublic": false,
+    "archivedAt": null,
+    "position": 1000,
+    "lastTaskNumber": 9,
+    "statistics": {
+      "completionPercentage": 22,
+      "totalTasks": 9,
+      "dueDate": "2027-02-28T17:00:00.000Z"
+    },
+    "archivedTasks": [],
+    "plannedTasks": [],
+    "columns": []
+  }
+]

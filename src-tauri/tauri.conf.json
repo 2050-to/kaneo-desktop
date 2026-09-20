@@ -30,6 +30,9 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "resources": {
+      "resources/web-demo.zip": "web-demo.zip"
+    },
     "category": "Productivity",
     "shortDescription": "Desktop client for Kaneo",
     "longDescription": "Native window for your Kaneo instance — Kaneo Cloud or self-hosted.",

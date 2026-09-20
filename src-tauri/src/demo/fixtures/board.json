@@ -1,0 +1,240 @@
+{
+  "data": {
+    "id": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+    "name": "Website Redesign",
+    "slug": "WEB",
+    "icon": "Globe",
+    "description": "The full revamp: marketing site, pricing, blog and docs.",
+    "isPublic": false,
+    "workspaceId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02",
+    "columns": [
+      {
+        "id": "to-do",
+        "slug": "to-do",
+        "name": "To Do",
+        "icon": "Circle",
+        "isFinal": false,
+        "tasks": [
+          {
+            "id": "t4-migrate-blog",
+            "title": "Migrate the blog to the new CMS",
+            "number": 4,
+            "description": "<p>Move the <strong>46 existing posts</strong> into the new CMS, then set up redirects so nothing 404s.</p><ul><li>Preserve URLs — the SEO redirect table is in the audit doc</li><li>Import post images into the new media library</li><li>Spot-check code blocks and embedded media</li></ul>",
+            "status": "to-do",
+            "priority": "medium",
+            "startDate": null,
+            "dueDate": null,
+            "position": 4000,
+            "createdAt": "2026-09-04T10:00:00.000Z",
+            "userId": "b8d4e7c2-9f13-4a86-bd2e-5c7f9a1e3d12",
+            "assigneeName": "Avery Cole",
+            "assigneeId": "b8d4e7c2-9f13-4a86-bd2e-5c7f9a1e3d12",
+            "assigneeImage": null,
+            "projectId": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+            "labels": [
+              { "id": "lbl-content", "name": "Content", "color": "#10b981" }
+            ],
+            "externalLinks": []
+          },
+          {
+            "id": "t5-onboarding-emails",
+            "title": "Write the onboarding email sequence",
+            "number": 5,
+            "description": "<p>Five emails over the first two weeks: welcome, first task, invite a teammate, integrations, check-in.</p>",
+            "status": "to-do",
+            "priority": "no-priority",
+            "startDate": null,
+            "dueDate": null,
+            "position": 5000,
+            "createdAt": "2026-09-05T11:30:00.000Z",
+            "userId": "e4f1a9b8-2c75-4d3e-9a8f-6b1d3e7c5a13",
+            "assigneeName": "Sam Rivera",
+            "assigneeId": "e4f1a9b8-2c75-4d3e-9a8f-6b1d3e7c5a13",
+            "assigneeImage": null,
+            "projectId": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+            "labels": [
+              { "id": "lbl-content", "name": "Content", "color": "#10b981" }
+            ],
+            "externalLinks": []
+          },
+          {
+            "id": "t6-analytics",
+            "title": "Set up web analytics and error tracking",
+            "number": 6,
+            "description": "<p>Wire the analytics events for the funnel (visit, pricing view, sign-up) and confirm error tracking lands in the right project.</p>",
+            "status": "to-do",
+            "priority": "low",
+            "startDate": null,
+            "dueDate": null,
+            "position": 6000,
+            "createdAt": "2026-09-06T09:45:00.000Z",
+            "userId": null,
+            "assigneeName": null,
+            "assigneeId": null,
+            "assigneeImage": null,
+            "projectId": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+            "labels": [],
+            "externalLinks": []
+          },
+          {
+            "id": "t9-pricing-shift",
+            "title": "Fix layout shift on the pricing table",
+            "number": 9,
+            "description": "<p>The pricing table jumps while webfonts load on a slow connection. <strong>Reserve the space</strong> for the toggle row before the scripts hydrate.</p>",
+            "status": "to-do",
+            "priority": "urgent",
+            "startDate": null,
+            "dueDate": "2027-02-28T17:00:00.000Z",
+            "position": 7000,
+            "createdAt": "2026-09-18T14:20:00.000Z",
+            "userId": "b8d4e7c2-9f13-4a86-bd2e-5c7f9a1e3d12",
+            "assigneeName": "Avery Cole",
+            "assigneeId": "b8d4e7c2-9f13-4a86-bd2e-5c7f9a1e3d12",
+            "assigneeImage": null,
+            "projectId": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+            "labels": [{ "id": "lbl-bug", "name": "Bug", "color": "#ef4444" }],
+            "externalLinks": []
+          }
+        ]
+      },
+      {
+        "id": "in-progress",
+        "slug": "in-progress",
+        "name": "In Progress",
+        "icon": "Circle",
+        "isFinal": false,
+        "tasks": [
+          {
+            "id": "t2-pricing-layout",
+            "title": "Rebuild the pricing page layout",
+            "number": 2,
+            "description": "<p>The three-tier grid is in the design file; the enterprise card still needs a decision before it can ship.</p><p>Keep the copy from the doc and hold the <strong>annual toggle</strong> behaviour identical.</p>",
+            "status": "in-progress",
+            "priority": "high",
+            "startDate": "2026-09-08T09:00:00.000Z",
+            "dueDate": "2027-03-19T17:00:00.000Z",
+            "position": 2000,
+            "createdAt": "2026-09-02T12:00:00.000Z",
+            "userId": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+            "assigneeName": "Demo User",
+            "assigneeId": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+            "assigneeImage": null,
+            "projectId": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+            "labels": [
+              { "id": "lbl-design", "name": "Design", "color": "#8b5cf6" }
+            ],
+            "externalLinks": []
+          },
+          {
+            "id": "t3-landing-hero",
+            "title": "Design the new landing hero",
+            "number": 3,
+            "description": "<p>Hero gets the product shot, one sentence of positioning, and a single call to action. No carousel.</p>",
+            "status": "in-progress",
+            "priority": "medium",
+            "startDate": null,
+            "dueDate": "2027-03-12T17:00:00.000Z",
+            "position": 3000,
+            "createdAt": "2026-09-03T15:00:00.000Z",
+            "userId": "b8d4e7c2-9f13-4a86-bd2e-5c7f9a1e3d12",
+            "assigneeName": "Avery Cole",
+            "assigneeId": "b8d4e7c2-9f13-4a86-bd2e-5c7f9a1e3d12",
+            "assigneeImage": null,
+            "projectId": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+            "labels": [
+              { "id": "lbl-design", "name": "Design", "color": "#8b5cf6" }
+            ],
+            "externalLinks": []
+          }
+        ]
+      },
+      {
+        "id": "in-review",
+        "slug": "in-review",
+        "name": "In Review",
+        "icon": "Search",
+        "isFinal": false,
+        "tasks": [
+          {
+            "id": "t7-nav-footer",
+            "title": "Rework the navigation and footer",
+            "number": 7,
+            "description": "<p>Flatten the top navigation to five items, move legal links to the footer, and kill the dropdowns nobody opens.</p>",
+            "status": "in-review",
+            "priority": "high",
+            "startDate": "2026-09-10T09:00:00.000Z",
+            "dueDate": "2027-03-05T17:00:00.000Z",
+            "position": 1000,
+            "createdAt": "2026-09-09T09:00:00.000Z",
+            "userId": "e4f1a9b8-2c75-4d3e-9a8f-6b1d3e7c5a13",
+            "assigneeName": "Sam Rivera",
+            "assigneeId": "e4f1a9b8-2c75-4d3e-9a8f-6b1d3e7c5a13",
+            "assigneeImage": null,
+            "projectId": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+            "labels": [
+              { "id": "lbl-design", "name": "Design", "color": "#8b5cf6" }
+            ],
+            "externalLinks": []
+          }
+        ]
+      },
+      {
+        "id": "done",
+        "slug": "done",
+        "name": "Done",
+        "icon": "CheckCircle2",
+        "isFinal": true,
+        "tasks": [
+          {
+            "id": "t8-palette",
+            "title": "Pick the new colour palette and typography",
+            "number": 8,
+            "description": "<p>Locked: warm neutrals with one accent, Geist for UI text.</p>",
+            "status": "done",
+            "priority": "low",
+            "startDate": null,
+            "dueDate": null,
+            "position": 1000,
+            "createdAt": "2026-09-07T10:00:00.000Z",
+            "userId": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+            "assigneeName": "Demo User",
+            "assigneeId": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+            "assigneeImage": null,
+            "projectId": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+            "labels": [
+              { "id": "lbl-design", "name": "Design", "color": "#8b5cf6" }
+            ],
+            "externalLinks": []
+          },
+          {
+            "id": "t1-audit",
+            "title": "Audit the current site and collect analytics",
+            "number": 1,
+            "description": "<p>Collected a year of analytics before touching anything: bounce rate 61% on pricing, scroll depth 34%, checkout drop-off after the second step.</p>",
+            "status": "done",
+            "priority": "no-priority",
+            "startDate": null,
+            "dueDate": null,
+            "position": 2000,
+            "createdAt": "2026-09-02T09:00:00.000Z",
+            "userId": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+            "assigneeName": "Demo User",
+            "assigneeId": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+            "assigneeImage": null,
+            "projectId": "7d3b2c81-5e94-4f7a-b1c8-9d2e4f6a8b14",
+            "labels": [],
+            "externalLinks": []
+          }
+        ]
+      }
+    ],
+    "archivedTasks": [],
+    "plannedTasks": []
+  },
+  "pagination": {
+    "total": 9,
+    "page": 1,
+    "pageSize": 9,
+    "totalPages": 1
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "lbl-design",
+    "name": "Design",
+    "color": "#8b5cf6",
+    "createdAt": "2026-09-02T08:05:00.000Z",
+    "updatedAt": "2026-09-02T08:05:00.000Z",
+    "taskId": null,
+    "workspaceId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02"
+  },
+  {
+    "id": "lbl-bug",
+    "name": "Bug",
+    "color": "#ef4444",
+    "createdAt": "2026-09-02T08:06:00.000Z",
+    "updatedAt": "2026-09-02T08:06:00.000Z",
+    "taskId": null,
+    "workspaceId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02"
+  },
+  {
+    "id": "lbl-content",
+    "name": "Content",
+    "color": "#10b981",
+    "createdAt": "2026-09-02T08:07:00.000Z",
+    "updatedAt": "2026-09-02T08:07:00.000Z",
+    "taskId": null,
+    "workspaceId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02"
+  }
+]

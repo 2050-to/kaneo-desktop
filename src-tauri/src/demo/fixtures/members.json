@@ -1,0 +1,46 @@
+{
+  "members": [
+    {
+      "id": "m1-c3a9f2e1",
+      "organizationId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02",
+      "userId": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+      "role": "owner",
+      "createdAt": "2026-09-01T09:00:00.000Z",
+      "user": {
+        "id": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+        "name": "Demo User",
+        "email": "demo@kaneo.desktop",
+        "image": null
+      }
+    },
+    {
+      "id": "m2-b8d4e7c2",
+      "organizationId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02",
+      "userId": "b8d4e7c2-9f13-4a86-bd2e-5c7f9a1e3d12",
+      "role": "admin",
+      "createdAt": "2026-09-01T09:05:00.000Z",
+      "user": {
+        "id": "b8d4e7c2-9f13-4a86-bd2e-5c7f9a1e3d12",
+        "name": "Avery Cole",
+        "email": "avery@example.com",
+        "image": null
+      }
+    },
+    {
+      "id": "m3-e4f1a9b8",
+      "organizationId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02",
+      "userId": "e4f1a9b8-2c75-4d3e-9a8f-6b1d3e7c5a13",
+      "role": "member",
+      "createdAt": "2026-09-02T10:15:00.000Z",
+      "user": {
+        "id": "e4f1a9b8-2c75-4d3e-9a8f-6b1d3e7c5a13",
+        "name": "Sam Rivera",
+        "email": "sam@example.com",
+        "image": null
+      }
+    }
+  ],
+  "total": 3,
+  "limit": 100,
+  "offset": 0
+}

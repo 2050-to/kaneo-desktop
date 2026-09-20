@@ -54,10 +54,10 @@ dark:
 
   # Status ------------------------------------------------------------------
   # Only `destructive` has to carry white text (Kaneo's delete buttons hardcode
-  # it), so it is autumnRed, darkened out of Kanagawa's brighter reds. On this
-  # canvas no colour can be both a 3:1 icon and dark enough for white text;
-  # text wins, so destructive sits at 2.78:1 as an icon on cards.
-  destructive: "#C34043" # autumnRed; white text 5.08:1, icon on cards 2.78:1
+  # it), so it is autumnRed, nudged 5% towards white — the one red that is both
+  # a 3:1 icon on sumiInk4 cards and dark enough for the white text to clear
+  # 4.5:1.
+  destructive: "#c64a4c" # autumnRed +5% white; white text 4.68:1, icon on cards 3.02:1
   destructive-foreground: "#FF5D62" # peachRed, 4.71:1 on cards
   success: "#98BB6C" # springGreen, icon 6.51:1 on cards
   success-foreground: "#98BB6C" # 5.52:1 on its own tint

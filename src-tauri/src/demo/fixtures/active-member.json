@@ -1,0 +1,13 @@
+{
+  "id": "m1-c3a9f2e1",
+  "organizationId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02",
+  "userId": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+  "role": "owner",
+  "createdAt": "2026-09-01T09:00:00.000Z",
+  "user": {
+    "id": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+    "name": "Demo User",
+    "email": "demo@kaneo.desktop",
+    "image": null
+  }
+}

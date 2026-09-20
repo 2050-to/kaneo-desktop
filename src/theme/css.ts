@@ -34,28 +34,3 @@ export function themeStylesheet(doc: ThemeDoc): string {
     "\n\n",
   );
 }
-
-/**
- * The stylesheet the launcher itself wears, so the welcome screen reflects the
- * theme in use. One mode is chosen: a theme's dark palette when it has one
- * (matching the shell's default look), otherwise its light palette.
- *
- * `:root:root` outranks the shell's own defaults regardless of injection order.
- */
-export function shellStylesheet(doc: ThemeDoc): string {
-  const mode: Mode = doc.modes.dark ? "dark" : "light";
-  const colors = doc.modes[mode];
-  if (!colors) return "";
-
-  const declarations = ROLES.filter((role) => colors[role.key])
-    .map((role) => `  --${role.key}: ${colors[role.key]};`)
-    .join("\n");
-
-  return [
-    `/* ${doc.name} — shell */`,
-    ":root:root {",
-    `  color-scheme: ${mode};`,
-    declarations,
-    "}",
-  ].join("\n");
-}

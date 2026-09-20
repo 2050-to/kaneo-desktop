@@ -23,6 +23,15 @@
           </p>
       </header>
 
+      <section class="panel" aria-labelledby="instances-heading">
+        <h2 class="panel__heading" id="instances-heading">Your instances</h2>
+        <p class="panel__hint">
+          The instance with the outlined card opens on start. Turn that on or
+          off with <strong>Launch on start</strong>.
+        </p>
+        <ul class="instances" id="instance-list"></ul>
+      </section>
+
       <section class="panel" aria-labelledby="add-heading">
         <h2 class="panel__heading" id="add-heading">Add an instance</h2>
 
@@ -67,15 +76,6 @@
         </form>
 
         <p class="status" id="status" role="status" aria-live="polite"></p>
-      </section>
-
-      <section class="panel" aria-labelledby="instances-heading">
-        <h2 class="panel__heading" id="instances-heading">Your instances</h2>
-        <p class="panel__hint">
-          Turn on <strong>Launch on start</strong> to open straight into that
-          instance, without the launcher in the way.
-        </p>
-        <ul class="instances" id="instance-list"></ul>
       </section>
     </main>
   </body>

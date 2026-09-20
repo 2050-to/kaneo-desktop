@@ -1,0 +1,17 @@
+{
+  "disableRegistration": true,
+  "disablePasswordRegistration": false,
+  "disableEmailOtpSignIn": true,
+  "disableWorkspaceCreation": false,
+  "isDemoMode": false,
+  "hasSmtp": true,
+  "hasGithubSignIn": false,
+  "hasGoogleSignIn": false,
+  "hasDiscordSignIn": false,
+  "hasCustomOAuth": false,
+  "hasGuestAccess": false,
+  "disableLoginForm": false,
+  "customOAuthAutoLogin": false,
+  "customOAuthLogoutUrl": null,
+  "billingEnabled": false
+}

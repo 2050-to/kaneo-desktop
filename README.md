@@ -128,8 +128,9 @@ open:
 
 - **Launcher → Hide Launcher** (⌘⇧H) hides the window; the app and your instance
   windows keep running.
-- **Launcher → Show Launcher** (⌘⇧L) brings it back, and so does clicking the
-  Dock icon.
+- **Launcher → Show Launcher** (⌘⇧L) brings it back. Clicking the Dock icon
+  raises the workspace you were in; the launcher only comes back that way when
+  no instance window is open.
 - Closing the window hides it rather than quitting, so it can always be recalled.
   **Quit** (⌘Q) exits for real.
 - Opening an instance hides the launcher for you, so the instance window gets the
@@ -138,16 +139,33 @@ open:
 Each instance card has a **Launch on start** toggle. With it on, the app skips
 the launcher entirely on the next start and opens straight into that instance;
 turning it off (or removing the instance) brings the launcher back at startup.
+The marked card shows it at a glance — an outlined border in the theme colour
+and an "Opens on start" chip.
+
+### The built-in demo
+
+The launcher always shows a **Demo — Example Workspace** card above your saved
+instances. It runs a fake Kaneo server inside the app (on `127.0.0.1:41337`,
+started only when you open the demo) that serves a bundled copy of Kaneo's web
+app with a canned example workspace: the "Website Redesign" board, nine tasks,
+labels, comments and activity. It works offline, with no account and no
+server; sign in with `demo@kaneo.desktop` / `demo-password` (the card shows
+them, and the sign-in form arrives pre-filled).
+
+It is a real Kaneo experience — drag cards between columns, edit tasks, post
+comments, add labels — held in memory until the app exits, then reset. Nothing
+syncs anywhere. The web payload ships as a compressed resource (4.6 MB) and
+unpacks per request, so it costs nothing until the demo window is open.
 
 ### Switching themes from the menu bar
 
 The menu bar is the short path: **Themes** lists every theme with a tick on the
-one in use, and **Themes → Theme Editor…** (⌘,) opens the editor. Picking a theme
-restyles every open instance window straight away and survives a restart, whether
-the launcher is open or not.
+one in use. Picking a theme restyles every open instance window straight away
+and survives a restart, whether the launcher is open or not.
 
-The launcher itself keeps the stock palette whatever is applied: the theme is for
-the instances, and a fixed look here is what makes the app recognisable.
+The launcher itself always wears Catppuccin — Latte in light system appearance,
+Frappe in dark — whatever is applied: the theme is for the instances, and a
+fixed look here is what makes the app recognisable.
 
 ### Optional: stable signing identity
 
@@ -201,7 +219,7 @@ rm -rf "$HOME/Library/Caches/app.kaneo.desktop"
 ## Themes
 
 Kaneo Desktop restyles the instance's own interface — it does not reimplement it —
-so a theme changes the app you already know. Twenty-three themes ship with it,
+so a theme changes the app you already know. Twenty-five themes ship with it,
 and each covers the mode or modes it defines: most carry **both** light and
 dark, so switching Kaneo between appearances keeps the theme either way, while
 a single-mode theme (Kanagawa Wave/Dragon, Kanagawa Lotus, Catppuccin
@@ -210,12 +228,10 @@ palette. The launcher window keeps its own fixed palette.
 
 <img src="assets/theme-previews/grey-light.png" width="420" alt="Grey, light mode">
 
-The previews below are the mockup the editor shows while you tweak a theme. The
-editor is a window of its own: **Themes → Theme Editor…** (⌘,) opens it, and
-**← Launcher** in its top-left corner takes you back. Switching themes does not
-need it — **Themes** in the menu bar lists every theme and applies one on the
-spot. That list is built when the app starts, so a theme you save in the editor
-joins it on the next launch.
+The previews below are mockups of a Kaneo window wearing each theme. Switching
+themes needs no tooling — **Themes** in the menu bar lists every theme and
+applies one on the spot. That list is built when the app starts, so a theme you
+add on disk joins it on the next launch.
 
 | theme | light | dark |
 | --- | --- | --- |
@@ -239,19 +255,39 @@ joins it on the next launch.
 | **Catppuccin Frappe**<br>Catppuccin's lightest dark flavour — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/catppuccin-frappe-dark.png" width="380" alt="Catppuccin Frappe dark"> |
 | **Catppuccin Macchiato**<br>Catppuccin's mid flavour — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/catppuccin-macchiato-dark.png" width="380" alt="Catppuccin Macchiato dark"> |
 | **Catppuccin Mocha**<br>Catppuccin's deepest flavour — dark theme | dark theme — light mode keeps the instance's palette | <img src="assets/theme-previews/catppuccin-mocha-dark.png" width="380" alt="Catppuccin Mocha dark"> |
-
 | **Winter Metallic**<br>steel blue, blue grey and warm sand | <img src="assets/theme-previews/winter-metallic-light.png" width="380" alt="Winter Metallic light"> | <img src="assets/theme-previews/winter-metallic-dark.png" width="380" alt="Winter Metallic dark"> |
 | **Midnight Snow**<br>cornflower, lavender and cream snow | <img src="assets/theme-previews/midnight-snow-light.png" width="380" alt="Midnight Snow light"> | <img src="assets/theme-previews/midnight-snow-dark.png" width="380" alt="Midnight Snow dark"> |
 | **Vermillion Daydream**<br>vermillion, raspberry and wine over ink navy | <img src="assets/theme-previews/vermillion-daydream-light.png" width="380" alt="Vermillion Daydream light"> | <img src="assets/theme-previews/vermillion-daydream-dark.png" width="380" alt="Vermillion Daydream dark"> |
+| **Crimson Dusk**<br>deep wine, rust and cream — an ember-lit dusk | <img src="assets/theme-previews/crimson-dusk-light.png" width="380" alt="Crimson Dusk light"> | <img src="assets/theme-previews/crimson-dusk-dark.png" width="380" alt="Crimson Dusk dark"> |
+| **Smooth Moving Steel**<br>steel blue over warm cream and grey | <img src="assets/theme-previews/smooth-moving-steel-light.png" width="380" alt="Smooth Moving Steel light"> | <img src="assets/theme-previews/smooth-moving-steel-dark.png" width="380" alt="Smooth Moving Steel dark"> |
 
-Themes are plain YAML files listing 41 colour roles — see
-[`themes/template.yaml`](themes/template.yaml) for the annotated template. The
-editor writes your own to `~/Library/Application Support/app.kaneo.desktop/themes/`,
-with the SVG preview, a contrast verdict per role and an auto-adjust that moves a
-colour as little as it can to pass. Every built-in except Default clears WCAG AA
-on text, icons, focus rings and input borders; the nine themes marked in their
-files carry one measured exception where the palette cannot satisfy both the
-non-text and text rules at once.
+### Making your own theme
+
+Themes are plain YAML files listing the 41 colour roles Kaneo's stylesheet
+defines — see [`themes/template.yaml`](themes/template.yaml) for the annotated
+template. There is no editor any more; a theme is a text file you put on disk:
+
+1. Copy `themes/template.yaml` to
+   `~/Library/Application Support/app.kaneo.desktop/themes/my-theme.yaml`
+   (create the `themes/` folder if it is not there).
+2. Edit the values. The filename becomes the theme id (`my-theme.yaml` →
+   `my-theme`) and its id is what the menu shows (hyphens read as spaces).
+   Every CSS colour syntax works: `#rrggbb`, `#rrggbbaa`, `rgb()`, `oklch()`.
+   Leave a role out and the instance keeps its own value for it.
+3. Restart the app — the Themes menu is built at launch — and pick your theme.
+
+Both `light:` and `dark:` sections are worth filling in: Kaneo switches between
+appearances, and a mode you leave out keeps the instance's own palette in that
+mode. The built-ins are worked examples — each file carries a comment block
+explaining its mapping decisions, and the theme engine's rules live in
+`src/theme/roles.ts` (body text at 7:1, buttons and badges at 4.5:1, icons and
+focus rings at 3:1, exactly as WCAG AA measures them).
+
+### Contrast
+
+Every built-in except Default clears WCAG AA on text, icons, focus rings and
+input borders; the themes marked in their files carry one measured exception
+where the palette cannot satisfy both the non-text and text rules at once.
 
 ## License
 

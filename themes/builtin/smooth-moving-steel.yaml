@@ -1,0 +1,133 @@
+# Smooth Moving Steel — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/55587998a1bcded3c4f4ebd3
+#   #555879 steel · #98a1bc light steel · #ded3c4 warm grey · #f4ebd3 cream
+#
+# A soft palette in both directions. Light is the palette's own reading: cream
+# canvas, warm-grey sidebar, steel for every emphasis. Dark sinks the steel
+# into a deep blue-slate so the cream keeps its softness instead of glaring.
+
+name: "Smooth Moving Steel"
+description: "Steel blue over warm cream and grey, in both modes."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#f4ebd3" # the palette's cream
+  card: "#faf5e6" # cream, lifted one step
+  popover: "#fbf7ea"
+  sidebar: "#ded3c4" # the palette's warm grey
+  muted: "#55587912"
+  accent: "#55587912"
+  secondary: "#55587912"
+  code: "#faf5e6"
+  code-highlight: "#55587914"
+
+  # Text --------------------------------------------------------------------
+  # The palette's steel tops out at 5.78:1 on the cream, so body text is the
+  # same steel sunk two steps; the palette colour stays the brand.
+  foreground: "#3c4054" # 8.61:1 on the canvas
+  card-foreground: "#3c4054"
+  popover-foreground: "#3c4054"
+  muted-foreground: "#55596f" # steel, inked; 5.80:1 on the canvas, 4.67:1 on the sidebar
+  accent-foreground: "#3c4054"
+  secondary-foreground: "#3c4054"
+  code-foreground: "#3c4054"
+  sidebar-foreground: "#3c4054" # 6.93:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  primary: "#555879" # the palette's steel; white button text 6.87:1, 5.78:1 as text
+  primary-foreground: "#ffffff" # 6.87:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#5558791f" # decorative hairline; not an affordance
+  input: "#7e8195" # 3.24:1 on the canvas, 3.53:1 on cards
+  ring: "#555879" # 5.78:1 on the canvas
+  sidebar-border: "#55587924"
+  sidebar-ring: "#555879" # 5.78:1 on the sidebar
+  sidebar-primary: "#555879"
+  sidebar-primary-foreground: "#ffffff" # 6.87:1 on sidebar-primary
+  sidebar-accent: "#55587914"
+  sidebar-accent-foreground: "#3c4054"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
+  # white button text at 4.5:1; badge texts darkened for the 8% tints over a
+  # cream canvas.
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#a51f1f"
+  success: "#0c875e" # white text 4.52:1
+  success-foreground: "#086342"
+  warning: "#a56a07" # white text 4.50:1
+  warning-foreground: "#7d4005"
+  info: "#3473db" # white text 4.54:1
+  info-foreground: "#1a45c0"
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#555879"
+  chart-2: "#98a1bc"
+  chart-3: "#a56a07"
+  chart-4: "#0c875e"
+  chart-5: "#8a6a52"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  # The steel itself (#555879) cannot host 7:1 body text in dark mode — its
+  # ceiling is 6.87:1 — so the surfaces sink below it and keep the hue.
+  background: "#383b4f" # deep steel
+  card: "#414459" # steel, lifted one step
+  popover: "#474a60" # dialogs sit above the cards
+  sidebar: "#2e3142" # steel, sunk one step
+  muted: "#f4ebd314"
+  accent: "#f4ebd314"
+  secondary: "#f4ebd314"
+  code: "#414459"
+  code-highlight: "#f4ebd31a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#f4ebd3" # the palette's cream, 9.27:1 on the canvas
+  card-foreground: "#f4ebd3"
+  popover-foreground: "#f4ebd3"
+  muted-foreground: "#aeb6ca" # light steel, cooled; 5.43:1 on the canvas, 4.71:1 on cards, 6.33:1 on the sidebar
+  accent-foreground: "#f4ebd3"
+  secondary-foreground: "#f4ebd3"
+  code-foreground: "#f4ebd3"
+  sidebar-foreground: "#f4ebd3" # 10.81:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # The palette's light steel: as a fill it takes deep ink instead of white
+  # (white would fail 4.5:1), and as text on the canvas it clears 3:1.
+  primary: "#98a1bc" # 4.28:1 as text on the canvas
+  primary-foreground: "#2e3142" # 4.99:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#f4ebd31f" # decorative hairline; not an affordance
+  input: "#9ba0b4" # 3.68:1 on cards, brighter than the surfaces so inputs read
+  ring: "#c3c9d9" # light steel, lifted; 6.65:1 on the canvas
+  sidebar-border: "#f4ebd324"
+  sidebar-ring: "#98a1bc" # 4.28:1 on the sidebar
+  sidebar-primary: "#98a1bc"
+  sidebar-primary-foreground: "#2e3142" # 4.99:1 on sidebar-primary
+  sidebar-accent: "#f4ebd314"
+  sidebar-accent-foreground: "#f4ebd3"
+
+  # Status ------------------------------------------------------------------
+  # Destructive sits in the narrow band that carries the white text Kaneo's
+  # delete buttons hardcode; on this card no colour can be both a 3:1 icon
+  # and dark enough for white text, so it sits at 2.12:1 as an icon. The
+  # other three are brightened pastels — they never carry white, so they
+  # clear 3:1 as icons and keep readable badge text.
+  destructive: "#cc4a4a" # white text 4.52:1, icon on cards 2.12:1
+  destructive-foreground: "#ff9d9d"
+  success: "#3fae74" # icon 3.42:1 on cards
+  success-foreground: "#8bd9ac"
+  warning: "#e3a13c" # icon 4.29:1 on cards
+  warning-foreground: "#f5ca8d"
+  info: "#7fb0e8" # icon 4.23:1 on cards
+  info-foreground: "#b4d3f2"
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#98a1bc"
+  chart-2: "#f4ebd3"
+  chart-3: "#8a90ad"
+  chart-4: "#e3a13c"
+  chart-5: "#cc4a4a"

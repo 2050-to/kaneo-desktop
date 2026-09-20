@@ -88,9 +88,15 @@ const BUILTIN_THEMES: &[(&str, &str)] = &[
         "vermillion-daydream",
         include_str!("../../themes/builtin/vermillion-daydream.yaml"),
     ),
+    (
+        "crimson-dusk",
+        include_str!("../../themes/builtin/crimson-dusk.yaml"),
+    ),
+    (
+        "smooth-moving-steel",
+        include_str!("../../themes/builtin/smooth-moving-steel.yaml"),
+    ),
 ];
-
-const MAX_ID_LENGTH: usize = 64;
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -119,8 +125,8 @@ pub fn builtin_themes() -> Vec<ThemeSource> {
         .collect()
 }
 
-/// Built-ins first, then whatever the editor has saved — the order both the
-/// Themes menu and the picker show them in.
+/// Built-ins first, then whatever the user has dropped into the themes
+/// directory — the order both the Themes menu and the launcher apply in.
 pub fn all_themes(config_dir: &Path) -> Vec<ThemeSource> {
     let mut themes = builtin_themes();
     themes.extend(user_themes(&user_themes_dir(config_dir)));
@@ -128,7 +134,9 @@ pub fn all_themes(config_dir: &Path) -> Vec<ThemeSource> {
 }
 
 /// User themes on disk, cheapest first: a directory that cannot be read simply
-/// yields no themes instead of failing the picker.
+/// yields no themes instead of failing the picker. Filenames become ids
+/// verbatim; a file named like a built-in is ignored, so the built-in always
+/// wins and the menu never shows two ticks for one id.
 pub fn user_themes(directory: &Path) -> Vec<ThemeSource> {
     let Ok(entries) = fs::read_dir(directory) else {
         return Vec::new();
@@ -140,6 +148,11 @@ pub fn user_themes(directory: &Path) -> Vec<ThemeSource> {
         .filter_map(|entry| {
             let path = entry.path();
             let id = path.file_stem()?.to_str()?.to_string();
+
+            if BUILTIN_THEMES.iter().any(|(builtin, _)| *builtin == id) {
+                return None;
+            }
+
             let contents = fs::read_to_string(&path).ok()?;
 
             Some(ThemeSource {
@@ -153,65 +166,6 @@ pub fn user_themes(directory: &Path) -> Vec<ThemeSource> {
 
     themes.sort_by(|a, b| a.id.cmp(&b.id));
     themes
-}
-
-/// Filenames become ids verbatim, so anything that is not a plain slug is
-/// rejected rather than sanitised into a surprising file name.
-fn valid_id(id: &str) -> Result<(), String> {
-    let slug = !id.is_empty()
-        && id.len() <= MAX_ID_LENGTH
-        && id
-            .chars()
-            .all(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || c == '-')
-        && id.starts_with(|c: char| c.is_ascii_lowercase() || c.is_ascii_digit())
-        && !id.ends_with('-');
-
-    if slug {
-        return Ok(());
-    }
-
-    Err(
-        "Theme ids must be lowercase letters, digits and dashes (not starting or ending with a dash)."
-            .to_string(),
-    )
-}
-
-pub fn save_user_theme(directory: &Path, id: &str, contents: &str) -> Result<PathBuf, String> {
-    valid_id(id)?;
-
-    if BUILTIN_THEMES.iter().any(|(builtin, _)| *builtin == id) {
-        return Err(format!(
-            "\"{id}\" is a built-in theme. Save yours under a different name."
-        ));
-    }
-
-    if contents.trim().is_empty() {
-        return Err("Refusing to save an empty theme.".to_string());
-    }
-
-    fs::create_dir_all(directory)
-        .map_err(|error| format!("Could not create {}: {error}", directory.display()))?;
-
-    let path = directory.join(format!("{id}.yaml"));
-    let temporary = directory.join(format!("{id}.yaml.tmp"));
-
-    fs::write(&temporary, contents)
-        .map_err(|error| format!("Could not write {}: {error}", temporary.display()))?;
-    fs::rename(&temporary, &path)
-        .map_err(|error| format!("Could not update {}: {error}", path.display()))?;
-
-    Ok(path)
-}
-
-pub fn delete_user_theme(directory: &Path, id: &str) -> Result<(), String> {
-    valid_id(id)?;
-
-    let path = directory.join(format!("{id}.yaml"));
-    if !path.exists() {
-        return Err(format!("No saved theme called \"{id}\"."));
-    }
-
-    fs::remove_file(&path).map_err(|error| format!("Could not delete {}: {error}", path.display()))
 }
 
 /// The theme currently applied to instance windows, persisted so a restart
@@ -319,7 +273,9 @@ mod tests {
     #[test]
     fn lists_built_ins_before_saved_themes() {
         let directory = tempfile::tempdir().unwrap();
-        save_user_theme(&user_themes_dir(directory.path()), "my-theme", "name: x\n").unwrap();
+        let themes_dir = user_themes_dir(directory.path());
+        fs::create_dir_all(&themes_dir).unwrap();
+        fs::write(themes_dir.join("my-theme.yaml"), "name: x\n").unwrap();
 
         let themes = all_themes(directory.path());
 
@@ -328,21 +284,22 @@ mod tests {
             themes
                 .iter()
                 .position(|theme| theme.id == "my-theme")
-                .expect("the saved theme should be listed"),
+                .expect("the dropped theme should be listed"),
             BUILTIN_THEMES.len(),
         );
     }
 
     #[test]
-    fn saves_reads_and_deletes_user_themes() {
+    fn reads_user_themes_from_disk() {
         let directory = tempfile::tempdir().unwrap();
         let themes_dir = user_themes_dir(directory.path());
 
         assert!(user_themes(&themes_dir).is_empty());
 
-        let path = save_user_theme(&themes_dir, "my-theme", "name: \"My Theme\"\n").unwrap();
-        assert!(path.exists());
-        assert!(!themes_dir.join("my-theme.yaml.tmp").exists());
+        fs::create_dir_all(&themes_dir).unwrap();
+        fs::write(themes_dir.join("my-theme.yaml"), "name: \"My Theme\"\n").unwrap();
+        // A file without a readable stem or contents is skipped, not a failure.
+        fs::write(themes_dir.join("ignored.txt"), "not a theme").unwrap();
 
         let listed = user_themes(&themes_dir);
         assert_eq!(listed.len(), 1);
@@ -351,46 +308,32 @@ mod tests {
         assert_eq!(listed[0].contents, "name: \"My Theme\"\n");
         assert_eq!(
             listed[0].path.as_deref(),
-            Some(path.to_string_lossy().as_ref())
+            Some(themes_dir.join("my-theme.yaml").to_string_lossy().as_ref())
         );
-
-        delete_user_theme(&themes_dir, "my-theme").unwrap();
-        assert!(user_themes(&themes_dir).is_empty());
-        assert!(delete_user_theme(&themes_dir, "my-theme").is_err());
     }
 
     #[test]
-    fn refuses_ids_that_are_not_slugs() {
+    fn ignores_a_user_file_shadowing_a_builtin() {
         let directory = tempfile::tempdir().unwrap();
         let themes_dir = user_themes_dir(directory.path());
+        fs::create_dir_all(&themes_dir).unwrap();
+        fs::write(themes_dir.join("default.yaml"), "name: \"Fake Default\"\n").unwrap();
 
-        for id in [
-            "",
-            "My Theme",
-            "../escape",
-            "nested/theme",
-            "-leading",
-            "trailing-",
-            "UPPER",
-            &"a".repeat(MAX_ID_LENGTH + 1),
-        ] {
-            assert!(
-                save_user_theme(&themes_dir, id, "name: x\n").is_err(),
-                "expected {id:?} to be rejected"
-            );
-        }
+        let themes = all_themes(directory.path());
 
-        assert!(!themes_dir.exists(), "nothing should have been written");
-    }
-
-    #[test]
-    fn refuses_to_shadow_a_builtin() {
-        let directory = tempfile::tempdir().unwrap();
-
-        let error = save_user_theme(&user_themes_dir(directory.path()), "default", "name: x\n")
-            .unwrap_err();
-
-        assert!(error.contains("built-in"), "unexpected error: {error}");
+        assert_eq!(
+            themes.iter().filter(|theme| theme.id == "default").count(),
+            1,
+            "the built-in must win"
+        );
+        assert_eq!(
+            themes
+                .iter()
+                .find(|theme| theme.id == "default")
+                .expect("the built-in should be listed")
+                .source,
+            "builtin",
+        );
     }
 
     #[test]
@@ -446,12 +389,5 @@ mod tests {
         let clearer = clear_script();
         assert!(clearer.contains(STYLE_ELEMENT_ID));
         assert!(clearer.contains("remove()"));
-    }
-
-    #[test]
-    fn refuses_empty_contents() {
-        let directory = tempfile::tempdir().unwrap();
-
-        assert!(save_user_theme(&user_themes_dir(directory.path()), "empty", "   \n").is_err());
     }
 }

@@ -17,6 +17,15 @@ import { clearThemeFromWindows } from "./theme/yaml";
 
 const CLOUD_URL = "https://cloud.kaneo.app";
 
+/** The built-in demo runs a fake Kaneo server inside the app, offline. */
+const DEMO_INSTANCE: Instance = {
+  id: "5dd2f7a9-3c1e-4f2b-9a0d-8e6c4b2a1d03",
+  name: "Demo — Example Workspace",
+  url: "http://127.0.0.1:41337",
+};
+const DEMO_EMAIL = "demo@kaneo.desktop";
+const DEMO_PASSWORD = "demo-password";
+
 let defaultId: string | null = null;
 
 const list = requireElement<HTMLUListElement>("#instance-list");
@@ -79,22 +88,28 @@ function instanceCard(instance: Instance): HTMLLIElement {
   const item = createElement("li", "instance");
   const info = createElement("div", "instance__info");
 
+  const isDefault = defaultId === instance.id;
+  if (isDefault) {
+    // The card itself carries the launch-on-start mark: an outlined border and
+    // a chip, so the mark survives a scan of the list without reading buttons.
+    item.classList.add("is-default");
+  }
+
   info.append(
     createElement("span", "instance__name", instance.name),
     createElement("span", "instance__url", instance.url),
   );
+
+  if (isDefault) {
+    info.append(createElement("span", "instance__flag", "Opens on start"));
+  }
 
   const probe = probes.get(instance.id);
   if (probe) {
     info.append(createElement("span", "instance__meta", describeProbe(probe)));
   }
 
-  const isDefault = defaultId === instance.id;
-  const launchOnStart = createElement(
-    "button",
-    `button${isDefault ? " is-default" : ""}`,
-    "Launch on start",
-  );
+  const launchOnStart = createElement("button", "button", "Launch on start");
   launchOnStart.type = "button";
   launchOnStart.setAttribute("aria-pressed", String(isDefault));
   launchOnStart.title = isDefault
@@ -128,18 +143,49 @@ function instanceCard(instance: Instance): HTMLLIElement {
 }
 
 function render(): void {
-  if (instances.length === 0) {
-    list.replaceChildren(
-      createElement(
-        "li",
-        "empty",
-        "No instances yet. Add Kaneo Cloud, or paste the URL of your own server.",
-      ),
-    );
-    return;
-  }
+  const cards = [demoCard(), ...instances.map(instanceCard)];
+  list.replaceChildren(...cards);
+}
 
-  list.replaceChildren(...instances.map(instanceCard));
+/** The demo is always first: it works with no account and no server. */
+function demoCard(): HTMLLIElement {
+  const item = createElement("li", "instance is-demo");
+  const info = createElement("div", "instance__info");
+
+  info.append(
+    createElement("span", "instance__name", DEMO_INSTANCE.name),
+    createElement("span", "instance__url", DEMO_INSTANCE.url),
+    createElement("span", "instance__flag", "Built-in · offline"),
+    createElement(
+      "span",
+      "instance__meta",
+      `Login: ${DEMO_EMAIL} / ${DEMO_PASSWORD}`,
+    ),
+  );
+
+  const open = createElement("button", "button button--primary", "Open");
+  open.type = "button";
+  open.addEventListener("click", () => {
+    void openDemo(open);
+  });
+
+  const actions = createElement("div", "instance__actions");
+  actions.append(open);
+  item.append(info, actions);
+
+  return item;
+}
+
+async function openDemo(button: HTMLButtonElement): Promise<void> {
+  button.disabled = true;
+  try {
+    await openInstance(DEMO_INSTANCE.id);
+    setStatus("ok", "Opened the demo workspace.");
+  } catch (error) {
+    setStatus("error", errorMessage(error));
+  } finally {
+    button.disabled = false;
+  }
 }
 
 async function refresh(): Promise<void> {
@@ -284,8 +330,9 @@ void listen<{ id: string | null }>(MENU_THEME_EVENT, (event) => {
   setStatus("error", `Themes menu unavailable: ${errorMessage(error)}`);
 });
 
-// The launcher wears the stock palette on purpose: theming is for instances, and
-// a fixed look here is what makes the app recognisable whatever is applied.
+// The launcher wears Catppuccin — Latte in light system appearance, Frappe in
+// dark — on purpose: theming is for instances, and a fixed look here is what
+// makes the app recognisable whatever is applied.
 
 render();
 

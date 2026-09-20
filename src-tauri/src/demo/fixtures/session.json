@@ -1,0 +1,23 @@
+{
+  "session": {
+    "id": "6d1f0b2c-4e93-4a17-b85d-2c6f9e0a3b21",
+    "userId": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+    "activeOrganizationId": "7c2e1a64-52b7-4c88-9d3f-2f8a5b1e7c02",
+    "expiresAt": "2027-01-01T00:00:00.000Z",
+    "createdAt": "2026-09-01T09:00:00.000Z",
+    "updatedAt": "2026-09-19T12:00:00.000Z",
+    "ipAddress": "127.0.0.1",
+    "userAgent": "Kaneo Desktop demo"
+  },
+  "user": {
+    "id": "c3a9f2e1-8b47-4d5a-9e6c-1d0f2a3b4c11",
+    "name": "Demo User",
+    "email": "demo@kaneo.desktop",
+    "emailVerified": true,
+    "image": null,
+    "role": "user",
+    "locale": "en-US",
+    "createdAt": "2026-09-01T09:00:00.000Z",
+    "updatedAt": "2026-09-19T12:00:00.000Z"
+  }
+}

@@ -3,18 +3,15 @@
 //! way home, and switch themes without a window in the way.
 
 use serde::Serialize;
-use tauri::menu::{
-    CheckMenuItem, IsMenuItem, Menu, MenuItem, MenuItemKind, PredefinedMenuItem, Submenu,
-};
-use tauri::{AppHandle, Emitter, Manager, Runtime, WebviewUrl, WebviewWindowBuilder, WindowEvent};
+use tauri::menu::{CheckMenuItem, IsMenuItem, Menu, MenuItem, MenuItemKind, Submenu};
+use tauri::{AppHandle, Emitter, Manager, Runtime, WindowEvent};
 
+use crate::instance_window::is_instance_window;
 use crate::themes::ThemeSource;
 
 pub const LAUNCHER_LABEL: &str = "main";
-pub const THEMES_LABEL: &str = "themes";
 pub const SHOW_LAUNCHER: &str = "launcher-show";
 pub const HIDE_LAUNCHER: &str = "launcher-hide";
-pub const OPEN_THEMES: &str = "themes-open";
 
 /// A theme's menu item is this prefix and the theme id, so one id space carries
 /// both the file and the item that picks it.
@@ -83,14 +80,10 @@ fn themes_menu<R: Runtime>(
         })
         .collect::<tauri::Result<Vec<_>>>()?;
 
-    let editor = MenuItem::with_id(app, OPEN_THEMES, "Theme Editor…", true, Some("CmdOrCtrl+,"))?;
-    let before_editor = PredefinedMenuItem::separator(app)?;
-
-    let mut items: Vec<&dyn IsMenuItem<R>> = choices
+    let items = choices
         .iter()
         .map(|item| item as &dyn IsMenuItem<R>)
-        .collect();
-    items.extend([&before_editor as &dyn IsMenuItem<R>, &editor]);
+        .collect::<Vec<_>>();
 
     Submenu::with_items(app, "Themes", true, &items)
 }
@@ -152,39 +145,41 @@ pub fn show<R: Runtime>(app: &AppHandle<R>) {
     }
 }
 
+/// Reopening from the Dock icon shows the workspace the user was in, and only
+/// falls back to the launcher when no instance window exists — a fresh launch
+/// with nothing to resume. `has_visible_windows` cannot decide this on its own:
+/// the launcher hides instead of closing, so "no visible windows" still has an
+/// instance window worth raising.
+pub fn reopen<R: Runtime>(app: &AppHandle<R>, has_visible_windows: bool) {
+    if has_visible_windows {
+        return;
+    }
+
+    let instance = app
+        .webview_windows()
+        .keys()
+        .find(|label| is_instance_window(label))
+        .cloned();
+
+    match instance {
+        Some(label) => {
+            if let Some(window) = app.get_webview_window(&label) {
+                // A minimized workspace does not come back on its own: show()
+                // only orders front, and set_focus is a no-op while minimized.
+                let _ = window.unminimize();
+                let _ = window.show();
+                let _ = window.set_focus();
+            } else {
+                show(app);
+            }
+        }
+        None => show(app),
+    }
+}
+
 pub fn hide<R: Runtime>(app: &AppHandle<R>) {
     if let Some(window) = app.get_webview_window(LAUNCHER_LABEL) {
         let _ = window.hide();
-    }
-}
-
-/// The theme editor lives in its own window, so theming is not something the
-/// launcher has to stay open for.
-pub fn open_themes<R: Runtime>(app: &AppHandle<R>) -> Result<(), String> {
-    if let Some(window) = app.get_webview_window(THEMES_LABEL) {
-        let _ = window.show();
-        let _ = window.set_focus();
-        return Ok(());
-    }
-
-    WebviewWindowBuilder::new(app, THEMES_LABEL, WebviewUrl::App("themes.html".into()))
-        .title("Themes")
-        .inner_size(1180.0, 800.0)
-        .min_inner_size(900.0, 600.0)
-        .center()
-        .devtools(cfg!(debug_assertions))
-        .build()
-        .map_err(|error| format!("Could not open the theme editor: {error}"))?;
-
-    Ok(())
-}
-
-/// Back to the launcher: show it, then close the editor window.
-pub fn go_home<R: Runtime>(app: &AppHandle<R>) {
-    show(app);
-
-    if let Some(window) = app.get_webview_window(THEMES_LABEL) {
-        let _ = window.close();
     }
 }
 
@@ -209,9 +204,6 @@ pub fn handle_menu_event<R: Runtime>(app: &AppHandle<R>, id: &str) -> bool {
     match id {
         SHOW_LAUNCHER => show(app),
         HIDE_LAUNCHER => hide(app),
-        OPEN_THEMES => {
-            let _ = open_themes(app);
-        }
         _ => match id.strip_prefix(APPLY_THEME) {
             Some(theme) => select_theme(app, Some(theme)),
             None => return false,
@@ -221,9 +213,9 @@ pub fn handle_menu_event<R: Runtime>(app: &AppHandle<R>, id: &str) -> bool {
     true
 }
 
-/// Names a theme to every window that cares: the launcher page applies it, and
-/// the editor follows along. A window that is mid-teardown can refuse the
-/// event, so nothing here waits on the outcome.
+/// Names a theme to the launcher window, which applies it to the instance
+/// windows. A window that is mid-teardown can refuse the event, so nothing
+/// here waits on the outcome.
 fn select_theme<R: Runtime>(app: &AppHandle<R>, id: Option<&str>) {
     let request = ThemeRequest {
         id: id.map(str::to_string),
@@ -233,6 +225,8 @@ fn select_theme<R: Runtime>(app: &AppHandle<R>, id: Option<&str>) {
 
 #[cfg(test)]
 mod tests {
+    use crate::instance_store::Instance;
+    use crate::instance_window;
     use tauri::test::{mock_builder, mock_context, noop_assets};
     use tauri::{Listener, WebviewWindowBuilder};
 
@@ -258,9 +252,31 @@ mod tests {
 
         assert!(handle_menu_event(&handle, HIDE_LAUNCHER));
         assert!(handle_menu_event(&handle, SHOW_LAUNCHER));
-        assert!(handle_menu_event(&handle, OPEN_THEMES));
         assert!(!handle_menu_event(&handle, "quit"));
         assert!(!handle_menu_event(&handle, "some-other-item"));
+    }
+
+    /// Dock reopen with an instance window goes to that window, not the
+    /// launcher; with only the launcher around it stays on the launcher.
+    #[test]
+    fn reopen_routes_to_an_instance_window_before_the_launcher() {
+        let app = app_with_launcher();
+        let handle = app.handle().clone();
+
+        // Only the launcher exists: the launcher it is.
+        reopen(&handle, false);
+
+        let instance = Instance {
+            id: "6f1c2f9e-0f4b-4b3a-8a9e-1b0e6a5c3d21".to_string(),
+            name: "Kaneo Cloud".to_string(),
+            url: "https://cloud.kaneo.app".to_string(),
+        };
+        instance_window::open(&handle, &instance, None).unwrap();
+
+        // Visible windows: the OS already raised something, stay out of the way.
+        reopen(&handle, true);
+        // Hidden everything: the instance window, not the launcher, is home.
+        reopen(&handle, false);
     }
 
     /// The launcher page is the half that turns a theme id into CSS, so what the
@@ -315,21 +331,6 @@ mod tests {
 
         sync_theme_checks(&handle, Some("synthwave"));
         sync_theme_checks(&handle, None);
-    }
-
-    #[test]
-    fn opens_one_themes_window() {
-        let app = app_with_launcher();
-        let handle = app.handle().clone();
-
-        open_themes(&handle).expect("the editor window should open");
-        let window = handle
-            .get_webview_window(THEMES_LABEL)
-            .expect("the editor window should exist");
-        assert_eq!(window.url().unwrap().path(), "/themes.html");
-
-        open_themes(&handle).expect("reopening should focus it");
-        assert_eq!(app.webview_windows().len(), 2, "launcher plus editor");
     }
 
     #[test]

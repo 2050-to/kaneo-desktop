@@ -8,12 +8,11 @@ const host = process.env.TAURI_DEV_HOST;
 export default defineConfig(() => ({
   // Tauri expects a fixed port and relies on Vite's output staying readable.
   clearScreen: false,
-  // Two windows, two pages: the launcher and the theme editor.
+  // One window, one page: the launcher.
   build: {
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
-        themes: path.resolve(__dirname, "themes.html"),
       },
     },
   },

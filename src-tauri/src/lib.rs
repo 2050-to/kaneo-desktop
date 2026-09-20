@@ -1,5 +1,6 @@
 //! Kaneo Desktop: a native window for a Kaneo instance (cloud or self-hosted).
 
+mod demo;
 mod instance_store;
 mod instance_window;
 mod launcher;
@@ -72,6 +73,17 @@ async fn probe_instance(url: String) -> Result<Probe, String> {
 
 #[tauri::command]
 fn open_instance(app: AppHandle, id: String, state: State<'_, AppState>) -> Result<(), String> {
+    if id == demo::DEMO_INSTANCE_ID {
+        demo::start(&app)?;
+
+        let instance = demo::demo_instance();
+        let theme = state.active.lock().map_err(|_| poisoned())?.get();
+
+        instance_window::open(&app, &instance, theme.css.as_deref())?;
+        launcher::hide(&app);
+        return Ok(());
+    }
+
     let instance = state.store.lock().map_err(|_| unavailable())?.get(&id)?;
     let theme = state.active.lock().map_err(|_| poisoned())?.get();
 
@@ -82,11 +94,6 @@ fn open_instance(app: AppHandle, id: String, state: State<'_, AppState>) -> Resu
     launcher::hide(&app);
 
     Ok(())
-}
-
-#[tauri::command]
-fn go_home<R: Runtime>(app: AppHandle<R>) {
-    launcher::go_home(&app);
 }
 
 /// Stores the theme, then pushes it into every instance window that is already
@@ -149,30 +156,11 @@ fn active_theme(state: State<'_, AppState>) -> Result<ActiveTheme, String> {
     Ok(state.active.lock().map_err(|_| poisoned())?.get())
 }
 
-/// Built-in themes plus whatever the picker has saved, so the frontend can
-/// parse, edit and re-save them without knowing where they live.
+/// Built-in themes plus whatever the user has dropped into the themes
+/// directory, so the launcher can parse and apply them.
 #[tauri::command]
 fn list_themes(state: State<'_, AppState>) -> Vec<ThemeSource> {
     themes::all_themes(&state.config_dir)
-}
-
-#[tauri::command]
-fn save_theme(id: String, contents: String, state: State<'_, AppState>) -> Result<String, String> {
-    themes::save_user_theme(&themes::user_themes_dir(&state.config_dir), &id, &contents)
-        .map(|path| path.to_string_lossy().into_owned())
-}
-
-#[tauri::command]
-fn delete_theme(id: String, state: State<'_, AppState>) -> Result<(), String> {
-    themes::delete_user_theme(&themes::user_themes_dir(&state.config_dir), &id)
-}
-
-/// Lets the editor tell the user where a theme will be written.
-#[tauri::command]
-fn themes_dir(state: State<'_, AppState>) -> String {
-    themes::user_themes_dir(&state.config_dir)
-        .to_string_lossy()
-        .into_owned()
 }
 
 /// Built once so `run` and the tests share a single context expansion.
@@ -230,21 +218,21 @@ pub fn run() {
             probe_instance,
             open_instance,
             list_themes,
-            save_theme,
-            delete_theme,
-            themes_dir,
             apply_theme,
             clear_theme,
-            active_theme,
-            go_home
+            active_theme
         ])
         .build(app_context())
         .expect("error while running tauri application");
 
     app.run(|handle, event| {
         match event {
-            // Clicking the Dock icon with nothing visible asks for a window.
-            tauri::RunEvent::Reopen { .. } => launcher::show(handle),
+            // Clicking the Dock icon shows the workspace the user was in, and
+            // only asks for the launcher when no instance window exists.
+            tauri::RunEvent::Reopen {
+                has_visible_windows,
+                ..
+            } => launcher::reopen(handle, has_visible_windows),
             tauri::RunEvent::MenuEvent(event) => {
                 let id = event.id().as_ref().to_string();
                 launcher::handle_menu_event(handle, &id);
@@ -274,13 +262,9 @@ mod tests {
                 add_instance,
                 remove_instance,
                 list_themes,
-                save_theme,
-                delete_theme,
-                themes_dir,
                 apply_theme,
                 clear_theme,
-                active_theme,
-                go_home
+                active_theme
             ])
             .manage(AppState {
                 store: Mutex::new(InstanceStore::load(config_dir.join("instances.json"))),
@@ -425,8 +409,11 @@ mod tests {
         assert_eq!(active.id, None);
     }
 
+    /// The picker no longer writes theme files; users drop YAML files into the
+    /// themes directory. The contract to pin: `list_themes` reads them and
+    /// marks their source, and a user file cannot shadow a built-in id.
     #[test]
-    fn the_frontend_contract_manages_themes() {
+    fn the_frontend_contract_lists_themes_from_disk() {
         let directory = tempfile::tempdir().unwrap();
         let app = test_app(directory.path().to_path_buf());
         let webview = WebviewWindowBuilder::new(&app, "main", Default::default())
@@ -442,45 +429,28 @@ mod tests {
             "the built-in themes should ship with the app"
         );
 
-        let path: String = invoke(
-            &webview,
-            "save_theme",
-            json!({ "id": "my-theme", "contents": "name: \"My Theme\"\n" }),
-        )
-        .expect("save_theme should succeed");
-        assert!(path.ends_with("my-theme.yaml"), "unexpected path: {path}");
+        let themes_dir = themes::user_themes_dir(directory.path());
+        std::fs::create_dir_all(&themes_dir).unwrap();
+        std::fs::write(themes_dir.join("my-theme.yaml"), "name: \"My Theme\"\n").unwrap();
 
         let themes: Vec<ThemeSource> =
             invoke(&webview, "list_themes", json!({})).expect("list_themes should succeed");
         let saved = themes
             .iter()
             .find(|theme| theme.id == "my-theme")
-            .expect("the saved theme should be listed");
+            .expect("the dropped theme should be listed");
         assert_eq!(saved.source, "user");
         assert_eq!(saved.contents, "name: \"My Theme\"\n");
-        assert_eq!(saved.path.as_deref(), Some(path.as_str()));
 
-        let shadowing: Result<String, Value> = invoke(
-            &webview,
-            "save_theme",
-            json!({ "id": "default", "contents": "name: x\n" }),
-        );
-        assert!(shadowing
-            .expect_err("built-in ids must be rejected")
-            .as_str()
-            .unwrap_or_default()
-            .contains("built-in"));
-
-        let directory_shown: String =
-            invoke(&webview, "themes_dir", json!({})).expect("themes_dir should succeed");
-        assert!(directory_shown.ends_with("themes"));
-
-        let removed: Value = invoke(&webview, "delete_theme", json!({ "id": "my-theme" }))
-            .expect("delete_theme should succeed");
-        assert!(removed.is_null());
-
+        // Built-ins come first, so a user file named like one is ignored —
+        // the built-in wins and the menu never shows two ticks for one id.
+        std::fs::write(themes_dir.join("default.yaml"), "name: \"Fake Default\"\n").unwrap();
         let themes: Vec<ThemeSource> =
             invoke(&webview, "list_themes", json!({})).expect("list_themes should succeed");
-        assert!(!themes.iter().any(|theme| theme.id == "my-theme"));
+        assert_eq!(
+            themes.iter().filter(|theme| theme.id == "default").count(),
+            1,
+            "a user file must not shadow a built-in id"
+        );
     }
 }

@@ -32,7 +32,5 @@ export const setDefaultInstance = (id: string | null) =>
 export const probeInstance = (url: string) =>
   invoke<Probe>("probe_instance", { url });
 
-export const goHome = () => invoke<void>("go_home");
-
 export const openInstance = (id: string) =>
   invoke<void>("open_instance", { id });

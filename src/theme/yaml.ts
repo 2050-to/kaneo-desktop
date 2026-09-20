@@ -33,11 +33,6 @@ export const applyThemeToWindows = (id: string, css: string) =>
   invoke<number>("apply_theme", { id, css });
 export const clearThemeFromWindows = () => invoke<number>("clear_theme");
 export const readActiveTheme = () => invoke<ActiveThemeFile>("active_theme");
-export const saveThemeFile = (id: string, contents: string) =>
-  invoke<string>("save_theme", { id, contents });
-export const deleteThemeFile = (id: string) =>
-  invoke<void>("delete_theme", { id });
-export const themesDirectory = () => invoke<string>("themes_dir");
 
 function readColors(
   raw: unknown,
@@ -89,41 +84,6 @@ export function parseTheme(source: ThemeSource): ThemeDoc {
       typeof document.description === "string" ? document.description : "",
     modes: { ...(light ? { light } : {}), ...(dark ? { dark } : {}) },
   };
-}
-
-/** Role order matches the template, so saved files stay readable diffs. */
-export function serializeTheme(doc: ThemeDoc): string {
-  const header = [
-    `# ${doc.name}`,
-    "#",
-    "# Written by the theme editor. Roles left out keep the instance's own value.",
-    "",
-    `name: ${JSON.stringify(doc.name)}`,
-  ];
-
-  if (doc.description)
-    header.push(`description: ${JSON.stringify(doc.description)}`);
-
-  const sections = (["light", "dark"] as Mode[])
-    .filter((mode) => doc.modes[mode])
-    .map((mode) => {
-      const colors = doc.modes[mode] as ThemeColors;
-      const order = ROLE_KEYS.filter((role) => colors[role]);
-      return [
-        `${mode}:`,
-        ...order.map((role) => `  ${role}: "${colors[role]}"`),
-      ].join("\n");
-    });
-
-  return `${[...header, "", ...sections].join("\n")}\n`;
-}
-
-export function slugify(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 64);
 }
 
 export type { Mode, ThemeColors };

@@ -1,0 +1,132 @@
+# Crimson Dusk — built-in theme
+#
+# Source palette: https://colorhunt.co/palette/5e00069b0f06d53e0feed9b9
+#   #5e0006 deep wine · #9b0f06 dark red · #d53e0f rust · #eed9b9 cream
+#
+# Dark is the palette's own reading: the wine canvas carries the cream, and
+# the rust burns as the brand. Light mode turns the cream into parchment and
+# lets the dark reds do the inking. Destructive is the palette's rust — the
+# one red that carries white button text.
+
+name: "Crimson Dusk"
+description: "Deep wine, rust and cream — an ember-lit dusk, in both modes."
+
+light:
+  # Surfaces ----------------------------------------------------------------
+  background: "#eed9b9" # the palette's cream as parchment
+  card: "#faf1de" # cream, lifted one step
+  popover: "#fbf4e4"
+  sidebar: "#e3cfae" # sand, sunk one step; hosts the same dark inks
+  muted: "#5e000612"
+  accent: "#5e000612"
+  secondary: "#5e000612"
+  code: "#faf1de"
+  code-highlight: "#9b0f0614"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#5e0006" # the palette's deep wine, 10.33:1 on the canvas
+  card-foreground: "#5e0006"
+  popover-foreground: "#5e0006"
+  muted-foreground: "#6f4f35" # wine-warmed brown; 5.36:1 on the canvas, 4.85:1 on the sidebar, 6.57:1 on cards
+  accent-foreground: "#5e0006"
+  secondary-foreground: "#5e0006"
+  code-foreground: "#5e0006"
+  sidebar-foreground: "#5e0006" # 9.34:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Dark red, not the rust: as a fill it carries white button text at 8.52:1
+  # and still reads as text on the parchment at 6.19:1.
+  primary: "#9b0f06"
+  primary-foreground: "#ffffff" # 8.52:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#5e00061f" # decorative hairline; not an affordance
+  input: "#8a6a52" # 3.58:1 on the canvas, 4.39:1 on cards
+  ring: "#9b0f06" # 6.19:1 on the canvas
+  sidebar-border: "#5e000624"
+  sidebar-ring: "#9b0f06" # 6.19:1 on the sidebar
+  sidebar-primary: "#9b0f06"
+  sidebar-primary-foreground: "#ffffff" # 8.52:1 on sidebar-primary
+  sidebar-accent: "#5e000614"
+  sidebar-accent-foreground: "#5e0006"
+
+  # Status ------------------------------------------------------------------
+  # Fills darkened from Kaneo's defaults so they clear 3:1 as icons and carry
+  # white button text at 4.5:1; the badge texts are darkened to survive the
+  # 8% tints over a parchment canvas (a white canvas is more forgiving).
+  destructive: "#d83d3d" # white text 4.51:1
+  destructive-foreground: "#a51f1f" # 4.94:1 on its own tint
+  success: "#0c875e" # white text 4.52:1
+  success-foreground: "#086342" # 4.87:1 on its own tint
+  warning: "#a56a07" # white text 4.50:1
+  warning-foreground: "#7d4005" # 5.38:1 on its own tint
+  info: "#3473db" # white text 4.54:1
+  info-foreground: "#1a45c0" # 5.26:1 on its own tint
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#d53e0f"
+  chart-2: "#9b0f06"
+  chart-3: "#5e0006"
+  chart-4: "#a56a07"
+  chart-5: "#7d5a3d"
+
+dark:
+  # Surfaces ----------------------------------------------------------------
+  background: "#5e0006" # the palette's deep wine
+  card: "#71110c" # wine, lifted one step
+  popover: "#7a1710" # dialogs sit above the cards
+  sidebar: "#470004" # wine, sunk one step
+  muted: "#eed9b914"
+  accent: "#eed9b914"
+  secondary: "#eed9b914"
+  code: "#71110c"
+  code-highlight: "#eed9b91a"
+
+  # Text --------------------------------------------------------------------
+  foreground: "#eed9b9" # the palette's cream, 10.32:1 on the canvas
+  card-foreground: "#eed9b9"
+  popover-foreground: "#eed9b9"
+  muted-foreground: "#d0a28d" # ember-warmed rose; 6.25:1 on the canvas, 5.17:1 on cards, 7.27:1 on the sidebar
+  accent-foreground: "#eed9b9"
+  secondary-foreground: "#eed9b9"
+  code-foreground: "#eed9b9"
+  sidebar-foreground: "#eed9b9" # 12.02:1 on the sidebar
+
+  # Brand and emphasis ------------------------------------------------------
+  # Rust: white button text clears 4.5:1 and the fill itself reads as text on
+  # the wine canvas at 3.06:1.
+  primary: "#d53e0f"
+  primary-foreground: "#ffffff" # 4.64:1 on primary
+
+  # Borders, inputs, focus --------------------------------------------------
+  border: "#eed9b91f" # decorative hairline; not an affordance
+  input: "#c98d72" # 5.10:1 on the canvas, brighter than the card so inputs read inside them
+  ring: "#e06f35" # rust, brightened; 4.39:1 on the canvas, 3.63:1 on cards
+  sidebar-border: "#eed9b924"
+  sidebar-ring: "#d53e0f" # 3.56:1 on the sidebar
+  sidebar-primary: "#d53e0f"
+  sidebar-primary-foreground: "#ffffff" # 4.64:1 on sidebar-primary
+  sidebar-accent: "#eed9b914"
+  sidebar-accent-foreground: "#eed9b9"
+
+  # Status ------------------------------------------------------------------
+  # Destructive is the palette's rust, darkened just enough for the white
+  # text Kaneo's delete buttons hardcode; on this card no colour can be both
+  # a 3:1 icon and dark enough for white text, so it sits at 2.53:1 as an
+  # icon. The other three are brightened pastels — they never carry white, so
+  # they clear 3:1 as icons and keep readable badge text.
+  destructive: "#d53e0f" # white text 4.64:1, icon on cards 2.53:1
+  destructive-foreground: "#ffb3a0" # 6.83:1 on cards
+  success: "#3fae74" # icon 4.21:1 on cards
+  success-foreground: "#8bd9ac"
+  warning: "#e3a13c" # icon 5.27:1 on cards
+  warning-foreground: "#f5c98a"
+  info: "#7fb0e8" # icon 5.19:1 on cards
+  info-foreground: "#b4d3f2"
+
+  # Data visualisation (reserved: nothing consumes these yet) ----------------
+  chart-1: "#d53e0f"
+  chart-2: "#eed9b9"
+  chart-3: "#9b0f06"
+  chart-4: "#e06f35"
+  chart-5: "#d0a28d"

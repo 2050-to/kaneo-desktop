@@ -1,22 +1,25 @@
+/* The launcher wears Catppuccin — Latte in light system appearance, Frappe in
+   dark — on purpose: theming is for instances, and a fixed look here is what
+   makes the app recognisable whatever is applied. Role names are Kaneo's, so
+   the values below mirror themes/builtin/catppuccin-{latte,frappe}.yaml. */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* The launcher wears Kaneo's role names, so an applied theme can repaint it. */
-  --background: #0b0d10;
-  --card: #14171c;
-  --popover: #1b2027;
-  --muted: #1b2027;
-  --secondary: #1b2027;
-  --secondary-foreground: #e8eaed;
-  --border: #262d36;
-  --foreground: #e8eaed;
-  --card-foreground: #e8eaed;
-  --muted-foreground: #98a2b3;
-  --primary: #5b9dff;
-  --primary-foreground: #08101c;
-  --destructive: #ff6b6b;
-  --success: #4ade80;
-  --ring: #5b9dff;
+  --background: #eff1f5; /* latte base */
+  --card: #f4f6fa; /* base, lightened one step */
+  --popover: #f8f9fc;
+  --muted: #4c4f6914;
+  --secondary: #4c4f6914;
+  --secondary-foreground: #4c4f69;
+  --border: #4c4f6926;
+  --foreground: #4c4f69; /* latte text */
+  --card-foreground: #4c4f69;
+  --muted-foreground: #5c5f77; /* subtext1 */
+  --primary: #8839ef; /* mauve */
+  --primary-foreground: #eff1f5;
+  --destructive: #d20f39;
+  --success: #40a02b;
+  --ring: #8839ef;
 
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
@@ -25,6 +28,28 @@
   color: var(--foreground);
   background: var(--background);
   -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --background: #303446; /* frappe base */
+    --card: #393c4d; /* surface0 */
+    --popover: #232634; /* crust */
+    --muted: #c6d0f514;
+    --secondary: #c6d0f514;
+    --secondary-foreground: #c6d0f5;
+    --border: #c6d0f51f;
+    --foreground: #c6d0f5; /* frappe text */
+    --card-foreground: #c6d0f5;
+    --muted-foreground: #b5bfe2; /* subtext1 */
+    --primary: #ca9ee6; /* mauve */
+    --primary-foreground: #303446;
+    --destructive: #a95f61;
+    --success: #a6d189;
+    --ring: #babbf1; /* lavender */
+  }
 }
 
 * {
@@ -236,284 +261,27 @@ button[aria-pressed="true"] {
   border-radius: 10px;
 }
 
-/* Theme editor --------------------------------------------------------- */
+/* The launch-on-start mark lives on the card: an outlined border in the
+   primary colour plus a chip, readable without reading any button. */
+.instance.is-default {
+  border: 2px solid var(--primary);
+  padding: 13px; /* one px less: the border thickens, the box does not move */
+}
+
+.instance__flag {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 999px;
+}
 
 .masthead {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-}
-
-/* The editor is a window of its own, so it fills the page rather than a modal. */
-.editor {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background: var(--card);
-  color: var(--foreground);
-  overflow: hidden;
-}
-
-.editor__back {
-  flex: none;
-  margin-right: 4px;
-}
-
-.themes-page {
-  background: var(--card);
-}
-
-.editor__bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: none;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-}
-
-.editor__title {
-  margin: 0;
-  font-size: 15px;
-}
-
-.editor__modes {
-  display: flex;
-  gap: 4px;
-  margin-left: 10px;
-}
-
-.editor__mode.is-active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: var(--primary-foreground);
-}
-
-.editor__spacer {
-  flex: 1;
-}
-
-.editor__body {
-  display: grid;
-  grid-template-columns: 220px 1fr 200px;
-  flex: 1;
-  min-height: 0;
-}
-
-.editor__list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 10px;
-  border-right: 1px solid var(--border);
-  overflow-y: auto;
-}
-
-.editor__theme {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 8px 10px;
-  color: var(--foreground);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  text-align: left;
-}
-
-.editor__theme.is-active {
-  background: var(--popover);
-  border-color: var(--border);
-}
-
-.editor__theme-source {
-  font-size: 11px;
-  color: var(--muted-foreground);
-}
-
-.editor__pane {
-  padding: 16px;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-.editor__actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 16px 12px;
-  border-left: 1px solid var(--border);
-  overflow-y: auto;
-}
-
-/* One size for every action, whatever its label. */
-.editor__actions .button {
-  width: 100%;
-  padding: 9px 12px;
-  font-size: 13px;
-  text-align: center;
-}
-
-.editor__preview .preview {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-}
-
-.editor__name {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 14px 0;
-}
-
-.editor__name-label {
-  font-size: 12px;
-  color: var(--muted-foreground);
-}
-
-.editor__name-input {
-  font: inherit;
-  min-width: 220px;
-  padding: 6px 10px;
-  color: var(--foreground);
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-}
-
-.editor__meta {
-  font-size: 12px;
-  color: var(--muted-foreground);
-}
-
-.editor__roles {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.role__group {
-  margin: 14px 0 6px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted-foreground);
-}
-
-.role {
-  display: grid;
-  grid-template-columns: 1fr auto auto minmax(160px, auto);
-  align-items: center;
-  gap: 10px;
-  padding: 6px 8px;
-  border-radius: 8px;
-}
-
-.role:hover {
-  background: var(--popover);
-}
-
-.role__info {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.role__label {
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
-  font-size: 12px;
-}
-
-.role__hint {
-  font-size: 11px;
-  color: var(--muted-foreground);
-}
-
-.role__swatch {
-  width: 30px;
-  height: 24px;
-  padding: 0;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-}
-
-.role__hex {
-  width: 100px;
-  padding: 4px 6px;
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
-  font-size: 12px;
-  color: var(--foreground);
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-}
-
-.role__hex.is-invalid {
-  border-color: var(--destructive);
-}
-
-.role__verdict {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.role__ratio {
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  color: var(--muted-foreground);
-}
-
-.role__ratio.is-pass {
-  color: var(--success);
-}
-
-.role__ratio.is-fail {
-  color: var(--destructive);
-}
-
-.role__warning {
-  font-size: 11px;
-  color: var(--destructive);
-}
-
-.role__fix {
-  padding: 3px 8px;
-  color: var(--foreground);
-  font: inherit;
-  font-size: 11px;
-  color: var(--foreground);
-  background: var(--popover);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.editor__status {
-  margin: 0;
-  flex: none;
-  padding: 10px 16px;
-  border-top: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--muted-foreground);
-}
-
-.editor__status[data-kind="error"] {
-  color: var(--destructive);
-}
-
-.editor__status[data-kind="ok"] {
-  color: var(--success);
-}
-
-.editor__theme-source.is-applied {
-  color: var(--success);
 }
